@@ -28,16 +28,21 @@ int main()
 {
     HONDA
     int t = 1;
-     cin >> t;
+    cin >> t;
     while (t--)
     {
-        ll n;cin>>n;
-        ll cnt0=0;ll cnt1=0;
-        vll near1(n,-1),near0(n,-1);
-        ll lst1=-1;ll lst0=-1;
-        for(ll i=n-1;i>=0;i--){
-            if(s[i]=='0') lst0=i;
-            if(s)
+        ll n;
+        cin >> n;
+        string s;
+        ll cnt0 = 0;
+        ll cnt1 = 0;
+        vll near1(n, -1), near0(n, -1);
+        ll lst1 = -1;
+        ll lst0 = -1;
+        for (ll i = n - 1; i >= 0; i--)
+        {
+            if (s[i] == '0')
+                lst0 = i;
         }
     }
     return 0;
