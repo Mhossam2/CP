@@ -25,6 +25,16 @@ inline bool in(int i, int l, int h)
 }
 long long mul(long long x, long long y, const long long &mod) { return ((x % mod) * (y % mod)) % mod; }
 long long add(long long x, long long y, const long long &mod) { return (((x % mod) + (y % mod)) % mod + mod) % mod; }
+long long modPow(long long a, long long b, ll mod) {
+    long long res = 1;
+    while(b > 0) {
+        if(b & 1) res = (res * a) % mod;
+        a = (a * a) % mod;
+        b >>= 1;
+    }
+    return res;
+}
+
 const ll MOD = 1e9+7;
 using namespace std;
 int main()
