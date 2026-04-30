@@ -56,7 +56,7 @@ int main()
         ll cnt2 = 1;
         fi(0,n){
             cnt = mul(a[i].second + 1, cnt, MOD);
-            cnt2 = mul(a[i].second + 1, cnt, MOD-1);
+            cnt2 = mul(a[i].second + 1, cnt2, MOD-1);
         }
         ll sum = 1;
         fi(0,n){
@@ -68,8 +68,8 @@ int main()
         fi(0,n){
             num = mul(num, modPow(a[i].first, a[i].second, MOD), MOD);
         }
-        ll upper = cnt%mul(2, MOD-1, MOD - 1)/2;
-        ll product = modPow(num, upper, MOD - 1);
+        ll upper = (cnt2%mul(2, MOD - 1, MOD))/2;
+        ll product = modPow(num, upper, MOD);
         cout << cnt <<" "<< sum <<" "<< product;
     }
     return 0;
