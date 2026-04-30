@@ -64,7 +64,7 @@ int main()
         }
         ll num = 1;
         fi(0,n){
-            num = mul(num,modPow(a[i].first,a[i].second, MOD), MOD);
+            num = mul(num, modPow(a[i].first, a[i].second, MOD), MOD);
         }
         ll product = modPow(num,mul(cnt,modPow(2,MOD-2,MOD),MOD),MOD);
         cout << cnt <<" "<< sum <<" "<< product;
