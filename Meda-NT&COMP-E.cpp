@@ -75,7 +75,8 @@ int main()
         {
             num = mul(num, modPow(a[i].first, a[i].second, MOD), MOD);
         }
-        ll upper = (cnt2 % mul(2, MOD - 1, MOD)) / 2;
+        ll upper = (cnt2 % mul(2, MOD - 1, MOD - 1)) / 2;
+        upper %= MOD-1;
         ll product = modPow(num, upper, MOD);
         cout << cnt << " " << sum << " " << product;
     }
