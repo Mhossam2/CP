@@ -23,6 +23,9 @@ inline bool in(int i, int l, int h)
 {
     return i >= l && i <= h;
 }
+long long mul(long long x, long long y, const long long &mod) { return ((x % mod) * (y % mod)) % mod; }
+long long add(long long x, long long y, const long long &mod) { return (((x % mod) + (y % mod)) % mod + mod) % mod; }
+const ll MOD = 1e9+7;
 using namespace std;
 int main()
 {
@@ -33,22 +36,20 @@ int main()
     {
         ll n;
         cin >> n;
-        vector<ll> freq(1e6+1,0);
+        vector<pair<ll,ll>> a;
         ll mx=0;
         fi(0,n){
-            ll x;cin>>x;
-            freq[x]++;
-            mx=max(mx,x);
+            ll x,y;cin>>x>>y;
+            a.push_back({x,y});
         }
-        ll ans = 1;
-        fi(1, mx+1){
-            ll cnt = 0;
-            for(ll j = i; j < mx+1; j += i){
-                cnt += freq[j];
-            }
-            if(cnt >= 2) ans = i;
+        ll cnt = 1;
+        fi(0,n){
+            cnt = mul(a[i].second,cnt,MOD);
         }
-        cout<<ans<<endl;
+        ll sum = 1;
+        fi(0,n){
+
+        }
     }
     return 0;
 }
