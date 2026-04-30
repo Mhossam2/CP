@@ -54,12 +54,20 @@ int main()
         }
         ll cnt = 1;
         fi(0,n){
-            cnt = mul(a[i].second,cnt,MOD);
+            cnt = mul(a[i].second + 1, cnt, MOD);
         }
         ll sum = 1;
         fi(0,n){
-
+            ll upper = add(modPow(a[i].first,a[i].second+1, MOD), -1, MOD);
+            ll lower = modPow(a[i].first-1,-2, MOD);
+            sum = mul(mul(upper,lower,MOD), sum,MOD);
         }
+        ll num = 1;
+        fi(0,n){
+            num = mul(num,modPow(a[i].first,a[i].second, MOD), MOD);
+        }
+        ll product = modPow(num,mul(cnt,modPow(2,-2,MOD),MOD),MOD);
+        cout << cnt <<" "<< sum <<" "<< product;
     }
     return 0;
 }
