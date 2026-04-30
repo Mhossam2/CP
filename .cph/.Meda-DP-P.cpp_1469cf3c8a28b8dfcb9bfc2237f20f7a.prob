@@ -1,0 +1,1 @@
+{"name":"Local: Meda-DP-P","url":"d:\\CP\\Meda-DP-P.cpp","tests":[{"id":1776889575025,"input":"3 2\n50 4 20","output":"3"},{"id":1776952293569,"input":"5 3\n15 16 3 25 9","output":"3"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"d:\\CP\\Meda-DP-P.cpp","group":"local","local":true}
