@@ -65,7 +65,7 @@ int main()
             sum = mul(mul(upper, lower, MOD), sum, MOD);
         }
         ll num = 1;
-        fi(0,n){
+        fi(0,n){    
             num = mul(num, modPow(a[i].first, a[i].second, MOD), MOD);
         }
         ll upper = (cnt2% ((MOD-1) *2))/2;
