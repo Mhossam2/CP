@@ -58,9 +58,9 @@ int main()
         }
         ll sum = 1;
         fi(0,n){
-            ll upper = add(modPow(a[i].first,a[i].second+1, MOD), -1, MOD);
-            ll lower = modPow(a[i].first-1,MOD-2, MOD);
-            sum = mul(mul(upper,lower,MOD), sum,MOD);
+            ll upper = add(1, mul(-1, modPow(a[i].first, a[i].second+1, MOD), MOD), MOD);
+            ll lower = modPow(1 - a[i].first, MOD-2, MOD);
+            sum = mul(mul(upper, lower, MOD), sum, MOD);
         }
         ll num = 1;
         fi(0,n){
