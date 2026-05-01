@@ -1,0 +1,1 @@
+{"name":"Local: Meda-NT&COMP-G","url":"d:\\CP\\Meda-NT&COMP-G.cpp","tests":[{"id":1777598332570,"input":"1 3 3","output":"1"},{"id":1777598342911,"input":"2 3 10","output":"165"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"d:\\CP\\Meda-NT&COMP-G.cpp","group":"local","local":true}
