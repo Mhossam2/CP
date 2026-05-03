@@ -69,7 +69,7 @@ int main()
                 if(i <= k - 1) sum2++;
             }
         }
-        cout<<fct[sum1]*invfct[sum1-sum2]*invfct[sum2]<<endl;
+        cout<<mul(fct[sum1],mul(invfct[sum1-sum2],invfct[sum2],MOD),MOD)<<endl;
     }
     return 0;
 }
