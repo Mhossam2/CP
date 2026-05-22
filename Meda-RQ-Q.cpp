@@ -25,18 +25,18 @@ inline bool in(int i, int l, int h)
 }
 struct Node
 {
-    ll mx;
+    ll sm;
     Node()
     { // neutral node
-        mx = -1e15;
+        sm = 0;
     }
     Node(ll x)
     {
-        mx = x;
+        sm = x;
     }
     void change(ll x)
     {
-        mx = x;
+        sm = x;
     }
 };
 struct segtree
@@ -46,7 +46,7 @@ struct segtree
     Node merge(Node &ln, Node &rn)
     {
         Node ans = Node();
-        ans.mx = max(ln.mx, rn.mx);
+        ans.sm = ln.sm + rn.sm;
         return ans;
     }
     segtree(vector<ll> &arr)
@@ -95,27 +95,23 @@ int main()
 {
     HONDA
     int t = 1;
-    // cin >> t;
+     cin >> t;
     while (t--)
     {
-        ll n, q;
+        ll n;
         cin >> n;
-        vll a(n + 1, -1e15);
-        fi(0, n)
-        {
-            cin >> a[i];
-        }
-        cin >> q;
+        vll a(n + 1, 0);
         segtree sg = segtree(a);
-        while (q--)
+        ll ans = 0;
+        while (n--)
         {
-            ll l, r;
-            cin >> l >> r;
-            if(r<l) swap(l, r);
-            l--;
-            r--;
-            cout << sg.get(l, r + 1, 0, 0, sg.treesize).mx << endl;
+            ll num;
+            cin >> num;
+            num--;
+            ans += sg.get(0, num + 1, 0, 0, sg.treesize).sm;
+            sg.update(num, 1, 0, 0, sg.treesize);
         }
+        cout << ans << endl;
     }
     return 0;
 }
