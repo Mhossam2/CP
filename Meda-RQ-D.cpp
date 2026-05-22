@@ -95,30 +95,49 @@ int main()
 {
     HONDA
     int t = 1;
-    cin >> t;
-    fi(1, t + 1)
+    //cin >> t;
+    while(t--)
     {
-        ll n, m, k;
-        cin >> n >> m >> k;
-        vll a(m + 1, 0);
-        segtree sg = segtree(a);
-        vector<pair<ll, ll>> queries;
-        fj(0, k)
+        ll n;
+        cin >> n;
+        vll a(n);
+        fi(0, n)
         {
-            ll l, r;
-            cin >> l >> r;
-            l--;
-            r--;
-            queries.push_back({l, r});
+            cin >> a[i];
         }
-        sort(all(queries));
-        ll cnt = 0;
-        fj(0, k)
+        vector<ll> b = a;
+        sort(all(b));
+        map<ll, ll> mp;
+        fi(0, n)
         {
-            cnt += sg.get(queries[j].second, m + 1, 0, 0, sg.treesize).sm;
-            sg.update(queries[j].second, 1, 0, 0, sg.treesize);
+            if(mp[b[i]] == 0)
+            mp[b[i]] = i;
         }
-        cout << "Test case " << i << ": " << cnt << endl;
+        fi(0, n)
+        {
+            a[i] = mp[a[i]];
+        }
+        vector<ll> L(n,0);
+        segtree sg = segtree(L);
+        fi(0, n)
+        {
+            L[i] += sg.get(a[i] + 1, n + 1, 0, 0, sg.treesize).sm;
+            sg.update(a[i], 1, 0, 0, sg.treesize);
+        }
+        vector<ll> R(n,0);
+        segtree sg2 = segtree(R);
+        for(ll i = n-1; i >= 0; i--)
+        {
+            R[i] += sg2.get(0, a[i], 0, 0, sg2.treesize).sm;
+            sg2.update(a[i], 1, 0, 0, sg2.treesize);
+        }
+        ll ans=0;
+        fi(0, n)
+        {
+            ans += L[i]*R[i];
+        }
+        cout << ans << endl;
+
     }
     return 0;
 }
