@@ -21,7 +21,7 @@ inline bool in(int i, int l, int h){
 struct Node{
     ll mx;
     Node(){     //neutral node
-        mx = -1e9;
+        mx = -1e18;
     }
     Node(ll x){
         mx = x;
