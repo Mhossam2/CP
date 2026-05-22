@@ -72,10 +72,10 @@ using namespace std;
 int main() {
     HONDA
     int t = 1;
-    //cin >> t;
-    while(t--){
+    cin >> t;
+    fi(1,t+1){
         ll n,m,k; cin>>n>>m>>k;
-        vll a(n,0);
+        vll a(m+1,0);
         segtree sg = segtree(a);
         vector<pair<ll,ll>> queries;
         fi(0,k){
@@ -84,9 +84,12 @@ int main() {
             queries.push_back({l,r});
         }
         sort(all(queries));
+        ll cnt=0;
         fi(0,k){
             sg.update(queries[i].second, 1, 0, 0, sg.treesize);
+            cnt+=sg.get(queries[i].first + 1, m+1, 0, 0, sg.treesize).sm;
         }
+        cout<<"Test case "<<t<<": "<<cnt<<endl;
     }
     return 0;
 }
