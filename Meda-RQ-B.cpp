@@ -72,16 +72,15 @@ int main()
         {
             ll l, r;
             cin >> l >> r;
-            l--;
-            r--;
             queries.push_back({l, r});
         }
         sort(all(queries));
         ll cnt = 0;
         fj(0, k)
         {
-            cnt += sg.query(queries[j].second + 1, m+1);
-            sg.update(queries[j].second + 1, 1);
+            cnt += sg.query(queries[j].second + 1, m + 1);
+            if(!sg.query(queries[j].second, queries[j].second))
+            sg.update(queries[j].second, 1);
         }
         cout << "Test case " << i << ": " << cnt << endl;
     }
