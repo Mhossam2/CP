@@ -100,15 +100,32 @@ int main()
     {
         ll n;
         cin >> n;
-        vll a(n + 1, 0);
+        vll a(n + 2, 0);
         segtree sg = segtree(a);
         ll ans = 0;
+        vector<ll> val(n);
         fi(0, n)
         {
-            ll num;
-            cin >> num;
+            cin >> val[i];
+        }
+        vector<ll> b = val;
+        sort(all(b));
+        mpll mp;
+        ll idx = 1;
+        fi(0, n)
+        {
+            if (!mp[b[i]])
+                mp[b[i]] = idx++;
+        }
+        fi(0, n)
+        {
+            val[i] = mp[b[i]];
+        }
+        fi(0, n)
+        {
+            ll num = val[i];
             num--;
-            ans += sg.get(0, num, 0, 0, sg.treesize).sm;
+            ans += sg.get(num, n + 2, 0, 0, sg.treesize).sm;
             sg.update(num, 1, 0, 0, sg.treesize);
         }
         cout << ans << endl;
