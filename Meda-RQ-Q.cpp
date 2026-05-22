@@ -103,12 +103,12 @@ int main()
         vll a(n + 1, 0);
         segtree sg = segtree(a);
         ll ans = 0;
-        while (n--)
+        fi(0, n)
         {
             ll num;
             cin >> num;
             num--;
-            ans += sg.get(0, num + 1, 0, 0, sg.treesize).sm;
+            ans += sg.get(0, num, 0, 0, sg.treesize).sm;
             sg.update(num, 1, 0, 0, sg.treesize);
         }
         cout << ans << endl;
