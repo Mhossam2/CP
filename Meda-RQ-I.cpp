@@ -75,7 +75,7 @@ int main() {
     //cin >> t;
     while(t--){
         ll n,q; cin>>n;
-        vll a(n,0);
+        vll a(n+1,0);
         fi(0,n){
             cin>>a[i];
         }
