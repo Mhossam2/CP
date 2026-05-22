@@ -119,7 +119,7 @@ int main()
         }
         fi(0, n)
         {
-            val[i] = mp[b[i]];
+            val[i] = mp[val[i]];
         }
         fi(0, n)
         {
