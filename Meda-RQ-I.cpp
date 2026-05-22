@@ -111,6 +111,7 @@ int main()
         {
             ll l, r;
             cin >> l >> r;
+            if(r<l) swap(l, r);
             l--;
             r--;
             cout << sg.get(l, r + 1, 0, 0, sg.treesize).mx << endl;

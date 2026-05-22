@@ -79,7 +79,6 @@ int main()
         fj(0, k)
         {
             cnt += sg.query(queries[j].second + 1, m + 1);
-            if(!sg.query(queries[j].second, queries[j].second))
             sg.update(queries[j].second, 1);
         }
         cout << "Test case " << i << ": " << cnt << endl;
