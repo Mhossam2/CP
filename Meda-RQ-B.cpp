@@ -115,8 +115,8 @@ int main()
         ll cnt = 0;
         fj(0, k)
         {
-            sg.update(queries[j].second, 1, 0, 0, sg.treesize);
             cnt += sg.get(queries[j].second + 1, m + 1, 0, 0, sg.treesize).sm;
+            sg.update(queries[j].second, 1, 0, 0, sg.treesize);
         }
         cout << "Test case " << i << ": " << cnt << endl;
     }
