@@ -28,7 +28,7 @@ struct Node
     ll mx;
     Node()
     { // neutral node
-        mx = -1e18;
+        mx = -1e15;
     }
     Node(ll x)
     {
@@ -100,7 +100,7 @@ int main()
     {
         ll n, q;
         cin >> n;
-        vll a(n + 1, -1e18);
+        vll a(n + 1, -1e15);
         fi(0, n)
         {
             cin >> a[i];
