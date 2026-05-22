@@ -23,71 +23,36 @@ inline bool in(int i, int l, int h)
 {
     return i >= l && i <= h;
 }
-struct Node
-{
-    ll sm;
-    Node()
-    { // neutral node
-        sm = 0;
+struct FenwickTree {
+    vector<int> bit;
+    int n;
+
+    FenwickTree(int size) {
+        n = size;
+        bit.assign(n + 1, 0);
     }
-    Node(ll x)
-    {
-        sm = x;
-    }
-    void change(ll x)
-    {
-        sm = x;
-    }
-};
-struct segtree
-{ // 0-indexed [l,r)
-    ll treesize;
-    vector<Node> segdata;
-    Node merge(Node &ln, Node &rn)
-    {
-        Node ans = Node();
-        ans.sm = ln.sm + rn.sm;
-        return ans;
-    }
-    segtree(vector<ll> &arr)
-    {
-        treesize = 1;
-        while (treesize < arr.size())
-            treesize *= 2;
-        segdata.assign(2 * treesize, Node());
-        for (ll i = 0; i < arr.size(); i++)
-        {
-            segdata[treesize + i - 1] = Node(arr[i]);
-        }
-        for (ll i = treesize - 2; i >= 0; --i)
-        {
-            segdata[i] = merge(segdata[2 * i + 1], segdata[2 * i + 2]);
+
+    // Add 'val' to index i (1-based)
+    void update(int i, int val) {
+        while (i <= n) {
+            bit[i] += val;
+            i += i & -i;
         }
     }
-    void update(ll ind, ll val, ll ni, ll lx, ll rx)
-    {
-        if (rx - lx == 1)
-        {
-            segdata[ni].change(val);
-            return;
+
+    // Query sum from 1 to i
+    int query(int i) {
+        int sum = 0;
+        while (i > 0) {
+            sum += bit[i];
+            i -= i & -i;
         }
-        ll mid = (lx + rx) / 2;
-        if (ind < mid)
-            update(ind, val, 2 * ni + 1, lx, mid);
-        else
-            update(ind, val, 2 * ni + 2, mid, rx);
-        segdata[ni] = merge(segdata[2 * ni + 1], segdata[2 * ni + 2]);
+        return sum;
     }
-    Node get(ll l, ll r, ll ni, ll lx, ll rx)
-    {
-        if (rx <= l || lx >= r)
-            return Node();
-        if (lx >= l && rx <= r)
-            return segdata[ni];
-        ll mid = (rx + lx) / 2;
-        Node ln = get(l, r, 2 * ni + 1, lx, mid);
-        Node rn = get(l, r, 2 * ni + 2, mid, rx);
-        return merge(ln, rn);
+
+    // Query sum from l to r
+    int query(int l, int r) {
+        return query(r) - query(l - 1);
     }
 };
 using namespace std;
@@ -101,7 +66,7 @@ int main()
         ll n, m, k;
         cin >> n >> m >> k;
         vll a(m + 1, 0);
-        segtree sg = segtree(a);
+        FenwickTree sg(m + 1);
         vector<pair<ll, ll>> queries;
         fj(0, k)
         {
@@ -115,8 +80,8 @@ int main()
         ll cnt = 0;
         fj(0, k)
         {
-            cnt += sg.get(queries[j].second + 1, m + 1, 0, 0, sg.treesize).sm;
-            sg.update(queries[j].second, 1, 0, 0, sg.treesize);
+            cnt += sg.query(queries[j].second + 1, m+1);
+            sg.update(queries[j].second + 1, 1);
         }
         cout << "Test case " << i << ": " << cnt << endl;
     }
