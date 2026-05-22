@@ -59,7 +59,7 @@ struct segtree
         {
             segdata[treesize + i - 1] = Node(arr[i]);
         }
-        for (ll i = treesize - 2; i >= 0; i--)
+        for (ll i = treesize - 2; i >= 0; --i)
         {
             segdata[i] = merge(segdata[2 * i + 1], segdata[2 * i + 2]);
         }
