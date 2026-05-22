@@ -117,18 +117,18 @@ int main()
         {
             a[i] = mp[a[i]];
         }
-        vector<ll> L(n,0);
+        vector<ll> L(n + 1,0);
         segtree sg = segtree(L);
         fi(0, n)
         {
-            L[i] += sg.get(a[i] + 1, n + 1, 0, 0, sg.treesize).sm;
+            L[i] += sg.get(0, a[i], 0, 0, sg.treesize).sm;
             sg.update(a[i], 1, 0, 0, sg.treesize);
         }
-        vector<ll> R(n,0);
+        vector<ll> R(n+1,0);
         segtree sg2 = segtree(R);
         for(ll i = n-1; i >= 0; i--)
         {
-            R[i] += sg2.get(0, a[i], 0, 0, sg2.treesize).sm;
+            R[i] += sg2.get(a[i] + 1, n + 1, 0, 0, sg2.treesize).sm;
             sg2.update(a[i], 1, 0, 0, sg2.treesize);
         }
         ll ans=0;
