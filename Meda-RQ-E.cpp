@@ -26,7 +26,7 @@ inline bool in(int i, int l, int h)
 struct Node
 {
     ll mode, left, right;
-    bool lazy = 0;
+    bool islazy = 0;
     Node()
     { // neutral node
         mode = 1;
@@ -43,7 +43,7 @@ struct Node
     {
         left ^= 1;
         right ^= 1;
-        lazy ^= 1;
+        islazy ^= 1;
     }
 };
 struct segtree
@@ -87,31 +87,24 @@ struct segtree
             segdata[i] = merge(segdata[2 * i + 1], segdata[2 * i + 2]);
         }
     }
-    void propagate(ll ni, ll lx, ll rx)
-    {
-        if (rx - lx == 1 || !segdata[ni].lazy)
-            return;
-
-        segdata[2 * ni + 1].update();
-        segdata[2 * ni + 2].update();
-
-        segdata[ni].lazy = false;
+    void propagate(ll ni, ll lx, ll rx){
+        if(rx-lx==1 || !segdata[ni].islazy) return;
+        ll mid = (lx + rx)/2;
+        segdata[2*ni+1].update();
+        segdata[2*ni+2].update();
+        segdata[ni].islazy = 0;
     }
-    void update_range(ll l, ll r, ll val, ll ni, ll lx, ll rx)
-    {
+    void update_range(ll l,ll r, ll val,ll ni, ll lx, ll rx){
         propagate(ni, lx, rx);
-        if (rx <= l || lx >= r)
-            return;
-        if (lx >= l && rx <= r)
-        {
+        if(rx <= l || lx >= r) return;
+        if(lx >= l && rx <= r){
             segdata[ni].update();
-            segdata[ni].lazy = true;
             return;
         }
-        ll mid = (rx + lx) / 2;
-        update_range(l, r, val, 2 * ni + 1, lx, mid);
-        update_range(l, r, val, 2 * ni + 2, mid, rx);
-        segdata[ni] = merge(segdata[2 * ni + 1], segdata[2 * ni + 2]);
+        ll mid = (rx + lx)/2;
+        update_range(l, r, val, 2*ni+1, lx, mid);
+        update_range(l, r, val, 2*ni+2, mid, rx);
+        segdata[ni] = merge(segdata[2*ni+1], segdata[2*ni+2]);
     }
     Node get(ll l, ll r, ll ni, ll lx, ll rx)
     {
@@ -151,7 +144,7 @@ int main()
             l--;
             r--;
             if (type == 1)
-            {
+            {   
                 seg.update_range(l, r + 1, 1, 0, 0, seg.treesize);
             }
             else
