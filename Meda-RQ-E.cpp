@@ -25,23 +25,23 @@ inline bool in(int i, int l, int h)
 }
 struct Node
 {
-    ll mode,left,right;
+    ll mode, left, right;
     Node()
     { // neutral node
-        mode=1;
-        left=-1;
-        right=-1;
+        mode = 1;
+        left = -1;
+        right = -1;
     }
     Node(ll x)
     {
-        mode=1;
-        left=x;
-        right=x;
+        mode = 1;
+        left = x;
+        right = x;
     }
     void change()
     {
-        left=1-left;
-        right=1-right;
+        left = 1 - left;
+        right = 1 - right;
     }
 };
 struct segtree
@@ -51,15 +51,21 @@ struct segtree
     Node merge(Node &ln, Node &rn)
     {
         Node ans = Node();
-        if(ln.left==-1) return rn;
-        if(rn.left==-1) return ln;
-        if(ln.mode && rn.mode){
-          if(ln.right != rn.left){
-            ans.mode=1;
-          }
-          else ans.mode=0;
+        if (ln.left == -1)
+            return rn;
+        if (rn.left == -1)
+            return ln;
+        if (ln.mode && rn.mode)
+        {
+            if (ln.right != rn.left)
+            {
+                ans.mode = 1;
+            }
+            else
+                ans.mode = 0;
         }
-        else ans.mode=0;
+        else
+            ans.mode = 0;
         ans.left = ln.left;
         ans.right = rn.right;
         return ans;
@@ -110,31 +116,36 @@ int main()
 {
     HONDA
     int t = 1;
-    //cin >> t;
-    while(t--)
+    // cin >> t;
+    while (t--)
     {
-        ll n,q;
-        cin >> n>>q;
-        string s;cin>>s;
-        vll a(n,0);
+        ll n, q;
+        cin >> n >> q;
+        string s;
+        cin >> s;
+        vll a(n, 0);
         fi(0, n)
         {
-            a[i]=s[i]=='1';
+            a[i] = s[i] == '1';
         }
         segtree seg = segtree(a);
-        while(q--){
-          ll type,l,r;cin>>type>>l>>r;
-          l--;r--;
-          if(type==1){
-            seg.update(l,0,0,seg.treesize);
-            seg.update(r,0,0,seg.treesize);
-            cout<< seg.get(l,r + 1,0,0,seg.treesize).mode<<endl;
-          }
-          else{
-            cout<<(seg.get(l,r + 1,0,0,seg.treesize).mode?"Yes":"No")<<endl;
-          }
+        while (q--)
+        {
+            ll type, l, r;
+            cin >> type >> l >> r;
+            l--;
+            r--;
+            if (type == 1)
+            {
+                seg.update(l, 0, 0, seg.treesize);
+                seg.update(r, 0, 0, seg.treesize);
+                cout << seg.get(l, r + 1, 0, 0, seg.treesize).mode << endl;
+            }
+            else
+            {
+                cout << (seg.get(l, r + 1, 0, 0, seg.treesize).mode ? "Yes" : "No") << endl;
+            }
         }
-
     }
     return 0;
 }
