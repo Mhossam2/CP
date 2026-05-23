@@ -123,12 +123,11 @@ int main()
         cin >> n >> q;
         string s;
         cin >> s;
-        vll a(n + 1, 0);
+        vll a(n, 0);
         fi(0, n)
         {
             a[i] = (s[i] == '1');
         }
-        a[n] = 1-a[n-1];
         segtree seg = segtree(a);
         while (q--)
         {
@@ -138,10 +137,10 @@ int main()
             r--;
             if (type == 1)
             {   
-                if(l>0)
+                if(l > 0)
                     seg.update(l-1, 0, 0, seg.treesize);
-                if(r<n-1)
-                seg.update(r + 1, 0, 0, seg.treesize);
+                if(r < n-1)
+                    seg.update(r + 1, 0, 0, seg.treesize);
             }
             else
             {
