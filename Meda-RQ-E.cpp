@@ -136,10 +136,9 @@ int main()
             l--;
             r--;
             if (type == 1)
-            {
+            {   
                 seg.update(l, 0, 0, seg.treesize);
-                seg.update(r, 0, 0, seg.treesize);
-                cout << seg.get(l, r + 1, 0, 0, seg.treesize).mode << endl;
+                seg.update(r + 1, 0, 0, seg.treesize);
             }
             else
             {
