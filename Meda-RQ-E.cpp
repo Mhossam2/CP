@@ -139,7 +139,7 @@ int main()
             if (type == 1)
             {   
                 seg.update(l, 0, 0, seg.treesize);
-                seg.update(r, 0, 0, seg.treesize);
+                seg.update(r + 1, 0, 0, seg.treesize);
             }
             else
             {
