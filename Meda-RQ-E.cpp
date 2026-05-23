@@ -25,18 +25,23 @@ inline bool in(int i, int l, int h)
 }
 struct Node
 {
-    ll sm;
+    ll mode,left,right;
     Node()
     { // neutral node
-        sm = 0;
+        mode=1;
+        left=-1;
+        right=-1;
     }
     Node(ll x)
     {
-        sm = x;
+        mode=1;
+        left=x;
+        right=x;
     }
-    void change(ll x)
+    void change()
     {
-        sm = x;
+        left=1-left;
+        right=1-right;
     }
 };
 struct segtree
@@ -46,7 +51,17 @@ struct segtree
     Node merge(Node &ln, Node &rn)
     {
         Node ans = Node();
-        ans.sm = ln.sm + rn.sm;
+        if(ln.left==-1) return rn;
+        if(rn.left==-1) return ln;
+        if(ln.mode && rn.mode){
+          if(ln.right != rn.left){
+            ans.mode=1;
+          }
+          else ans.mode=0;
+        }
+        else ans.mode=0;
+        ans.left = ln.left;
+        ans.right=rn.right;
         return ans;
     }
     segtree(vector<ll> &arr)
@@ -64,18 +79,18 @@ struct segtree
             segdata[i] = merge(segdata[2 * i + 1], segdata[2 * i + 2]);
         }
     }
-    void update(ll ind, ll val, ll ni, ll lx, ll rx)
+    void update(ll ind, ll ni, ll lx, ll rx)
     {
         if (rx - lx == 1)
         {
-            segdata[ni].change(val);
+            segdata[ni].change();
             return;
         }
         ll mid = (lx + rx) / 2;
         if (ind < mid)
-            update(ind, val, 2 * ni + 1, lx, mid);
+            update(ind, 2 * ni + 1, lx, mid);
         else
-            update(ind, val, 2 * ni + 2, mid, rx);
+            update(ind, 2 * ni + 2, mid, rx);
         segdata[ni] = merge(segdata[2 * ni + 1], segdata[2 * ni + 2]);
     }
     Node get(ll l, ll r, ll ni, ll lx, ll rx)
@@ -98,45 +113,27 @@ int main()
     //cin >> t;
     while(t--)
     {
-        ll n;
-        cin >> n;
-        vll a(n);
+        ll n,q;
+        cin >> n>>q;
+        string s;cin>>s;
+        vll a(n,0);
         fi(0, n)
         {
-            cin >> a[i];
+            a[i]=s[i]=='1';
         }
-        vector<ll> b = a;
-        sort(all(b));
-        map<ll, ll> mp;
-        fi(0, n)
-        {
-            if(mp[b[i]] == 0)
-            mp[b[i]] = i;
+        segtree seg = segtree(a);
+        while(q--){
+          ll type,l,r;cin>>type>>l>>r;
+          l--;r--;
+          if(type==1){
+            seg.update(l,0,0,seg.treesize);
+            seg.update(r,0,0,seg.treesize);
+            cout<< seg.get(l,r + 1,0,0,seg.treesize).mode<<endl;
+          }
+          else{
+            cout<<(seg.get(l,r + 1,0,0,seg.treesize).mode?"Yes":"No")<<endl;
+          }
         }
-        fi(0, n)
-        {
-            a[i] = mp[a[i]];
-        }
-        vector<ll> L(n,0);
-        segtree sg = segtree(L);
-        fi(0, n)
-        {
-            L[i] += sg.get(a[i] + 1, n + 1, 0, 0, sg.treesize).sm;
-            sg.update(a[i], 1, 0, 0, sg.treesize);
-        }
-        vector<ll> R(n,0);
-        segtree sg2 = segtree(R);
-        for(ll i = n-1; i >= 0; i--)
-        {
-            R[i] += sg2.get(0, a[i], 0, 0, sg2.treesize).sm;
-            sg2.update(a[i], 1, 0, 0, sg2.treesize);
-        }
-        ll ans=0;
-        fi(0, n)
-        {
-            ans += L[i]*R[i];
-        }
-        cout << ans << endl;
 
     }
     return 0;
