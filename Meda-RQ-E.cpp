@@ -61,7 +61,7 @@ struct segtree
         }
         else ans.mode=0;
         ans.left = ln.left;
-        ans.right=rn.right;
+        ans.right = rn.right;
         return ans;
     }
     segtree(vector<ll> &arr)
