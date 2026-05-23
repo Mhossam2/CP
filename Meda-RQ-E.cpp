@@ -110,6 +110,7 @@ struct segtree
     }
     Node get(ll l, ll r, ll ni, ll lx, ll rx)
     {
+        propagate(ni, lx, rx);
         if (rx <= l || lx >= r)
             return Node();
         if (lx >= l && rx <= r)
