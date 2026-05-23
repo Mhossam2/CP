@@ -138,7 +138,7 @@ int main()
             if (type == 1)
             {   
                 if(l > 0)
-                    seg.update(l-1, 0, 0, seg.treesize);
+                    seg.update(l - 1, 0, 0, seg.treesize);
                 if(r < n-1)
                     seg.update(r + 1, 0, 0, seg.treesize);
             }
