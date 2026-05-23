@@ -105,6 +105,7 @@ struct segtree
         if (lx >= l && rx <= r)
         {
             segdata[ni].update();
+            segdata[ni].lazy = true;
             return;
         }
         ll mid = (rx + lx) / 2;
