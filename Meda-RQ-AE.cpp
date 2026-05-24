@@ -99,8 +99,41 @@ int main()
     while (t--)
     {
         ll n,q; cin >> n >> q;
-        vll arr(n, 0);
-        
+        vll a(n, 0);
+        segtree seg(a);
+        fi(0,n){
+            cin>>a[i];
+        }
+        vector<ll> b = a;
+        mpll mp;
+        sort(all(b));
+        fi(0,n){
+            if(mp[b[i]]==0) mp[b[i]]=i;
+        }
+        fi(0,n){
+            a[i]=mp[a[i]];
+        }
+        vector<pair<ll,pair<ll,ll>>> queries(q);
+        fi(0,q){
+            cin>>queries[i].second.first>>queries[i].first;
+            queries[i].second.second=i;
+        }
+        sort(all(queries));
+        ll cur = 0;
+        mpll last;
+        vector<ll> ans(q);
+        for(auto &p : queries){
+            while(cur <= p.first-1){
+                if(last[a[cur]]){
+                    seg.update(last[a[cur]], 0 ,0,0,seg.treesize);
+                }
+                seg.update(cur,1,0,0,seg.treesize);
+                last[a[cur]]=cur;
+                cur++;
+            }
+            ans[p.second.second] = seg.get(p.second.first-1, p.first,0,0,seg.treesize).sm;
+        }
+        fi(0,q) cout<<ans[i]<<endl;
     }
     return 0;
 }
