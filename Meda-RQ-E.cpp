@@ -109,11 +109,11 @@ struct segtree
     }
     Node get(ll l, ll r, ll ni, ll lx, ll rx)
     {
-        propagate(ni, lx, rx);
         if (rx <= l || lx >= r)
             return Node();
         if (lx >= l && rx <= r)
             return segdata[ni];
+        propagate(ni, lx, rx);
         ll mid = (rx + lx) / 2;
         Node ln = get(l, r, 2 * ni + 1, lx, mid);
         Node rn = get(l, r, 2 * ni + 2, mid, rx);
