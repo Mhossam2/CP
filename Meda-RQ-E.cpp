@@ -94,7 +94,7 @@ struct segtree
         segdata[2*ni+2].update();
         segdata[ni].islazy = 0;
     }
-    void update_range(ll l,ll r,ll ni, ll lx, ll rx){
+    void update_range(ll l, ll r, ll ni, ll lx, ll rx){
         propagate(ni, lx, rx);
         if(rx <= l || lx >= r) return;
         if(lx >= l && rx <= r){
@@ -131,7 +131,7 @@ int main()
         cin >> n >> q;
         string s;
         cin >> s;
-        vll a(n, 0);
+        vll a(n);
         fi(0, n)
         {
             a[i] = (s[i] == '1');
