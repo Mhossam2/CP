@@ -54,10 +54,18 @@ struct segtree
     Node merge(Node &ln, Node &rn)
     {
         if (ln.left == -1)
-            return rn;
+        {
+            Node ans = rn;
+            ans.islazy = 0; 
+            return ans;
+        }
 
         if (rn.left == -1)
-            return ln;
+        {
+            Node ans = ln;
+            ans.islazy = 0; 
+            return ans;
+        }
 
         Node ans = Node();
 
