@@ -103,18 +103,28 @@ int main()
         fi(0,n) cin>>arr[i];
         segtree st(arr);
         ll q;cin>>q;
-        vector<pair<ll,ll>> queries(q);
-        fi(0,q) cin>>queries[i].second>>queries[i].first;
+        vector<pair<ll,pair<ll,ll>>> queries(q);
+        fi(0,q){
+            cin>>queries[i].second.first>>queries[i].first;
+            queries[i].second.second = i;
+        }
         sort(all(queries));
-        ll cur = 0;
+        ll cur = 1;
+        vector<ll> ans(q);
         vector<ll> last(n+1,0);
         for(auto &p:queries){
             while(cur <= p.first){
-                st.update(cur-1,0,0,0,st.treesize);
+                ll val = arr[cur-1];
+                if(last[val]!=0){
+                    st.update(last[val]-1,0,0,0,st.treesize);
+                }
+                st.update(cur-1,1,0,0,st.treesize);
+                last[val] = cur;
                 cur++;
             }
-            cout<<st.get(0,p.second,0,0,st.treesize).sm<<endl;
+            ans[p.second.second] = st.get(p.second.first-1,p.first,0,0,st.treesize).sm;
         }
+        fi(0,q) cout<<ans[i]<<endl;
     }
     return 0;
 }
