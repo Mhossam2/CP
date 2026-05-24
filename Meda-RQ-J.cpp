@@ -95,36 +95,42 @@ int main()
 {
     HONDA
     int t = 1;
-    //cin >> t;
-    while(t--)
+    // cin >> t;
+    while (t--)
     {
-        ll n;cin>>n;
+        ll n;
+        cin >> n;
         vll arr(n);
-        fi(0,n) cin>>arr[i];
+        fi(0, n) cin >> arr[i];
         segtree st(arr);
-        ll q;cin>>q;
-        vector<pair<ll,pair<ll,ll>>> queries(q);
-        fi(0,q){
-            cin>>queries[i].second.first>>queries[i].first;
+        ll q;
+        cin >> q;
+        vector<pair<ll, pair<ll, ll>>> queries(q);
+        fi(0, q)
+        {
+            cin >> queries[i].second.first >> queries[i].first;
             queries[i].second.second = i;
         }
         sort(all(queries));
         ll cur = 1;
         vector<ll> ans(q);
-        vector<ll> last(n+1,0);
-        for(auto &p:queries){
-            while(cur <= p.first){
-                ll val = arr[cur-1];
-                if(last[val]!=0){
-                    st.update(last[val]-1,0,0,0,st.treesize);
+        vector<ll> last(n + 1, 0);
+        for (auto &p : queries)
+        {
+            while (cur <= p.first)
+            {
+                ll val = arr[cur - 1];
+                if (last[val] != 0)
+                {
+                    st.update(last[val] - 1, 0, 0, 0, st.treesize);
                 }
-                st.update(cur-1,1,0,0,st.treesize);
+                st.update(cur - 1, 1, 0, 0, st.treesize);
                 last[val] = cur;
                 cur++;
             }
-            ans[p.second.second] = st.get(p.second.first-1,p.first,0,0,st.treesize).sm;
+            ans[p.second.second] = st.get(p.second.first - 1, p.first, 0, 0, st.treesize).sm;
         }
-        fi(0,q) cout<<ans[i]<<endl;
+        fi(0, q) cout << ans[i] << endl;
     }
     return 0;
 }
