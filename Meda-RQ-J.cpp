@@ -100,9 +100,9 @@ int main()
     {
         ll n;
         cin >> n;
-        vll arr(n);
-        fi(0, n) cin >> arr[i];
+        vll arr(n+1, 0);
         segtree st(arr);
+        fi(0, n) cin >> arr[i];
         ll q;
         cin >> q;
         vector<pair<ll, pair<ll, ll>>> queries(q);
@@ -114,7 +114,7 @@ int main()
         sort(all(queries));
         ll cur = 1;
         vector<ll> ans(q);
-        vector<ll> last(n + 1, 0);
+        mpll last;
         for (auto &p : queries)
         {
             while (cur <= p.first)
