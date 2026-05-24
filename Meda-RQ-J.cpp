@@ -103,7 +103,17 @@ int main()
         fi(0,n) cin>>arr[i];
         segtree st(arr);
         ll q;cin>>q;
-        
+        vector<pair<ll,ll>> queries(q);
+        fi(0,q) cin>>queries[i].second>>queries[i].first;
+        sort(all(queries));
+        ll cur = 1;
+        for(auto &p:queries){
+            while(cur<=p.first){
+                st.update(cur-1,0,0,0,st.treesize);
+                cur++;
+            }
+            cout<<st.get(0,p.second,0,0,st.treesize).sm<<endl;
+        }
     }
     return 0;
 }
