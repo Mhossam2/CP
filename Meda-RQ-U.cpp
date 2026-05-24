@@ -106,7 +106,6 @@ int main()
         {
             ll l, r, val;
             cin >> l >> r >> val;
-            l--; r--;
             st.update(l, val, 0, 0, st.treesize);
             st.update(r + 1, -val, 0, 0, st.treesize);
         }
@@ -116,7 +115,6 @@ int main()
         {
             ll ind;
             cin >> ind;
-            ind--;
             cout << st.get(0, ind+1, 0, 0, st.treesize).sm << endl;
         }
     }
