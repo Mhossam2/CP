@@ -53,24 +53,19 @@ struct segtree
     vector<Node> segdata;
     Node merge(Node &ln, Node &rn)
     {
-        Node ans = Node();
         if (ln.left == -1)
             return rn;
+
         if (rn.left == -1)
             return ln;
-        if (ln.mode && rn.mode)
-        {
-            if (ln.right != rn.left)
-            {
-                ans.mode = 1;
-            }
-            else
-                ans.mode = 0;
-        }
-        else
-            ans.mode = 0;
+
+        Node ans;
+
         ans.left = ln.left;
         ans.right = rn.right;
+
+        ans.mode = (ln.mode && rn.mode && (ln.right != rn.left));
+
         return ans;
     }
     segtree(vector<ll> &arr)
