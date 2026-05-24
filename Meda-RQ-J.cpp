@@ -102,7 +102,7 @@ int main()
         cin >> n;
         vll arr(n+1, 0);
         segtree st(arr);
-        fi(0, n) cin >> arr[i];
+        fi(1, n + 1) cin >> arr[i];
         ll q;
         cin >> q;
         vector<pair<ll, pair<ll, ll>>> queries(q);
@@ -119,7 +119,7 @@ int main()
         {
             while (cur <= p.first)
             {
-                ll val = arr[cur - 1];
+                ll val = arr[cur];
                 if (last[val] != 0)
                 {
                     st.update(last[val] - 1, 0, 0, 0, st.treesize);
