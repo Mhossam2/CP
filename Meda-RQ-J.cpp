@@ -106,9 +106,10 @@ int main()
         vector<pair<ll,ll>> queries(q);
         fi(0,q) cin>>queries[i].second>>queries[i].first;
         sort(all(queries));
-        ll cur = 1;
+        ll cur = 0;
+        vector<ll> last(n+1,0);
         for(auto &p:queries){
-            while(cur<=p.first){
+            while(cur <= p.first){
                 st.update(cur-1,0,0,0,st.treesize);
                 cur++;
             }
