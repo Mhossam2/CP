@@ -96,12 +96,12 @@ struct segtree
         segdata[ni].islazy = 0;
     }
     void update_range(ll l,ll r, ll val,ll ni, ll lx, ll rx){
-        propagate(ni, lx, rx);
         if(rx <= l || lx >= r) return;
         if(lx >= l && rx <= r){
             segdata[ni].update();
             return;
         }
+        propagate(ni, lx, rx);
         ll mid = (rx + lx)/2;
         update_range(l, r, val, 2*ni+1, lx, mid);
         update_range(l, r, val, 2*ni+2, mid, rx);
