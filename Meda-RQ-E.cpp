@@ -59,7 +59,7 @@ struct segtree
         if (rn.left == -1)
             return ln;
 
-        Node ans;
+        Node ans = Node();
 
         ans.left = ln.left;
         ans.right = rn.right;
