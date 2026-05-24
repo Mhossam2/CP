@@ -36,7 +36,7 @@ struct Node
     }
     void change(ll x)
     {
-        sm = x;
+        sm += x;
     }
 };
 struct segtree
@@ -100,12 +100,13 @@ int main()
     {
         ll n, u;
         cin >> n >> u;
-        vll arr(n+2, 0);
+        vll arr(n+4, 0);
         segtree st(arr);
         while(u--)
         {
             ll l, r, val;
             cin >> l >> r >> val;
+            l--; r--;
             st.update(l, val, 0, 0, st.treesize);
             st.update(r + 1, -val, 0, 0, st.treesize);
         }
@@ -115,6 +116,7 @@ int main()
         {
             ll ind;
             cin >> ind;
+            ind--;
             cout << st.get(0, ind+1, 0, 0, st.treesize).sm << endl;
         }
     }
