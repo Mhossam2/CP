@@ -36,7 +36,7 @@ struct Node
     }
     void change(ll x)
     {
-        sm += x;
+        sm = x;
     }
 };
 struct segtree
@@ -95,45 +95,54 @@ int main()
 {
     HONDA
     int t = 1;
-    //cin >> t;
+    // cin >> t;
     while (t--)
     {
-        ll n,q; cin >> n >> q;
+        ll n, q;
+        cin >> n >> q;
         vll a(n, 0);
         segtree seg(a);
-        fi(0,n){
-            cin>>a[i];
+        fi(0, n)
+        {
+            cin >> a[i];
         }
         vector<ll> b = a;
         mpll mp;
         sort(all(b));
-        fi(0,n){
-            if(mp[b[i]]==0) mp[b[i]]=i;
+        fi(0, n)
+        {
+            if (mp[b[i]] == 0)
+                mp[b[i]] = i;
         }
-        fi(0,n){
-            a[i]=mp[a[i]];
+        fi(0, n)
+        {
+            a[i] = mp[a[i]];
         }
-        vector<pair<ll,pair<ll,ll>>> queries(q);
-        fi(0,q){
-            cin>>queries[i].second.first>>queries[i].first;
-            queries[i].second.second=i;
+        vector<pair<ll, pair<ll, ll>>> queries(q);
+        fi(0, q)
+        {
+            cin >> queries[i].second.first >> queries[i].first;
+            queries[i].second.second = i;
         }
         sort(all(queries));
         ll cur = 0;
         mpll last;
         vector<ll> ans(q);
-        for(auto &p : queries){
-            while(cur <= p.first-1){
-                if(last.count(a[cur])){
-                    seg.update(last[a[cur]], 0 ,0,0,seg.treesize);
+        for (auto &p : queries)
+        {
+            while (cur <= p.first - 1)
+            {
+                if (last.count(a[cur]))
+                {
+                    seg.update(last[a[cur]], 0, 0, 0, seg.treesize);
                 }
-                seg.update(cur,1,0,0,seg.treesize);
-                last[a[cur]]=cur;
+                seg.update(cur, 1, 0, 0, seg.treesize);
+                last[a[cur]] = cur;
                 cur++;
             }
-            ans[p.second.second] = seg.get(p.second.first-1, p.first,0,0,seg.treesize).sm;
+            ans[p.second.second] = seg.get(p.second.first - 1, p.first, 0, 0, seg.treesize).sm;
         }
-        fi(0,q) cout<<ans[i]<<endl;
+        fi(0, q) cout << ans[i] << endl;
     }
     return 0;
 }
