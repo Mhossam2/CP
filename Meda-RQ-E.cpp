@@ -41,7 +41,7 @@ struct Node
     }
     void update()
     {
-        if(left == -1) return;
+        if(left == -1 || right == -1) return;
         left ^= 1;
         right ^= 1;
         islazy ^= 1;
