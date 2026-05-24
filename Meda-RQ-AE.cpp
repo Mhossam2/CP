@@ -124,7 +124,7 @@ int main()
         vector<ll> ans(q);
         for(auto &p : queries){
             while(cur <= p.first-1){
-                if(last[a[cur]]){
+                if(last.count(a[cur])){
                     seg.update(last[a[cur]], 0 ,0,0,seg.treesize);
                 }
                 seg.update(cur,1,0,0,seg.treesize);
