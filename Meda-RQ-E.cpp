@@ -146,10 +146,6 @@ int main()
             {
                 cout << (seg.get(l, r + 1, 0, 0, seg.treesize).mode ? "Yes" : "No") << endl;
             }
-            fi(0,n){
-                cout << seg.get(i, i+1, 0, 0, seg.treesize).left << " ";
-            }
-            cout<<endl;
         }
     }
     return 0;
