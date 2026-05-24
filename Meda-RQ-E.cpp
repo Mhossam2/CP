@@ -71,8 +71,9 @@ struct segtree
     segtree(vector<ll> &arr)
     {
         treesize = 1;
-        while (treesize < arr.size() + 1)
+        while (treesize < arr.size())
             treesize *= 2;
+        treesize *= 2;
         segdata.assign(2 * treesize, Node());
         for (ll i = 0; i < arr.size(); i++)
         {
