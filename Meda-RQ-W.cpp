@@ -103,8 +103,7 @@ int main()
     while (t--)
     {
         ll n,q;cin>>n>>q;
-        vll arr(n + 1, 0);
-        segtree seg(arr);
+        vll arr(n, 0);
         vll comp;
         fi(0,n){
             cin >> arr[i];
@@ -130,6 +129,8 @@ int main()
                 mp[comp[i]] = i;
             }
         }
+        vector<ll> tm(comp.size()+1,0);
+        segtree seg(tm);
         fi(0,n){
             seg.update(mp[arr[i]], 1, 0, 0, seg.treesize);
         }
@@ -137,6 +138,7 @@ int main()
             if(p.type == '!'){
                 seg.update(mp[arr[p.a-1]], -1,0,0,seg.treesize);
                 seg.update(mp[p.b],1,0,0,seg.treesize);
+                arr[p.a-1] = p.b;
             }
             else{
                 cout<<seg.get(0, mp[p.b]+1, 0, 0, seg.treesize).sm - seg.get(0, mp[p.a], 0, 0, seg.treesize).sm<<endl;
