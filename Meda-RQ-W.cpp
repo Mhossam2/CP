@@ -131,7 +131,7 @@ int main()
             }
         }
         fi(0,n){
-            seg.update(mp[arr[i]],1,0,0,seg.treesize);
+            seg.update(mp[arr[i]], 1, 0, 0, seg.treesize);
         }
         for( auto &p:queries){
             if(p.type=='!'){
