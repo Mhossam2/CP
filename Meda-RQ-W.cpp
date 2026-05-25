@@ -122,28 +122,25 @@ int main()
                 comp.push_back(b);
             }
         }
-        comp.erase(unique(all(comp)), comp.end());
         sort(all(comp));
-        unordered_map<ll,ll> mp;
-        fi(0,comp.size()){
-            if(mp.find(comp[i]) == mp.end()){
-                mp[comp[i]] = i;
-            }
-        }
+        comp.erase(unique(all(comp)), comp.end());
+        auto get_compressed_idx = [&](ll val) {
+            return lower_bound(all(comp), val) - comp.begin();
+        };
         vector<ll> tm(comp.size()+1,0);
         segtree seg(tm);
         fi(0,n){
-            seg.update(mp[arr[i]], 1, 0, 0, seg.treesize);
+            seg.update(get_compressed_idx(arr[i]), 1, 0, 0, seg.treesize);
         }
         for( auto &p:queries){
             if(p.type == '!'){
-                seg.update(mp[arr[p.a-1]], -1,0,0,seg.treesize);
-                seg.update(mp[p.b],1,0,0,seg.treesize);
+                seg.update(get_compressed_idx(arr[p.a-1]), -1,0,0,seg.treesize);
+                seg.update(get_compressed_idx(p.b),1,0,0,seg.treesize);
                 arr[p.a-1] = p.b;
             }
             else{
 
-                cout<<seg.get(0, mp[p.b]+1, 0, 0, seg.treesize).sm - seg.get(0, mp[p.a], 0, 0, seg.treesize).sm<<endl;
+                cout<<seg.get(0, get_compressed_idx(p.b)+1, 0, 0, seg.treesize).sm - seg.get(0, get_compressed_idx(p.a), 0, 0, seg.treesize).sm<<endl;
             }
         }
     }
