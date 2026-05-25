@@ -122,6 +122,7 @@ int main()
                 comp.push_back(b);
             }
         }
+        comp.erase(unique(all(comp)), comp.end());
         sort(all(comp));
         unordered_map<ll,ll> mp;
         fi(0,comp.size()){
