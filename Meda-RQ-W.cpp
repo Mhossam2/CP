@@ -126,20 +126,20 @@ int main()
         sort(all(comp));
         mpll mp;
         fi(0,comp.size()){
-            if(mp[comp[i]]==0){
-                mp[comp[i]]=i;
+            if(mp[comp[i]] == 0){
+                mp[comp[i]] = i;
             }
         }
         fi(0,n){
             seg.update(mp[arr[i]], 1, 0, 0, seg.treesize);
         }
         for( auto &p:queries){
-            if(p.type=='!'){
+            if(p.type == '!'){
                 seg.update(mp[arr[p.a-1]], -1,0,0,seg.treesize);
                 seg.update(mp[p.b],1,0,0,seg.treesize);
             }
             else{
-                cout<<seg.get(0,mp[p.b]+1,0,0,seg.treesize).sm - seg.get(0,mp[p.a],0,0,seg.treesize).sm<<endl;
+                cout<<seg.get(0, mp[p.b]+1, 0, 0, seg.treesize).sm - seg.get(0, mp[p.a], 0, 0, seg.treesize).sm<<endl;
             }
         }
     }
