@@ -125,7 +125,7 @@ int main()
         sort(all(comp));
         mpll mp;
         fi(0,comp.size()){
-            if(mp[comp[i]] == 0){
+            if(mp.find(comp[i]) == mp.end()){
                 mp[comp[i]] = i;
             }
         }
@@ -141,6 +141,7 @@ int main()
                 arr[p.a-1] = p.b;
             }
             else{
+                
                 cout<<seg.get(0, mp[p.b]+1, 0, 0, seg.treesize).sm - seg.get(0, mp[p.a], 0, 0, seg.treesize).sm<<endl;
             }
         }
