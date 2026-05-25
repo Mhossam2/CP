@@ -123,7 +123,7 @@ int main()
             }
         }
         sort(all(comp));
-        mpll mp;
+        unordered_map<ll,ll> mp;
         fi(0,comp.size()){
             if(mp.find(comp[i]) == mp.end()){
                 mp[comp[i]] = i;
