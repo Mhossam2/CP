@@ -1,0 +1,1 @@
+{"name":"Local: Meda-RQ-W","url":"d:\\CP\\Meda-RQ-W.cpp","tests":[{"id":1779669240730,"input":"5 3\n3 7 2 2 5\n? 2 3\n! 3 6\n? 2 3","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"d:\\CP\\Meda-RQ-W.cpp","group":"local","local":true}
