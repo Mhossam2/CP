@@ -102,15 +102,13 @@ int main() {
             cin>>a[i];
             sg.set(i,a[i]);
         }
-        vll ans(m,0);
 		fi(0,m){
 			ll x; cin>>x;
 			ll ind = sg.find(x);
-            ans[i]=ind;
-            ll val = sg.get(ind,ind+1);
-            sg.set(ind, val-x);
+            cout << ind + 1 << " ";
+            ll val = sg.get(ind, ind+1);
+            sg.set(ind, val - x);
 		}
-        fi(0,m) cout<<ans[i] + 1<<" ";
     }
     return 0;
 }
