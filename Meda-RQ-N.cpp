@@ -103,11 +103,14 @@ int main() {
             sg.set(i,a[i]);
         }
         vll ans(m,0);
-		while(m--){
+		fi(0,m){
 			ll x; cin>>x;
 			ll ind = sg.find(x);
-            
+            ans[i]=ind;
+            ll val = sg.get(ind,ind+1);
+            sg.set(ind, val-x);
 		}
+        fi(0,m) cout<<ans[i] + 1<<" ";
     }
     return 0;
 }
