@@ -106,9 +106,9 @@ int main() {
         }
 		fi(0,m){
 			ll x,l,r;cin>>x>>l>>r;
-            ll res = 1;
-            while(res!=-1){
-                res = sg.find(x, l-1,r);
+            while(true){
+                ll res = sg.find(x, l-1, r);
+                if(res==-1) break;
                 x %= a[res];
             }
             cout<<x<<endl;
