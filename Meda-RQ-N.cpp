@@ -106,6 +106,7 @@ int main() {
 			ll x; cin>>x;
 			ll ind = sg.find(x);
             cout << ind + 1 << " ";
+            if(ind==-1) continue;
             ll val = sg.get(ind, ind+1);
             sg.set(ind, val - x);
 		}
