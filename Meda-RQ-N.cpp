@@ -97,10 +97,10 @@ int main() {
     while(t--){
 		ll n,m; cin>>n>>m;
         vector<ll> a(n);
-		segtree sg = segtree(n+1);
+		segtree sg = segtree(n);
         fi(0,n){
             cin>>a[i];
-            sg.set(i,a[i]);
+            sg.set(i, a[i]);
         }
 		fi(0,m){
 			ll x; cin>>x;
