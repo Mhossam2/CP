@@ -24,11 +24,11 @@ int main() {
     int t = 1;
     //cin >> t;
     while(t--){
-        ld a,b,c,x,y,z;cin>>a>>b>>c>>x>>y>>z;
-        ld arr[6][3] = {{x,y,z},{x,z,y},{z,x,y},{z,y,x},{y,x,z},{y,z,x}};
+        ll a,b,c,x,y,z;cin>>a>>b>>c>>x>>y>>z;
+        ll arr[6][3] = {{x,y,z},{x,z,y},{z,x,y},{z,y,x},{y,x,z},{y,z,x}};
         bool f=false;
         fi(0,6){
-            if(a/arr[i][0] == b/arr[i][1] && a/arr[i][0] == c/arr[i][2]){
+            if(a*arr[i][1] == b*arr[i][0] && a*arr[i][2] == c*arr[i][0]){
                 cout<<"YES";
                 f=1;
             }
