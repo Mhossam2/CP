@@ -25,7 +25,7 @@ int main() {
     cin >> t;
     while(t--){
         ld p,q;cin>>p>>q;
-        cout<<(p/q * p/q * p/q)/2.0<<endl;
+        cout << fixed << setprecision(10) << (p/q * p/q * p/q)/2.0<<endl;
     }
     return 0;
 }
