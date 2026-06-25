@@ -22,10 +22,13 @@ using namespace std;
 int main() {
     HONDA
     int t = 1;
-    //cin >> t;
+    cin >> t;
     while(t--){
         ll n;cin>>n;
-        
+        ll ans = 2*(n/6);
+        if(n%6>=1) ans++;
+        if(n%6==5) ans++;
+        cout<<ans<<endl;
     }
     return 0;
 }
