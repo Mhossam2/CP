@@ -32,10 +32,9 @@ int main() {
             x ^= num;
             a.push_back(num);
         }
-        if((n-m)==0) cout<<x<<endl;
+        if(((n-m)%3)==0) cout<<x<<endl;
         else if(((n-m)%3)==1) cout << (x ^ a[m-1] ^ a[m-2])<<endl;
         else if(((n-m)%3)==2) cout << (x ^ a[m-1])<<endl;
-        else cout<< (x ^ a[m-2])<<endl;
     }
     return 0;
 }
