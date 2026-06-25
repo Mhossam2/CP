@@ -31,6 +31,7 @@ int main() {
             if(a*arr[i][1] == b*arr[i][0] && a*arr[i][2] == c*arr[i][0]){
                 cout<<"YES";
                 f=1;
+                break;
             }
         }
         if(!f) cout<<"NO";
