@@ -34,8 +34,8 @@ int main() {
         }
         if((n-m)==0) cout<<x<<endl;
         else if(((n-m)%3)==1) cout << (x ^ a[m-1] ^ a[m-2])<<endl;
-        else if(((n-m)%3)==2) cout << (x ^ a[m-2])<<endl;
-        else cout<< (x ^ a[m-1])<<endl;
+        else if(((n-m)%3)==2) cout << (x ^ a[m-1])<<endl;
+        else cout<< (x ^ a[m-2])<<endl;
     }
     return 0;
 }
