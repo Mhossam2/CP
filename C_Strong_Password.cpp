@@ -50,7 +50,6 @@ bool dfs(ll val, string &ans)
     vis[val] = 1;
     if (val == 0)
         return 1;
-    
     ll num1 = dfs((val * 10) % n, ans);
     ll num2 = dfs((val * 10 + d) % n, ans);
     if(num1){
