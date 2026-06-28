@@ -18,41 +18,23 @@ inline bool in(int i, int j, int rows, int cols){
 inline bool in(int i, int l, int h){
     return i >= l && i <= h;
 }
+ll n,d;
+ll dp[100001]; //dp[new_rem] = min(dp[new_rem], dp[oldrem]+1) 
+ll dfs(ll val){
+    if(dp[val] != 1e18) return dp[val];
+    if(val == 0) return 0;
+    ll res = 1e18;
+    res = min(res, 1 + dfs((val*10)%n));
+    res = min(res, 1 + dfs((val*10+d)%n));
+    return dp[val] = res;
+}
 using namespace std;
 int main() {
     HONDA
     int t = 1;
     cin >> t;
     while(t--){
-        ll n,d;cin>>n>>d;
-        vll last(n,-1);
-        ll num = 0;
-        bool found1 =0; bool found2=0;
-        ll num1=-1;ll num2=-1; 
-        fi(1,n+1){
-            num = (num * 10 + d)%n;
-            if(num%n==0){
-                found1=1;
-                num1=i;
-                break;
-            }
-            if(last[num]!=-1){
-                found2=1;
-                num1=last[num]; num2=i;
-                break;
-            }
-            last[num]=i;
-        }
-        if(found1){
-            fi(0,num1){
-                cout<<d;
-            }
-        }
-        if(found2){
-            fi(0,num2-num1) cout<<d;
-            fi(0,num1) cout<<0;
-        }
-        cout<<endl;
+        
     }
     return 0;
 }
