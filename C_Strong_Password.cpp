@@ -69,10 +69,10 @@ int main()
         ll val = 0;
         while (len != -1)
         {
-            ll num1 = ((val - d) / 10) % n;
+            ll num1 = ((val - d)*modInverse(10, n)) % n;
             ll res1 = dp[num1];
 
-            ll num2 = ((val) / 10) % n;
+            ll num2 = ((val)*modInverse(10,n)) % n;
             ll res2 = dp[num2];
 
             if (res1 == -1)
@@ -87,6 +87,8 @@ int main()
             }
             len--;
         }
+        reverse(all(ans));
+        cout<<ans<<endl;
     }
     return 0;
 }
