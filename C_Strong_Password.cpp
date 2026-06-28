@@ -71,7 +71,7 @@ int main()
     {
         cin >> n >> d;
         fi(0, 100001) vis[i] = 0;
-        string ans = "";
+        string ans = to_string(d);
         dfs(d % n, ans);
         cout << ans << endl;
     }
