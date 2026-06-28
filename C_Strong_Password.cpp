@@ -41,16 +41,18 @@ ll modInverse(ll n, ll mod)
 }
 
 ll n, d;
-ll dp[100001]; // dp[new_rem] = min(dp[new_rem], dp[oldrem]+1)
-ll dfs(ll val)
+bool vis[100001];
+bool dp[100001]; // dp[new_rem] = min(dp[new_rem], dp[oldrem]+1)
+bool dfs(ll val, string &ans)
 {
-    if (dp[val] != -1)
+    if (vis[val])
         return dp[val];
+    vis[val] = 1;
     if (val == 0)
-        return 0;
+        return 1;
     ll res = 1e18;
-    res = min(res, 1 + dfs((val * 10) % n));
-    res = min(res, 1 + dfs((val * 10 + d) % n));
+    res |= dfs((val * 10) % n, ans);
+    res |= dfs((val * 10 + d) % n, ans);
     return dp[val] = res;
 }
 using namespace std;
@@ -62,30 +64,14 @@ int main()
     while (t--)
     {
         cin >> n >> d;
-        fi(0, 100001) dp[i] = -1;
-        dfs(d % n);
+        fi(0, 100001) vis[i] = 0;
         string ans = "";
+        dfs(d % n, ans);
         ll len = dp[0];
         ll val = 0;
         while (len != -1)
         {
-            ll num1 = ((val - d)/10) % n;
-            ll res1 = dp[num1];
-
-            ll num2 = ((val)/10) % n;
-            ll res2 = dp[num2];
-
-            if (res1 == -1)
-            {
-                val = num2;
-                ans += "0";
-            }
-            else
-            {
-                val = num1;
-                ans += to_string(d);
-            }
-            len--;
+            
         }
         reverse(all(ans));
         cout<<ans<<endl;
