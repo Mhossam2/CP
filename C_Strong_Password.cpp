@@ -21,7 +21,7 @@ inline bool in(int i, int l, int h){
 ll n,d;
 ll dp[100001]; //dp[new_rem] = min(dp[new_rem], dp[oldrem]+1) 
 ll dfs(ll val){
-    if(dp[val] != 1e18) return dp[val];
+    if(dp[val] != -1) return dp[val];
     if(val == 0) return 0;
     ll res = 1e18;
     res = min(res, 1 + dfs((val*10)%n));
@@ -34,6 +34,10 @@ int main() {
     int t = 1;
     cin >> t;
     while(t--){
+        cin>>n>>d;
+        fi(0,100001) dp[i] = -1;
+        dfs(d%n);
+        string ans="";
         
     }
     return 0;
