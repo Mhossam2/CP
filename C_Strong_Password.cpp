@@ -38,9 +38,24 @@ int main() {
         fi(0,100001) dp[i] = -1;
         dfs(d%n);
         string ans="";
-        ll cur = dp[0];
-        while(cur != -1){
-            
+        ll len = dp[0];
+        ll val = 0;
+        while(len != -1){
+            ll num1 = ((val-d)/10)%n;
+            ll res1 = dp[num1];
+
+            ll num2 = ((val)/10)%n;
+            ll res2 = dp[num2];
+
+            if(res1== -1){
+                val = num2;
+                ans += "0";
+            }
+            else{
+                val = num1;
+                ans += to_string(d);
+            }
+            len--;
         }
     }
     return 0;
