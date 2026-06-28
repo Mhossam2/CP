@@ -66,18 +66,20 @@ int main()
 {
     HONDA
     int t = 1;
-    cin >> t;
+    //cin >> t;
     while (t--)
     {
         ll n,m,s,t;cin>>n>>m>>s>>t;
         vector<vector<ll>> adj(n+1);
+        vector<vector<ll>> occ(n+1, vector<ll> (n+1,false));
         fi(0,m){
             ll u,v;cin>>u>>v;
             adj[u].push_back(v);
             adj[v].push_back(u);
+            occ[u][v]=occ[v][u]=true;
         }
         auto bfs = [&](ll root){
-            vector<ll> dist(n,1e18);
+            vector<ll> dist(n+1,1e18);
             queue<ll> q;
             dist[root] = 0;
             q.push(root);
@@ -94,7 +96,15 @@ int main()
         };
         vector<ll> sd = bfs(s);
         vector<ll> td = bfs(t);
-        
+        ll ans=0;
+        fi(1,n+1){
+            fj(i+1,n+1){
+                if(!occ[i][j]){
+                    if(min(sd[i]+td[j]+1,sd[j]+td[i]+1)>=sd[t]) ans++;
+                }
+            }
+        }
+        cout<<ans;
     }
     return 0;
 }
