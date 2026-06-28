@@ -50,10 +50,15 @@ bool dfs(ll val, string &ans)
     vis[val] = 1;
     if (val == 0)
         return 1;
-    ll res = 1e18;
-    res |= dfs((val * 10) % n, ans);
-    res |= dfs((val * 10 + d) % n, ans);
-    return dp[val] = res;
+    
+    ll num1 = dfs((val * 10) % n, ans);
+    ll num2 = dfs((val * 10 + d) % n, ans);
+    if(num1){
+        ans += "0";
+        return dp[val] = num1;
+    }
+    ans += to_string(d);
+    return dp[val] = num2;
 }
 using namespace std;
 int main()
