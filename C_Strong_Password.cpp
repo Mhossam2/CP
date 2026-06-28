@@ -73,12 +73,6 @@ int main()
         fi(0, 100001) vis[i] = 0;
         string ans = "";
         dfs(d % n, ans);
-        ll len = dp[0];
-        ll val = 0;
-        while (len != -1)
-        {
-        }
-        reverse(all(ans));
         cout << ans << endl;
     }
     return 0;
