@@ -50,14 +50,16 @@ bool dfs(ll val, string &ans)
     vis[val] = 1;
     if (val == 0)
         return 1;
-    ll num1 = dfs((val * 10) % n, ans);
-    ll num2 = dfs((val * 10 + d) % n, ans);
-    if(num1){
+    ll res = 0;
+    res |= dfs((val * 10) % n, ans);
+    if (res)
+    {
         ans += "0";
-        return dp[val] = num1;
+        return dp[val] = res;
     }
+    res |= dfs((val * 10 + d) % n, ans);
     ans += to_string(d);
-    return dp[val] = num2;
+    return dp[val] = res;
 }
 using namespace std;
 int main()
@@ -75,10 +77,9 @@ int main()
         ll val = 0;
         while (len != -1)
         {
-            
         }
         reverse(all(ans));
-        cout<<ans<<endl;
+        cout << ans << endl;
     }
     return 0;
 }
