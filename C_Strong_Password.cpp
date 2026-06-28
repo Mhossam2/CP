@@ -38,7 +38,10 @@ int main() {
         fi(0,100001) dp[i] = -1;
         dfs(d%n);
         string ans="";
-        
+        ll cur = dp[0];
+        while(cur != -1){
+            
+        }
     }
     return 0;
 }
