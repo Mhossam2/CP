@@ -23,44 +23,6 @@ inline bool in(int i, int l, int h)
 {
     return i >= l && i <= h;
 }
-ll modPow(ll a, ll b, ll mod)
-{
-    long long res = 1;
-    while (b > 0)
-    {
-        if (b & 1)
-            res = (res * a) % mod;
-        a = (a * a) % mod; // O( log b )
-        b >>= 1;
-    }
-    return res;
-}
-ll modInverse(ll n, ll mod)
-{
-    return modPow(n, mod - 2, mod);
-}
-
-ll n, d;
-bool vis[100001];
-bool dp[100001]; // dp[new_rem] = min(dp[new_rem], dp[oldrem]+1)
-bool dfs(ll val, string &ans)
-{
-    if (vis[val])
-        return dp[val];
-    vis[val] = 1;
-    if (val == 0)
-        return 1;
-    ll res = 0;
-    res |= dfs((val * 10) % n, ans);
-    if (res)
-    {
-        ans += "0";
-        return dp[val] = res;
-    }
-    res |= dfs((val * 10 + d) % n, ans);
-    ans += to_string(d);
-    return dp[val] = res;
-}
 using namespace std;
 int main()
 {
