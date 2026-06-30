@@ -42,12 +42,13 @@ ll modInverse(ll n, ll mod)
 
 ll n, d;
 bool vis[100001];
+bool dead[100001];
 bool dp[100001]; // dp[new_rem] = min(dp[new_rem], dp[oldrem]+1)
 bool dfs(ll val, string &ans)
 {
     if (vis[val])
         return dp[val];
-    vis[val] = 1;
+    
     if (val == 0)
         return 1;
     ll res = 0;
