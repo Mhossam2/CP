@@ -46,11 +46,11 @@ bool dead[100001];
 bool dp[100001]; // dp[new_rem] = min(dp[new_rem], dp[oldrem]+1)
 bool dfs(ll val, string &ans)
 {
-    if (vis[val])
-        return dp[val];
-    
+    if (dead[val])
+        return 0;
     if (val == 0)
         return 1;
+    vis[val] = 1;
     ll res = 0;
     res |= dfs((val * 10) % n, ans);
     if (res)
