@@ -41,7 +41,7 @@ ll modInverse(ll n, ll mod)
 }
 
 ll n, d;
-bool vis[100001];
+bool working[100001];
 bool dead[100001];
 bool dp[100001]; // dp[new_rem] = min(dp[new_rem], dp[oldrem]+1)
 bool dfs(ll val, string &ans)
@@ -50,17 +50,27 @@ bool dfs(ll val, string &ans)
         return 0;
     if (val == 0)
         return 1;
-    vis[val] = 1;
-    ll res = 0;
-    res |= dfs((val * 10) % n, ans);
-    if (res)
-    {
-        ans += "0";
-        return dp[val] = res;
+    working[val] = 1;
+    ll v0 = (val * 10) % n;
+    if (!working[v0] && !dead[v0]) {
+        ans.push_back('0');
+        if (dfs(v0, ans)) {
+            working[val] = false; 
+            return true;
+        }
+        ans.pop_back();
     }
-    res |= dfs((val * 10 + d) % n, ans);
-    ans += to_string(d);
-    return dp[val] = res;
+
+    ll v1 = (val * 10 + d) % n;
+    if (!working[v1] && !dead[v1]) {
+        ans.push_back(char('0' + d));
+        if (dfs(v1, ans)) { working[val] = false; return true; }
+        ans.pop_back();
+    }
+
+    working[val] = false;
+    dead[val] = true;
+    return false;
 }
 using namespace std;
 int main()
@@ -71,7 +81,10 @@ int main()
     while (t--)
     {
         cin >> n >> d;
-        fi(0, 100001) vis[i] = 0;
+        fi(0, 100001){
+            working[i] = 0;
+            dead[i]=0;
+        }
         string ans = to_string(d);
         dfs(d % n, ans);
         cout << ans << endl;
