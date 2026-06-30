@@ -70,7 +70,7 @@ int main()
     while (t--)
     {
         cin >> n >> d;
-        fi(0, n) vis[i] = 0;
+        fi(0, 100001) vis[i] = 0;
         string ans = to_string(d);
         dfs(d % n, ans);
         cout << ans << endl;
