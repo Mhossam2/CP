@@ -32,7 +32,7 @@ int main()
     while (t--)
     {
         ll n,m;cin>>n>>m;
-        cout<<min(n,m/2 +1)<<endl;
+        cout<<min(n, m / 2 + 1)<<endl;
     }
     return 0;
 }
