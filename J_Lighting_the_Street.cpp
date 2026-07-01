@@ -35,10 +35,11 @@ int main()
         vll a(n);
         fi(0,n) cin>>a[i];
         sort(all(a));
-        ll mx=0;
+        ll mx=a[0]-0;
         fi(0,n-1){
             mx=max(abs(a[i]-a[i+1]),mx);
         }
+        mx=max(mx,l-a[n-1]);
         ll mn=1e18;
         fi(0,m){
             ll num;cin>>num;
