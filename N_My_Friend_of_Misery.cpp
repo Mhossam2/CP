@@ -37,7 +37,7 @@ int main()
         ll offset = 0;
         fi(0,n){
             ll m;char c;cin>>m>>c;
-            if(m=='+'){
+            if(c=='+'){
                 l = max(l,m-offset);
                 offset -= m+25;
             }
@@ -45,6 +45,7 @@ int main()
                 r=min(r,m-offset-1);
             }
         }
+        l = max(l,0LL);
         cout<<r-l+1<<endl;
     }
     return 0;
