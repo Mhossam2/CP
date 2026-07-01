@@ -43,7 +43,7 @@ int main()
         fi(1,n+1) cin>>x[i];
         fi(1,n+1){
             adj[i].push_back({x[i],v});
-            adj[v].push_back({x[v]+y, i});
+            adj[v].push_back({x[i]+y, i});
         }
         vector<ll> dist(n + 2, 1e18);
         priority_queue<pair<ll,ll>, vector<pair<ll,ll>>, greater<pair<ll,ll>>> pq;
