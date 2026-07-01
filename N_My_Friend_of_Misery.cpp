@@ -37,12 +37,12 @@ int main()
         ll offset = 0;
         fi(0,n){
             ll m;char c;cin>>m>>c;
-            if(c=='+'){
+            if(c == '+'){
                 l = max(l,m+25-offset);
                 offset -= m+25;
             }
             else{
-                r=min(r,m+24-offset);
+                r = min(r, m+24-offset);
             }
         }
         l=max(0LL,l);
