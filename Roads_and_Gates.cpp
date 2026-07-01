@@ -23,33 +23,6 @@ inline bool in(int i, int l, int h)
 {
     return i >= l && i <= h;
 }
-ll k;
-bool check(ll mid, vector<pair<ll,ll>> &a){
-    ll last=-1e18;
-    ll cnt=0;
-    for(auto &p : a){
-        if(p.second - last >= mid){
-            cnt++;
-            last=p.first;
-            if(cnt>=k) return true;
-        }
-    }
-    return cnt >= k;
-}
-ll bn(vector<pair<ll,ll>> &a){
-    ll lo = 1, hi = 1e18;
-    ll ans = -1;
-    while(lo <= hi){
-        ll mid = lo + (hi - lo) / 2;
-        if(check(mid,a)){
-            lo = mid + 1;
-            ans = mid;
-        } else {
-            hi = mid - 1;
-        }
-    }
-    return ans;
-}
 using namespace std;
 int main()
 {
@@ -66,9 +39,32 @@ int main()
             adj[u].push_back({c,v});
             adj[v].push_back({c,u});
         }
-        vll x(n);
-        fi(0,n) cin>>x[i];
+        vll x(n+1);
+        fi(1,n+1) cin>>x[i];
+        fi(1,n+1){
+            adj[i].push_back({x[i],v});
+            adj[v].push_back({x[v]+y, i});
+        }
+        vector<ll> dist(n + 2, 1e18);
+        priority_queue<pair<ll,ll>, vector<pair<ll,ll>>, greater<pair<ll,ll>>> pq;
+        dist[1] = 0;
+        pq.push({0, 1});
         
+        while(!pq.empty()){
+            auto [d, u] = pq.top(); pq.pop();
+            if(d > dist[u]) continue;
+            for(auto &[w, v] : adj[u]){
+                if(dist[u] + w < dist[v]){
+                    dist[v] = dist[u] + w;
+                    pq.push({dist[v], v});
+                }
+            }
+        }
+        
+        for(ll k = 2; k <= n; k++){
+            cout << dist[k];
+            if(k < n) cout << " ";
+        }
     }
     return 0;
 }
