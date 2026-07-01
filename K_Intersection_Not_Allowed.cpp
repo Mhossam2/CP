@@ -45,7 +45,26 @@ int main()
                 }
             }
         }    
-        
+        if(c.size()==0){
+            cout<<"YES"<<endl;
+            continue;
+        }
+        pair<ll,ll> p=c[0];
+        bool f=0;
+        bool f2=0;
+        fi(1,c.size()){
+            if(c[i].first!=p.first && c[i].second != p.first){
+                f=1;
+            }
+        }
+        fi(1,c.size()){
+            if(c[i].first!=p.second && c[i].second != p.second){
+                f2=1;
+            }
+        }
+        if(f&&f2) cout<<"NO"<<endl;
+        else
+        cout<<"YES"<<endl;
     }
     return 0;
 }
