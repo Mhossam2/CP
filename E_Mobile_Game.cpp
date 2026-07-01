@@ -24,15 +24,15 @@ inline bool in(int i, int l, int h)
     return i >= l && i <= h;
 }
 ll mn;
-bool check(ll mid){
-    return (mid*(mid+1))/2 >= mn; 
+bool check(ll mid,ll num){
+    return (mid*(mid+2))/4 >= num; 
 }
-ll bn(){
+ll bn(ll num){
     ll lo = 1, hi = 1e9;
     ll ans = -1;
     while(lo <= hi){
         ll mid = lo + (hi - lo) / 2;
-        if(check(mid)){
+        if(check(mid,num)){
             hi = mid - 1;
             ans = mid;
         } else {
@@ -50,8 +50,7 @@ int main()
     while (t--)
     {
         ll x,y;cin>>x>>y;
-        mn = x+y;
-        cout<<bn()<<endl;
+        cout<<(bn(x)+bn(y))<<endl;
     }
     return 0;
 }
