@@ -39,10 +39,10 @@ bool check(ll mid, vector<pair<ll,ll>> &a){
 ll bn(vector<pair<ll,ll>> &a){
     ll lo = 1, hi = 1e18;
     ll ans = -1;
-    while(lo < hi){
-        ll mid = lo + (hi - lo + 1) / 2;
+    while(lo <= hi){
+        ll mid = lo + (hi - lo) / 2;
         if(check(mid,a)){
-            lo = mid;
+            lo = mid + 1;
             ans = mid;
         } else {
             hi = mid - 1;
