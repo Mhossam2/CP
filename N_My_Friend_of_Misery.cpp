@@ -45,7 +45,7 @@ int main()
                 r=min(r,m-offset-1);
             }
         }
-        l = max(l,0LL);
+        cout<<l<<" ";
         cout<<r-l+1<<endl;
     }
     return 0;
