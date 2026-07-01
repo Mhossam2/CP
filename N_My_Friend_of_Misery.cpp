@@ -45,6 +45,7 @@ int main()
                 r=min(r,m-offset-1);
             }
         }
+        cout<<r-l+1<<endl;
     }
     return 0;
 }
