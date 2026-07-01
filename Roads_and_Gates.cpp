@@ -66,6 +66,8 @@ int main()
             adj[u].push_back({c,v});
             adj[v].push_back({c,u});
         }
+        vll x(n);
+        fi(0,n) cin>>x[i];
         
     }
     return 0;
