@@ -28,7 +28,7 @@ bool check(ll mid){
     return (mid*(mid+1))/2 >= mn; 
 }
 ll bn(){
-    ll lo = 1, hi = 1e18;
+    ll lo = 1, hi = 1e9;
     ll ans = -1;
     while(lo <= hi){
         ll mid = lo + (hi - lo) / 2;
@@ -50,7 +50,7 @@ int main()
     while (t--)
     {
         ll x,y;cin>>x>>y;
-        mn = min(x,y);
+        mn = x+y;
         cout<<bn()<<endl;
     }
     return 0;
