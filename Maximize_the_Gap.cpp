@@ -25,7 +25,7 @@ inline bool in(int i, int l, int h)
 }
 ll k;
 bool check(ll mid, vector<pair<ll,ll>> &a){
-    ll last=-1e9;
+    ll last=-1e18;
     ll cnt=0;
     for(auto &p : a){
         if(p.second - last >= mid){
