@@ -37,7 +37,7 @@ int main()
         fi(0,q) cin>>x[i]>>l[i]>>r[i];
         vector<pair<ll,ll>> c;
         fi(0,q){
-            fj(i,q){
+            fj(i+1,q){
                 if(x[i]==x[j]){
                     if(l[i]<=r[j] && l[j]<=r[i]){
                         c.push_back({i,j});
