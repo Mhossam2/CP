@@ -29,42 +29,10 @@ int main()
 {
     HONDA
     int t = 1;
-    cin >> t;
+    //cin >> t;
     while (t--)
     {
-        ll n,q;cin>>n>>q;
-        vll x(q),l(q),r(q);
-        fi(0,q) cin>>x[i]>>l[i]>>r[i];
-        vector<pair<ll,ll>> c;
-        fi(0,q){
-            fj(i+1,q){
-                if(x[i]==x[j]){
-                    if(l[i]<=r[j] && l[j]<=r[i]){
-                        c.push_back({i,j});
-                    }
-                }
-            }
-        }    
-        if(c.size()==0){
-            cout<<"YES"<<endl;
-            continue;
-        }
-        pair<ll,ll> p=c[0];
-        bool f=0;
-        bool f2=0;
-        fi(1,c.size()){
-            if(c[i].first!=p.first && c[i].second != p.first){
-                f=1;
-            }
-        }
-        fi(1,c.size()){
-            if(c[i].first!=p.second && c[i].second != p.second){
-                f2=1;
-            }
-        }
-        if(f&&f2) cout<<"NO"<<endl;
-        else
-        cout<<"YES"<<endl;
+        ll n,q;cin>>n>>q;  
     }
     return 0;
 }
