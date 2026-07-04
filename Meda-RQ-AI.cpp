@@ -97,7 +97,7 @@ int main()
     HONDA
     int t = 1;
     // cin >> t;
-    while (t--)
+    while (1)
     {
         ll n,q;cin>>n>>q;
         vll a(n);
@@ -123,6 +123,7 @@ int main()
                 }
             }
         }
+        last[a[n-1]] = n - 1;
         segtree seg(occ);
         while(q--){
             ll l,r;cin>>l>>r;
@@ -135,7 +136,7 @@ int main()
             }
         }
         cin>>n;
-        
+        if(n==0) break;
     }
     return 0;
 }
