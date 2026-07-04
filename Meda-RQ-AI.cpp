@@ -47,7 +47,7 @@ struct segtree
     Node merge(Node &ln, Node &rn)
     {
         Node ans = Node();
-        ans.mx = max(ln.mx , rn.mx);
+        ans.mx = max(ln.mx, rn.mx);
         return ans;
     }
     segtree(vector<ll> &arr)
@@ -97,45 +97,57 @@ int main()
     HONDA
     int t = 1;
     // cin >> t;
-    while (t)
+    ll n;
+    while (cin >> n && n)
     {
-        ll n,q;cin>>n>>q;
+        ll q;
+        cin >> q;
         vll a(n);
-        ll mn=1e18;
-        fi(0,n){
-            cin>>a[i];
-            mn=min(mn,a[i]);
+        ll mn = 1e18;
+        fi(0, n)
+        {
+            cin >> a[i];
+            mn = min(mn, a[i]);
         }
-        if(mn<0){
-            fi(0,n){
-                a[i]-=mn;
+        if (mn < 0)
+        {
+            fi(0, n)
+            {
+                a[i] -= mn;
             }
         }
-        vector<ll> first(3e5,-1);
-        vector<ll> last(3e5,-1);
-        vll occ(3e5,0);
-        fi(0,n){
+        vector<ll> first(3e5, -1);
+        vector<ll> last(3e5, -1);
+        vll occ(3e5, 0);
+        fi(0, n)
+        {
             occ[a[i]]++;
-            if(first[a[i]]==-1){
-                first[a[i]]=i;
-                if(i!=0){
-                    last[a[i-1]]=i-1;
+            if (first[a[i]] == -1)
+            {
+                first[a[i]] = i;
+                if (i != 0)
+                {
+                    last[a[i - 1]] = i - 1;
                 }
             }
         }
-        last[a[n-1]] = n - 1;
+        last[a[n - 1]] = n - 1;
         segtree seg(occ);
-        while(q--){
-            ll l,r;cin>>l>>r;
-            l--;r--;
-            if(a[l]==a[r]) cout<<r-l+1<<endl;
-            else{
-                ll ans = max(last[a[l]]-l+1 , r-first[a[r]]+1);
-                ans = max(ans,seg.get(a[l]+1,a[r],0,0,seg.treesize).mx);
-                cout<<ans<<endl;
+        while (q--)
+        {
+            ll l, r;
+            cin >> l >> r;
+            l--;
+            r--;
+            if (a[l] == a[r])
+                cout << r - l + 1 << endl;
+            else
+            {
+                ll ans = max(last[a[l]] - l + 1, r - first[a[r]] + 1);
+                ans = max(ans, seg.get(a[l] + 1, a[r], 0, 0, seg.treesize).mx);
+                cout << ans << endl;
             }
         }
-        cin>>t;
     }
     return 0;
 }
