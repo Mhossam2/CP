@@ -52,7 +52,7 @@ int main()
             f.push_back(num2);
             num1=x;
         }
-        vector<vector<ll>> pre(f.size(),vector<ll> (n,1e18));
+        vector<vector<int>> pre(f.size(),vector<int> (n,1e9));
         fi(0,f.size()){
             fj(0,n){
                 ll tg = f[i] - a[j];
@@ -61,7 +61,7 @@ int main()
                 pre[i][j] = *it;
             }
         }
-        vector<vector<ll>> sufpre(f.size(),vector<ll> (n,1e18));
+        vector<vector<int>> sufpre(f.size(),vector<int> (n,1e9));
         fi(0,f.size()){
             for(ll j=n-2;j>=0;j--){
                 sufpre[i][j] = min(pre[i][j], sufpre[i][j+1]); 
