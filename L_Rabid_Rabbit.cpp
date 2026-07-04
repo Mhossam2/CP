@@ -136,7 +136,7 @@ int main()
             cin>>queries[i].first>>queries[i].second.first;
             queries[i].second.second=i;
         }
-        ll ptr=q-1;
+        ll ptr=0;
         sort(all(queries));
         reverse(all(queries));
         vector<ll> ans(q,0);
@@ -145,7 +145,7 @@ int main()
                 if(pre[j][i]==1e9) continue;
                 sg[j].update(pre[j][i],1,0,0,sg[j].treesize);
             }
-            while(ptr>=0 && i==queries[ptr].first){
+            while(ptr<q && i==queries[ptr].first){
                 for(ll j=0;j<f.size();j++){
                     ans[queries[ptr].second.second] += ll(sg[j].get(queries[ptr].first,queries[ptr].second.first+1,0,0,sg[j].treesize).sm > 0);
                 }
