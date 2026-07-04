@@ -23,7 +23,7 @@ inline bool in(int i, int l, int h)
 {
     return i >= l && i <= h;
 }
-const ll MOD = 1e9+7;
+const ll MOD = 1e9 + 7;
 struct Node
 {
     ll sm;
@@ -96,16 +96,18 @@ int main()
 {
     HONDA
     int t = 1;
-    //cin >> t;
+    // cin >> t;
     while (t--)
     {
-        ll n,q;cin>>n>>q;
+        ll n, q;
+        cin >> n >> q;
         vll a(n);
-        ll mx=0;
-        fi(0,n) cin>>a[i];
-        map<ll,vector<ll>> mp;
-        fi(0,n){
-            mx=max(mx,a[i]);
+        ll mx = 0;
+        fi(0, n) cin >> a[i];
+        map<ll, vector<ll>> mp;
+        fi(0, n)
+        {
+            mx = max(mx, a[i]);
             mp[a[i]].push_back(i);
         }
         vll f;
@@ -113,47 +115,59 @@ int main()
         f.push_back(3);
         ll num1 = 2;
         ll num2 = 3;
-        while(num2<= 2*mx){
+        while (num2 <= 2 * mx)
+        {
             ll x = num2;
-            num2+=num1;
+            num2 += num1;
             f.push_back(num2);
-            num1=x;
+            num1 = x;
         }
-        vector<vector<ll>> pre(f.size(),vector<ll> (n,1e9));
-        fi(0,f.size()){
-            fj(0,n){
+        vector<vector<ll>> pre(f.size(), vector<ll>(n, 1e9));
+        fi(0, f.size())
+        {
+            fj(0, n)
+            {
                 ll tg = f[i] - a[j];
-                if(mp.count(tg)==0) continue;
+                if (mp.count(tg) == 0)
+                    continue;
                 auto it = upper_bound(all(mp[tg]), j);
-                if(it==mp[tg].end()) continue;
+                if (it == mp[tg].end())
+                    continue;
                 pre[i][j] = *it;
             }
         }
-        vll z(n,0);
+        vll z(n, 0);
         vector<segtree> sg(f.size(), segtree(z));
-        vector<pair<ll,pair<ll,ll>>> queries(q);
-        fi(0,q){
-            cin>>queries[i].first>>queries[i].second.first;
-            queries[i].second.second=i;
+        vector<pair<ll, pair<ll, ll>>> queries(q);
+        fi(0, q)
+        {
+            cin >> queries[i].first >> queries[i].second.first;
+            queries[i].second.second = i;
         }
-        ll ptr=0;
+        ll ptr = 0;
         sort(all(queries));
         reverse(all(queries));
-        vector<ll> ans(q,0);
-        for(ll i=n-1;i>=0;i--){
-            for(ll j=0;j<f.size();j++){
-                if(pre[j][i]==1e9) continue;
-                sg[j].update(pre[j][i],1,0,0,sg[j].treesize);
+        vector<ll> ans(q, 0);
+        for (ll i = n - 1; i >= 0; i--)
+        {
+            for (ll j = 0; j < f.size(); j++)
+            {
+                if (pre[j][i] == 1e9)
+                    continue;
+                sg[j].update(pre[j][i], 1, 0, 0, sg[j].treesize);
             }
-            while(ptr<q && i==queries[ptr].first){
-                for(ll j=0;j<f.size();j++){
-                    ans[queries[ptr].second.second] += ll(sg[j].get(queries[ptr].first,queries[ptr].second.first+1,0,0,sg[j].treesize).sm > 0);
+            while (ptr < q && i == queries[ptr].first)
+            {
+                for (ll j = 0; j < f.size(); j++)
+                {
+                    ans[queries[ptr].second.second] += ll(sg[j].get(queries[ptr].first, queries[ptr].second.first + 1, 0, 0, sg[j].treesize).sm > 0);
                 }
                 ptr++;
             }
         }
-        fi(0,q){
-            cout<<ans[i]<<endl;
+        fi(0, q)
+        {
+            cout << ans[i] << endl;
         }
     }
     return 0;
