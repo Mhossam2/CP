@@ -106,9 +106,10 @@ int main()
             cin>>a[i];
             mn=min(mn,a[i]);
         }
-        if(mn<0)
-        fi(0,n){
-            a[i]-=mn;
+        if(mn<0){
+            fi(0,n){
+                a[i]-=mn;
+            }
         }
         vector<ll> first(3e5,-1);
         vector<ll> last(3e5,-1);
@@ -128,11 +129,12 @@ int main()
             l--;r--;
             if(a[l]==a[r]) cout<<r-l+1<<endl;
             else{
-                ll ans = last[a[l]]-l + r-first[a[r]];
-                ans += seg.get(last[a[l]],first[a[r]]+1,0,0,seg.treesize).mx;
+                ll ans = max(last[a[l]]-l+1 , r-first[a[r]]+1);
+                ans = max(ans,seg.get(last[a[l]]+1,first[a[r]],0,0,seg.treesize).mx);
                 cout<<ans<<endl;
             }
         }
+        cin>>n;
         
     }
     return 0;
