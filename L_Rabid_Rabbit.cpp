@@ -131,9 +131,10 @@ int main()
         }
         vll z(n,0);
         vector<segtree> sg(f.size(), segtree(z));
-        vector<pair<ll,ll>> queries(q);
+        vector<pair<ll,pair<ll,ll>>> queries(q);
         fi(0,q){
-            cin>>queries[i].first>>queries[i].second;
+            cin>>queries[i].first>>queries[i].second.first;
+            queries[i].second.second=i;
         }
         ll ptr=q-1;
         sort(all(queries));
@@ -146,10 +147,13 @@ int main()
             }
             while(ptr>=0 && i==queries[ptr].first){
                 for(ll j=0;j<f.size();j++){
-                    ans[ptr] += ll(sg[j].get(queries[ptr].first,queries[ptr].second+1,0,0,sg[j].treesize).sm > 0);
-                    
+                    ans[queries[ptr].second.second] += ll(sg[j].get(queries[ptr].first,queries[ptr].second.first+1,0,0,sg[j].treesize).sm > 0);
                 }
+                ptr++;
             }
+        }
+        fi(0,q){
+            cout<<ans[i]<<endl;
         }
     }
     return 0;
