@@ -64,7 +64,7 @@ int main()
         vector<vector<ll>> sufpre(f.size(),vector<ll> (n,1e18));
         fi(0,f.size()){
             for(ll j=n-2;j>=0;j--){
-                sufpre[i][j] = min(sufpre[i][j], sufpre[i][j+1]); 
+                sufpre[i][j] = min(pre[i][j], sufpre[i][j+1]); 
             }
         }
         fi(0,q){
