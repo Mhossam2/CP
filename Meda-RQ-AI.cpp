@@ -131,7 +131,7 @@ int main()
             if(a[l]==a[r]) cout<<r-l+1<<endl;
             else{
                 ll ans = max(last[a[l]]-l+1 , r-first[a[r]]+1);
-                ans = max(ans,seg.get(last[a[l]]+1,first[a[r]],0,0,seg.treesize).mx);
+                ans = max(ans,seg.get(a[l]+1,a[r],0,0,seg.treesize).mx);
                 cout<<ans<<endl;
             }
         }
