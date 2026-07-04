@@ -24,6 +24,73 @@ inline bool in(int i, int l, int h)
     return i >= l && i <= h;
 }
 const ll MOD = 1e9+7;
+struct Node
+{
+    ll sm;
+    Node()
+    { // neutral node
+        sm = 0;
+    }
+    Node(ll x)
+    {
+        sm = x;
+    }
+    void change(ll x)
+    {
+        sm = x;
+    }
+};
+struct segtree
+{ // 0-indexed [l,r)
+    ll treesize;
+    vector<Node> segdata;
+    Node merge(Node &ln, Node &rn)
+    {
+        Node ans = Node();
+        ans.sm = ln.sm + rn.sm;
+        return ans;
+    }
+    segtree(vector<ll> &arr)
+    {
+        treesize = 1;
+        while (treesize < arr.size())
+            treesize *= 2;
+        segdata.assign(2 * treesize, Node());
+        for (ll i = 0; i < arr.size(); i++)
+        {
+            segdata[treesize + i - 1] = Node(arr[i]);
+        }
+        for (ll i = treesize - 2; i >= 0; --i)
+        {
+            segdata[i] = merge(segdata[2 * i + 1], segdata[2 * i + 2]);
+        }
+    }
+    void update(ll ind, ll val, ll ni, ll lx, ll rx)
+    {
+        if (rx - lx == 1)
+        {
+            segdata[ni].change(val);
+            return;
+        }
+        ll mid = (lx + rx) / 2;
+        if (ind < mid)
+            update(ind, val, 2 * ni + 1, lx, mid);
+        else
+            update(ind, val, 2 * ni + 2, mid, rx);
+        segdata[ni] = merge(segdata[2 * ni + 1], segdata[2 * ni + 2]);
+    }
+    Node get(ll l, ll r, ll ni, ll lx, ll rx)
+    {
+        if (rx <= l || lx >= r)
+            return Node();
+        if (lx >= l && rx <= r)
+            return segdata[ni];
+        ll mid = (rx + lx) / 2;
+        Node ln = get(l, r, 2 * ni + 1, lx, mid);
+        Node rn = get(l, r, 2 * ni + 2, mid, rx);
+        return merge(ln, rn);
+    }
+};
 using namespace std;
 int main()
 {
@@ -62,20 +129,14 @@ int main()
                 pre[i][j] = *it;
             }
         }
-        vector<vector<ll>> sufpre(f.size(),vector<ll> (n,1e9));
-        fi(0,f.size()){
-            for(ll j=n-2;j>=0;j--){
-                sufpre[i][j] = min(pre[i][j], sufpre[i][j+1]); 
-            }
-        }
+        vll z(n,0);
+        vector<segtree> sg(f.size(), segtree(z));
+        vector<pair<ll,ll>> queries(q);
         fi(0,q){
-            ll l,r;cin>>l>>r;
-            ll cnt = 0;
-            fj(0,f.size()){
-                if(sufpre[j][l]<=r) cnt++;
-            }
-            cout<<cnt<<endl;
+            cin>>queries[i].second>>queries[i].first;
         }
+        sort(all(queries));
+        
     }
     return 0;
 }
