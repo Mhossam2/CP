@@ -37,7 +37,7 @@ struct Node
     }
     void change(ll x)
     {
-        sm = x;
+        sm += x;
     }
 };
 struct segtree
@@ -133,10 +133,24 @@ int main()
         vector<segtree> sg(f.size(), segtree(z));
         vector<pair<ll,ll>> queries(q);
         fi(0,q){
-            cin>>queries[i].second>>queries[i].first;
+            cin>>queries[i].first>>queries[i].second;
         }
+        ll ptr=q-1;
         sort(all(queries));
-        
+        reverse(all(queries));
+        vector<ll> ans(q,0);
+        for(ll i=n-1;i>=0;i--){
+            for(ll j=0;j<f.size();j++){
+                if(pre[j][i]==1e9) continue;
+                sg[j].update(pre[j][i],1,0,0,sg[j].treesize);
+            }
+            while(ptr>=0 && i==queries[ptr].first){
+                for(ll j=0;j<f.size();j++){
+                    ans[ptr] += ll(sg[j].get(queries[ptr].first,queries[ptr].second+1,0,0,sg[j].treesize).sm > 0);
+                    
+                }
+            }
+        }
     }
     return 0;
 }
