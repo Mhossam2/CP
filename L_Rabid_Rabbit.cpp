@@ -32,7 +32,49 @@ int main()
     //cin >> t;
     while (t--)
     {
-        ll n,q;cin>>n>>q;  
+        ll n,q;cin>>n>>q;
+        vll a(n);
+        ll mx=0;
+        fi(0,n) cin>>a[i];
+        map<ll,vector<ll>> mp;
+        fi(0,n){
+            mx=max(mx,a[i]);
+            mp[a[i]].push_back(i);
+        }
+        vll f;
+        f.push_back(2);
+        f.push_back(3);
+        ll num1 = 2;
+        ll num2 = 3;
+        while(num2<= 2*mx){
+            ll x = num2;
+            num2+=num1;
+            f.push_back(num2);
+            num1=x;
+        }
+        vector<vector<ll>> pre(f.size(),vector<ll> (n,1e18));
+        fi(0,f.size()){
+            fj(0,n){
+                ll tg = f[i] - a[j];
+                auto it = upper_bound(all(mp[tg]), j);
+                if(it==mp[tg].end()) continue;
+                pre[i][j] = *it;
+            }
+        }
+        vector<vector<ll>> sufpre(f.size(),vector<ll> (n,1e18));
+        fi(0,f.size()){
+            for(ll j=n-2;j>=0;j--){
+                sufpre[i][j] = min(sufpre[i][j], sufpre[i][j+1]); 
+            }
+        }
+        fi(0,q){
+            ll l,r;cin>>l>>r;
+            ll cnt = 0;
+            fj(0,f.size()){
+                if(sufpre[j][l]<=r) cnt++;
+            }
+            cout<<cnt<<endl;
+        }
     }
     return 0;
 }
