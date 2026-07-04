@@ -97,7 +97,7 @@ int main()
     HONDA
     int t = 1;
     // cin >> t;
-    while (1)
+    while (t)
     {
         ll n,q;cin>>n>>q;
         vll a(n);
@@ -135,8 +135,7 @@ int main()
                 cout<<ans<<endl;
             }
         }
-        cin>>n;
-        if(n==0) break;
+        cin>>t;
     }
     return 0;
 }
