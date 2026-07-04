@@ -56,6 +56,7 @@ int main()
         fi(0,f.size()){
             fj(0,n){
                 ll tg = f[i] - a[j];
+                if(mp.count(tg)==0) continue;
                 auto it = upper_bound(all(mp[tg]), j);
                 if(it==mp[tg].end()) continue;
                 pre[i][j] = *it;
