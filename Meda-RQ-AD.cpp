@@ -115,7 +115,7 @@ int main()
             qu[i].index=i;
         }
         sort(all(qu), [](queries a, queries b){
-            return a.v > b.v; 
+            return a.v < b.v; 
         });
         vector<ll> z(n,0);
         segtree seg(z);
