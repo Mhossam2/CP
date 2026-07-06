@@ -126,7 +126,8 @@ int main()
                 seg.update(it->second[i],1,0,0,seg.treesize);
             }
             if(ptr<q && qu[ptr].v == it->first){
-                ans[qu[ptr].index] = seg.get(qu[ptr].l-1, qu[ptr].r,0,0,seg.treesize).sm;
+                ans[qu[ptr].index] = -1*seg.get(qu[ptr].l-1, qu[ptr].r,0,0,seg.treesize).sm;
+                ans[qu[ptr].index] += qu[ptr].r-qu[ptr].l+1;
                 ptr++;
             }
         }
