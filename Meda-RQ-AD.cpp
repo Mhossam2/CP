@@ -120,16 +120,16 @@ int main()
         vector<ll> z(n,0);
         segtree seg(z);
         vector<ll> ans(q);
-        ll ptr = 0;
-        fit(mp){
-            for(ll i=0;i<it->second.size();i++){
-                seg.update(it->second[i],1,0,0,seg.treesize);
+        auto it = mp.begin();
+        fi(0,q){
+            while(it!=mp.end() && it->first <= qu[i].v){
+                for(ll pos : it->second){
+                    seg.update(pos, 1, 0, 0, seg.treesize);
+                }
+                it++;
             }
-            while(ptr<q && qu[ptr].v <= it->first){
-                ans[qu[ptr].index] = -1*seg.get(qu[ptr].l-1, qu[ptr].r,0,0,seg.treesize).sm;
-                ans[qu[ptr].index] += qu[ptr].r-qu[ptr].l+1;
-                ptr++;
-            }
+            ans[qu[i].index] = -1*seg.get(qu[i].l-1, qu[i].r,0,0,seg.treesize).sm;
+            ans[qu[i].index] += qu[i].r-qu[i].l+1;
         }
         fi(0,q) cout<<ans[i]<<endl;
     }
