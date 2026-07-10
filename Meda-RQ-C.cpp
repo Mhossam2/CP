@@ -23,9 +23,6 @@ inline bool in(int i, int l, int h)
 {
     return i >= l && i <= h;
 }
-struct queries{
-    ll r,l,v,index;
-};
 struct Node
 {
     ll sm;
@@ -107,11 +104,24 @@ int main()
             cin>>a[i];
             pos[a[i]]=i;
         }
-        vector<vector<int>> divisors(n+1);
-        for (int d = 1; d <= n; d++)
-            for (int mlt = d; mlt <= n; mlt += d)
+        vector<vector<ll>> divisors(n+1);
+        for (ll d = 1; d <= n; d++)
+            for (ll mlt = d; mlt <= n; mlt += d)
                 divisors[mlt].push_back(d);
-        
+        vector<ll> L(q),R(q);
+        vector<vector<ll>> queries(n+1);
+        fi(0,q){
+            cin>>L[i]>>R[i];
+            queries[R[i]].push_back(i);
+        }
+        vll z(n+1,0);
+        segtree seg(z);
+        vector<ll> ans(q);
+        for(ll j=1;j<=n;j++){
+            ll v = a[j];
+            seg.update(j,1,0,0,seg.treesize);
+            
+        }
     }
     return 0;
 }
