@@ -36,7 +36,7 @@ struct Node
     }
     void change(ll x)
     {
-        sm = x;
+        sm += x;
     }
 };
 struct segtree
@@ -116,7 +116,7 @@ int main()
             cin>>L[i]>>R[i];
             queries[R[i]].push_back(i);
         }
-        
+
         vll z(n+1,0);
         segtree seg(z);
         vector<ll> ans(q);
