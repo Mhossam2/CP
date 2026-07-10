@@ -104,16 +104,19 @@ int main()
             cin>>a[i];
             pos[a[i]]=i;
         }
+
         vector<vector<ll>> divisors(n+1);
         for (ll d = 1; d <= n; d++)
             for (ll mlt = d; mlt <= n; mlt += d)
                 divisors[mlt].push_back(d);
+        
         vector<ll> L(q),R(q);
         vector<vector<ll>> queries(n+1);
         fi(0,q){
             cin>>L[i]>>R[i];
             queries[R[i]].push_back(i);
         }
+        
         vll z(n+1,0);
         segtree seg(z);
         vector<ll> ans(q);
