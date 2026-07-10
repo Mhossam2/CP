@@ -120,8 +120,20 @@ int main()
         for(ll j=1;j<=n;j++){
             ll v = a[j];
             seg.update(j,1,0,0,seg.treesize);
-            
+            for(ll d : divisors[v]){
+                if(d==v) continue;
+                ll i = pos[d];
+                if(i < j) seg.update(i,1,0,0,seg.treesize);
+            }
+            for(ll mlt = v*2;mlt<=n;mlt+=v){
+                ll i = pos[mlt];
+                if(i < j) seg.update(i,1,0,0,seg.treesize);
+            }
+            for(ll qi : queries[j]){
+                ans[qi] = seg.get(L[qi], R[qi]+1, 0,0,seg.treesize).sm;
+            }
         }
+        fi(0,q) cout<<ans[i]<<endl;
     }
     return 0;
 }
