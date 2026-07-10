@@ -101,37 +101,17 @@ int main()
     // cin >> t;
     while (t--)
     {
-        ll n;cin>>n;
-        vll a(n);
-        map<ll,vector<ll>> mp;
-        fi(0,n){
+        ll n,q;cin>>n>>q;
+        vll a(n+1),pos(n+1);
+        fi(1,n+1){
             cin>>a[i];
-            mp[a[i]].push_back(i);
+            pos[a[i]]=i;
         }
-        ll q;cin>>q;
-        vector<queries> qu(q);
-        fi(0,q){
-            cin>>qu[i].l>>qu[i].r>>qu[i].v;
-            qu[i].index=i;
-        }
-        sort(all(qu), [](queries a, queries b){
-            return a.v < b.v; 
-        });
-        vector<ll> z(n,0);
-        segtree seg(z);
-        vector<ll> ans(q);
-        auto it = mp.begin();
-        fi(0,q){
-            while(it!=mp.end() && it->first <= qu[i].v){
-                for(ll pos : it->second){
-                    seg.update(pos, 1, 0, 0, seg.treesize);
-                }
-                it++;
-            }
-            ans[qu[i].index] = -1*seg.get(qu[i].l-1, qu[i].r,0,0,seg.treesize).sm;
-            ans[qu[i].index] += qu[i].r-qu[i].l+1;
-        }
-        fi(0,q) cout<<ans[i]<<endl;
+        vector<vector<int>> divisors(n+1);
+        for (int d = 1; d <= n; d++)
+            for (int mlt = d; mlt <= n; mlt += d)
+                divisors[mlt].push_back(d);
+        
     }
     return 0;
 }
