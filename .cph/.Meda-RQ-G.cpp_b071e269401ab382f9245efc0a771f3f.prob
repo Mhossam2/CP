@@ -1,0 +1,1 @@
+{"name":"Local: Meda-RQ-G","url":"d:\\CP\\Meda-RQ-G.cpp","tests":[{"id":1783783650194,"input":"2\n4\n5","output":"2 1 4 3\n3 1 4 5 2"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"d:\\CP\\Meda-RQ-G.cpp","group":"local","local":true}
