@@ -93,7 +93,10 @@ int main()
         for(ll u: path){
             if(u!=1) c[p[u]].push_back(u);
         }
-        
+        for(ll i = path.size()-1; i>=0; i--){
+            ll u = path[i];
+            
+        }
     }
     return 0;
 }
