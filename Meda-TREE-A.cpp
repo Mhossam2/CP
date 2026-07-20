@@ -73,7 +73,27 @@ int main()
             adj[x].push_back(y);
             adj[y].push_back(x);
         }
-        vector<set<ll>> ans(n);
+        vector<ll> p(n+1,0);
+        vector<ll> path;
+        vector<bool> vis(n+1,false);
+        queue<ll> q;
+        q.push(1);
+        vis[1]=1;
+        while(!q.empty()){
+            ll node = q.front(); q.pop();
+            path.push_back(node);
+            for(ll nxt : adj[node]){
+                if(vis[nxt]) continue;
+                vis[nxt] = 1;
+                p[nxt] = node;
+                q.push(nxt);
+            }
+        }
+        vector<vector<ll>> c(n+1);
+        for(ll u: path){
+            if(u!=1) c[p[u]].push_back(u);
+        }
+        
     }
     return 0;
 }
