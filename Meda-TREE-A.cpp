@@ -23,38 +23,6 @@ inline bool in(int i, int l, int h)
 {
     return i >= l && i <= h;
 }
-struct DSU{
-    vector<ll> parent, size;
-    DSU(ll n){
-        parent.resize(n);
-        size.resize(n+1);
-        for(ll i=0; i<n; i++) parent[i]=i;
-    }
-    ll find_set(ll v) {  //find the leader of the set in very small constant of time
-        if (v == parent[v])
-            return v;
-        return parent[v] = find_set(parent[v]);
-    }
-
-    void union_sets(ll a, ll b) { //merge two sets O(1)
-        a = find_set(a);
-        b = find_set(b);
-        if (a != b) {
-            if (size[a] < size[b])
-                swap(a, b);
-            parent[b] = a;
-            size[a] += size[b];
-        }
-    }
-};
-void dfs(ll node, ll parent, vector<vector<ll>> &adj, vector<ll> &color, vector<set<ll>> &ans){
-    ans[node].insert(color[node]);
-    for(ll nxt: adj[node]){
-        if(nxt == parent) continue;
-        ans[node].insert(color[nxt]);
-        dfs(nxt,node,adj,color,ans);
-    }
-}
 int main()
 {
     HONDA
@@ -93,15 +61,21 @@ int main()
         for(ll u: path){
             if(u!=1) c[p[u]].push_back(u);
         }
-        vector<set<ll>> s;
+        vector<set<ll>> s(n+1);
+        vector<ll> ans(n+1);
         for(ll i = path.size()-1; i>=0; i--){
             ll u = path[i];
             s[u].insert(color[u]);
             for(ll x: c[u]){
-                if(s[x].size()<s[u].size()){
-                    
+                if(s[x].size() > s[u].size()){
+                    s[u].swap(s[x]);
                 }
+                for(ll v:s[x]) s[u].insert(v);
             }
+            ans[i]=s[u].size();
+        }
+        fi(1,n+1){
+            cout<<ans[i]<<" ";
         }
     }
     return 0;
