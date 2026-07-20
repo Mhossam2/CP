@@ -72,7 +72,7 @@ int main()
                 }
                 for(ll v:s[x]) s[u].insert(v);
             }
-            ans[i]=s[u].size();
+            ans[u]=s[u].size();
         }
         fi(1,n+1){
             cout<<ans[i]<<" ";
