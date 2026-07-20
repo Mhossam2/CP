@@ -63,22 +63,17 @@ int main()
     while (t--)
     {
         ll n;cin>>n;
-        vll color(n);
-        fi(0,n){
+        vll color(n+1);
+        fi(1,n+1){
             cin>>color[i];
         }  
-        vector<vector<ll>> adj(n);
+        vector<vector<ll>> adj(n+1);
         fi(0,n-1){
             ll x,y;cin>>x>>y;
-            x--;y--;
             adj[x].push_back(y);
             adj[y].push_back(x);
         }
         vector<set<ll>> ans(n);
-        dfs(0,-1,adj,color,ans);
-        fi(0,n){
-            cout<<ans[i].size()<<" ";
-        }
     }
     return 0;
 }
