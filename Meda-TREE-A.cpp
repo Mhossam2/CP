@@ -93,9 +93,15 @@ int main()
         for(ll u: path){
             if(u!=1) c[p[u]].push_back(u);
         }
+        vector<set<ll>> s;
         for(ll i = path.size()-1; i>=0; i--){
             ll u = path[i];
-            
+            s[u].insert(color[u]);
+            for(ll x: c[u]){
+                if(s[x].size()<s[u].size()){
+                    
+                }
+            }
         }
     }
     return 0;
