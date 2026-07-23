@@ -37,9 +37,8 @@ int main()
             ll x;cin>>x;
             mp[x]++;
         }
-        vll c;
-        fi(0,n){
-            if(mp[i] < 1 && i%2==0){
+        fi(0, n + 1){
+            if(mp[i] <= 1){
                 cout<<i<<endl;
                 break;
             }   
