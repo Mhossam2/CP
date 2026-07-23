@@ -38,7 +38,7 @@ int main()
             mp[x]++;
         }
         fi(0, n + 1){
-            if(mp[i] <= 1){
+            if((mp[i]==1 && mp[i-1]==1) || mp[i]==0){
                 cout<<i<<endl;
                 break;
             }   
