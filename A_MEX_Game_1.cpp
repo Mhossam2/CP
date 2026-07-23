@@ -37,11 +37,13 @@ int main()
             ll x;cin>>x;
             mp[x]++;
         }
+        ll x=0;
         fi(0, n + 1){
-            if((mp[i]==1 && mp[i-1]==1) || mp[i]==0){
+            if((mp[i]==1 && x) || mp[i]==0){
                 cout<<i<<endl;
                 break;
-            }   
+            }
+            if(mp[i]==1) x=1;
         }
     }
     return 0;
