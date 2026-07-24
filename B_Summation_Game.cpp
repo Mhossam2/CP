@@ -40,7 +40,8 @@ int main()
         }
         sort(all(a));
         ll c =min(n,x); 
-        ll ans = pre[n] - 2*(pre[n-x]);
+        ll ans = pre[n] - 2*(pre[n] - pre[n-c]);
+        cout<<ans<<endl;
     }
     return 0;
 }
