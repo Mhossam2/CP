@@ -31,7 +31,16 @@ int main()
     cin >> t;
     while (t--)
     {
-        
+        ll n,k,x;cin>>n>>k>>x;
+        vll a(n);
+        vll pre(n+1,0);
+        fi(0,n){
+            cin>>a[i];
+            pre[i+1] = pre[i]+a[i];
+        }
+        sort(all(a));
+        ll c =min(n,x); 
+        ll ans = pre[n] - 2*(pre[n-x]);
     }
     return 0;
 }
