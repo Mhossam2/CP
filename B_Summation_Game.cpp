@@ -39,8 +39,15 @@ int main()
             pre[i+1] = pre[i]+a[i];
         }
         sort(all(a));
-        ll c = min(n,x); 
-        ll ans = pre[n] - 2*(pre[n] - pre[n-c]);
+        fi(0,n){
+            pre[i+1] = pre[i]+a[i];
+        }
+        ll ans = LLONG_MIN;
+        for(ll i = 0; i<=k;i++){
+            ll len = n - i;
+            ll c = min(len,x);
+            ans = max(ans,pre[len] - 2*(pre[len]-pre[len-c])); 
+        }
         cout<<ans<<endl;
     }
     return 0;
