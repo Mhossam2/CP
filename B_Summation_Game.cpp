@@ -39,7 +39,7 @@ int main()
             pre[i+1] = pre[i]+a[i];
         }
         sort(all(a));
-        ll c =min(n,x); 
+        ll c = min(n,x); 
         ll ans = pre[n] - 2*(pre[n] - pre[n-c]);
         cout<<ans<<endl;
     }
