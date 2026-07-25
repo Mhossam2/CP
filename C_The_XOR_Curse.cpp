@@ -33,10 +33,8 @@ int main()
     {
         ll n,k,x;cin>>n>>k>>x;
         vll a(n);
-        ll mx=0;
-        ll mn = 1e5;
         vector<ll> freq(1024,0);
-        fi(0,n) cin>>a[i], freq[a[i]]++, mx=max(mx,a[i]), mn=min(mn,a[i]);
+        fi(0,n) cin>>a[i], freq[a[i]]++;
         ll ind=0;
         vector<ll> newfreq(1024,0);
         fi(0,k){
@@ -52,10 +50,16 @@ int main()
                     newfreq[newnum] += freq[j] / 2 + 1;
                     newfreq[j] += freq[j] / 2;
                 }
-                if(newfreq[newnum]) mx=max(mx,newnum), mn=min(mn,newnum);
                 ind += freq[j];
             }
             freq=newfreq;
+        }
+        ll mx = -1, mn = -1;
+        for (ll v = 0; v < 1024; v++) {
+            if (freq[v] > 0) {
+                if (mn == -1) mn = v;
+                mx = v;
+            }
         }
         cout<<mx<<" "<<mn;
         
