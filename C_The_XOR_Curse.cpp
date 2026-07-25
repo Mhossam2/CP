@@ -41,16 +41,17 @@ int main()
             ind=0;
             fj(0,1024) newfreq[j]=0;
             for(ll j = 0;j<1024;j++){
+                ll c = freq[j];
+                if (c == 0) continue;          
                 ll newnum = j ^ x;
-                if(ind%2 == 0){
-                    newfreq[newnum] += freq[j]/2;
-                    newfreq[j] += freq[j]/2 + 1;
+                if (ind % 2 == 0) {            
+                    newfreq[newnum] += (c + 1) / 2;
+                    newfreq[j]      += c / 2;       
+                } else {                       
+                    newfreq[newnum] += c / 2;
+                    newfreq[j]      += (c + 1) / 2;
                 }
-                else{
-                    newfreq[newnum] += freq[j] / 2 + 1;
-                    newfreq[j] += freq[j] / 2;
-                }
-                ind += freq[j];
+                ind += c;
             }
             freq=newfreq;
         }
