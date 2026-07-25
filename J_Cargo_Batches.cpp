@@ -24,13 +24,24 @@ inline bool in(int i, int l, int h)
     return i >= l && i <= h;
 }
 ll n,k,c;
-vll time,m;
+vll tm,m;
 bool check(ll num){
     ll pos = 0;
     ll cnt = 0;
     while(pos < n){
         ll r = pos;
-        
+        ll sm=0;
+        ll mx=0;
+        while(r<n){
+            ll nsm = sm + tm[r];
+            ll nmx = max(mx,m[r]);
+            if(nsm+c*nmx<=num){
+                sm =nsm;
+                mx=nmx;
+                r++;
+            }
+            else break;
+        }
     }
 }
 using namespace std;
