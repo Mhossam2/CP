@@ -28,7 +28,8 @@ vll time,m;
 bool check(ll num){
     ll pos = 0;
     ll cnt = 0;
-    while(pos <n){
+    while(pos < n){
+        ll r = pos;
         
     }
 }
