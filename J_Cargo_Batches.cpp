@@ -24,20 +24,17 @@ inline bool in(int i, int l, int h)
     return i >= l && i <= h;
 }
 ll n,k,c;
-vll tt,m;
-bool check(ll num){
+bool check(ll num, vector<ll> &tt, vector<ll> &m){
     ll pos = 0;
     ll cnt = 0;
     while(pos < n){
-        ll r = pos;
-        ll sm=0;
-        ll mx=0;
+        ll r = pos; ll sm=0; ll mx=0;
         while(r<n){
             ll nsm = sm + tt[r];
             ll nmx = max(mx,m[r]);
             if(nsm+c*nmx<=num){
-                sm =nsm;
-                mx=nmx;
+                sm = nsm;
+                mx = nmx;
                 r++;
             }
             else break;
@@ -48,12 +45,12 @@ bool check(ll num){
     }
     return true;
 }
-ll bn(){
-    ll lo = 0, hi = 1e18;
+ll bn(vector<ll> &tt, vector<ll> &m){
+    ll lo = 0, hi = 1e18 + 1e15;
     ll ans = -1;
     while(lo <= hi){
         ll mid = lo + (hi - lo) / 2;
-        if(check(mid)){
+        if(check(mid,tt,m)){
             hi = mid - 1;
             ans = mid;
         } else {
@@ -71,14 +68,11 @@ int main()
     while (t--)
     {
         cin>>n>>k>>c;
-        tt.clear();
-        m.clear();
+        vll tt(n),m(n);
         fi(0,n){
-            ll x,y;cin>>x>>y;
-            tt.push_back(x);
-            m.push_back(y);
+            cin>>tt[i]>>m[i];
         }
-        cout<<bn()<<endl;
+        cout<<bn(tt,m)<<endl;
     }
     return 0;
 }
