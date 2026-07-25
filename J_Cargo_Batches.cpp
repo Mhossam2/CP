@@ -24,7 +24,7 @@ inline bool in(int i, int l, int h)
     return i >= l && i <= h;
 }
 ll n,k,c;
-vll tm,m;
+vll tt,m;
 bool check(ll num){
     ll pos = 0;
     ll cnt = 0;
@@ -33,7 +33,7 @@ bool check(ll num){
         ll sm=0;
         ll mx=0;
         while(r<n){
-            ll nsm = sm + tm[r];
+            ll nsm = sm + tt[r];
             ll nmx = max(mx,m[r]);
             if(nsm+c*nmx<=num){
                 sm =nsm;
@@ -71,11 +71,11 @@ int main()
     while (t--)
     {
         cin>>n>>k>>c;
-        tm.clear();
+        tt.clear();
         m.clear();
         fi(0,n){
             ll x,y;cin>>x>>y;
-            tm.push_back(x);
+            tt.push_back(x);
             m.push_back(y);
         }
         cout<<bn()<<endl;
