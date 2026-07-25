@@ -28,12 +28,24 @@ int main()
 {
     HONDA
     int t = 1;
-    cin >> t;
+    //cin >> t;
     while (t--)
     {
         ll n;cin>>n;
-        fi(0,n){
-            
+        vll a(n+1);
+        vll pre(n+1,0);
+        vll prepre(n+1,0);
+        fi(1,n+1){
+            cin>>a[i];
+        }
+        fi(1,n+1){
+            pre[i]=a[i]+pre[i-1];
+        }
+        fi(1,n+1){
+            prepre[i]=pre[i]+prepre[i-1];
+        }
+        fi(1,n+1){
+            cout<<prepre[n] - prepre[i-1] - prepre[n-i]<<" ";
         }
     }
     return 0;
