@@ -42,13 +42,14 @@ bool check(ll num){
             }
             else break;
         }
-        if(r==pos || cnt > k) return false;
+        if(r==pos || cnt+1 > k) return false;
+        cnt++;
         pos = r;
     }
     return true;
 }
 ll bn(){
-    ll lo = 1, hi = 1e18;
+    ll lo = 0, hi = 1e18;
     ll ans = -1;
     while(lo <= hi){
         ll mid = lo + (hi - lo) / 2;
@@ -70,6 +71,8 @@ int main()
     while (t--)
     {
         cin>>n>>k>>c;
+        tm.clear();
+        m.clear();
         fi(0,n){
             ll x,y;cin>>x>>y;
             tm.push_back(x);
