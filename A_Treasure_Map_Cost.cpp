@@ -72,6 +72,7 @@ int main()
     HONDA
     int t = 1;
     cin >> t;
+    precompute();
     while (t--)
     {
         ll n,k;cin>>n>>k;
@@ -89,7 +90,7 @@ int main()
         ll ans=0;
         fi(0,n-1){
             if(subtreeSize[edges[i].first]<subtreeSize[edges[i].second]) swap(edges[i].first,edges[i].second);
-            ans = (ans + nCr(n,k) - nCr(subtreeSize[edges[i].second],k) - nCr(n - subtreeSize[edges[i].second],k))%MOD;
+            ans = ((ans + nCr(n,k) - nCr(subtreeSize[edges[i].second],k) - nCr(n - subtreeSize[edges[i].second],k)) % MOD + MOD) % MOD;
         }
         cout<<ans<<endl;
     }
