@@ -26,7 +26,11 @@ inline bool in(int i, int l, int h)
 ll n,k,c;
 vll time,m;
 bool check(ll num){
-    
+    ll pos = 0;
+    ll cnt = 0;
+    while(pos <n){
+        
+    }
 }
 using namespace std;
 int main()
