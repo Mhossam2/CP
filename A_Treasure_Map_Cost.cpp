@@ -36,6 +36,36 @@ ll dfs(ll node, ll parent) {
     subtreeSize[node] = size;
     return size;
 }
+const int MOD = 1e9 + 7;
+const int MAXN = 200005;
+
+long long fact[MAXN], invFact[MAXN];
+
+long long power(long long a, long long b, long long mod) {
+    long long res = 1;
+    a %= mod;
+    while (b > 0) {
+        if (b & 1) res = res * a % mod;
+        a = a * a % mod;
+        b >>= 1;
+    }
+    return res;
+}
+
+void precompute() {
+    fact[0] = 1;
+    for (int i = 1; i < MAXN; i++)
+        fact[i] = fact[i - 1] * i % MOD;
+
+    invFact[MAXN - 1] = power(fact[MAXN - 1], MOD - 2, MOD); // Fermat's inverse
+    for (int i = MAXN - 2; i >= 0; i--)
+        invFact[i] = invFact[i + 1] * (i + 1) % MOD;
+}
+
+long long nCr(int n, int r) {
+    if (r < 0 || r > n) return 0;
+    return fact[n] * invFact[r] % MOD * invFact[n - r] % MOD;
+}
 using namespace std;
 int main()
 {
@@ -56,6 +86,12 @@ int main()
             edges[i].second=y;
         }
         dfs(1,0);
+        ll ans=0;
+        fi(0,n-1){
+            if(subtreeSize[edges[i].first]<subtreeSize[edges[i].second]) swap(edges[i].first,edges[i].second);
+            ans = (ans + nCr(n,k) - nCr(subtreeSize[edges[i].second],k) - nCr(n - subtreeSize[edges[i].second],k))%MOD;
+        }
+        cout<<ans<<endl;
     }
     return 0;
 }
