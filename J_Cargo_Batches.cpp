@@ -70,13 +70,12 @@ int main()
     while (t--)
     {
         cin>>n>>k>>c;
-        vll time,m;
         fi(0,n){
             ll x,y;cin>>x>>y;
-            time.push_back(x);
+            tm.push_back(x);
             m.push_back(y);
         }
-
+        cout<<bn()<<endl;
     }
     return 0;
 }
