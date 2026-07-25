@@ -42,7 +42,24 @@ bool check(ll num){
             }
             else break;
         }
+        if(r==pos || cnt > k) return false;
+        pos = r;
     }
+    return true;
+}
+ll bn(){
+    ll lo = 1, hi = 1e18;
+    ll ans = -1;
+    while(lo <= hi){
+        ll mid = lo + (hi - lo) / 2;
+        if(check(mid)){
+            hi = mid - 1;
+            ans = mid;
+        } else {
+            lo = mid + 1;
+        }
+    }
+    return ans;
 }
 using namespace std;
 int main()
