@@ -23,30 +23,27 @@ inline bool in(int i, int l, int h)
 {
     return i >= l && i <= h;
 }
+ll n,k,c;
+vll time,m;
+bool check(ll num){
+    
+}
 using namespace std;
 int main()
 {
     HONDA
     int t = 1;
-    //cin >> t;
+    cin >> t;
     while (t--)
     {
-        ll n;cin>>n;
-        vll a(n+1);
-        vll pre(n+1,0);
-        vll prepre(n+1,0);
-        fi(1,n+1){
-            cin>>a[i];
+        cin>>n>>k>>c;
+        vll time,m;
+        fi(0,n){
+            ll x,y;cin>>x>>y;
+            time.push_back(x);
+            m.push_back(y);
         }
-        fi(1,n+1){
-            pre[i]=a[i]+pre[i-1];
-        }
-        fi(1,n+1){
-            prepre[i]=pre[i]+prepre[i-1];
-        }
-        fi(1,n+1){
-            cout<<prepre[n] - prepre[i-1] - prepre[n-i]<<" ";
-        }
+
     }
     return 0;
 }
