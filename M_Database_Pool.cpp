@@ -41,7 +41,7 @@ int main()
             clk++;
             if(op==1 || op==2){
                 ll x;cin>>x;
-                if(last.count(x)){
+                if(s.count({last[x],x})){
                     s.erase({last[x], x});
                     s.insert({clk, x});
                     last[x]=clk;
