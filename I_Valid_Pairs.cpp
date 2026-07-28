@@ -38,7 +38,7 @@ int main()
         }
         ll ans=0;
         fi(0,31){
-            ans += cnt[i]*(cnt[i]-1)/2;
+            ans += cnt[i] * (cnt[i]-1) / 2;
         }
         cout<<ans<<endl;
     }
