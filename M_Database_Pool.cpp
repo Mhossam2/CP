@@ -31,7 +31,22 @@ int main()
     while (t--)
     {
         ll n,q;cin>>n>>q;
-        
+        set<pair<ll,ll>> s;
+        mpll last;
+        mpll dirty;
+        ll clk=0;
+        ll cnt=0;
+        fi(0,q){
+            ll op;cin>>op;
+            if(op==1 || op==2){
+                ll x;cin>>x;
+                if(last.count(x)){
+                    s.erase({last[x], x});
+                    s.insert({clk, x});
+                    last[x]=clk;
+                }
+            }
+        }
     }
     return 0;
 }
