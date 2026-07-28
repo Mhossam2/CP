@@ -99,11 +99,22 @@ int main()
     while (t--)
     {
         ll n,q;cin>>n>>q;
-        vll a(n);
-        fi(0,n) cin>>a[i];
-        vector<ll> preg(n);
-        vector<ll> sufg(n);
-        
+        vll a(n+1);
+        fi(1,n+1) cin>>a[i];
+        vector<ll> preg(n+1, 0);
+        vector<ll> sufg(n+1, n + 1);
+        vector<ll> temp;
+        for(ll i = 1;i<n+1;i++){
+            while(!temp.empty() && a[temp.back()] <= a[i]) temp.pop_back();
+            if(!temp.empty()) preg[i]=temp.back();
+            temp.push_back(i);
+        }
+        for(ll i = 1;i<n+1;i++){
+            while(!temp.empty() && a[temp.back()] >= a[i]) temp.pop_back();
+            if(!temp.empty()) preg[i]=temp.back();
+            temp.push_back(i);
+        }
+        vector<ll> l(q);
     }
     return 0;
 }
