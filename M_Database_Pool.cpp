@@ -33,11 +33,12 @@ int main()
         ll n,q;cin>>n>>q;
         set<pair<ll,ll>> s;
         mpll last;
-        mpll dirty;
+        set<ll> dirty;
         ll clk=0;
         ll cnt=0;
         fi(0,q){
             ll op;cin>>op;
+            clk++;
             if(op==1 || op==2){
                 ll x;cin>>x;
                 if(last.count(x)){
@@ -49,9 +50,20 @@ int main()
                     if(s.size()>=n){
                         ll p = s.begin()->second;
                         s.erase(s.begin());
-                        
+                        dirty.erase(p);
                     }
+                    s.insert({clk, x});
+                    last[x] = clk;
                 }
+                if(op==2) dirty.insert(x);
+            }
+            else if(op==3){
+                cout<<dirty.size()<<endl;
+                dirty.clear();
+            }
+            else{
+                ll x;cin>>x;
+                cout<<s.count({last[x],x})<<" "<<dirty.count(x)<<endl;
             }
         }
     }
