@@ -45,6 +45,13 @@ int main()
                     s.insert({clk, x});
                     last[x]=clk;
                 }
+                else{
+                    if(s.size()>=n){
+                        ll p = s.begin()->second;
+                        s.erase(s.begin());
+                        
+                    }
+                }
             }
         }
     }
