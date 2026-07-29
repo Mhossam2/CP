@@ -109,12 +109,33 @@ int main()
             if(!temp.empty()) preg[i]=temp.back();
             temp.push_back(i);
         }
-        for(ll i = 1;i<n+1;i++){
-            while(!temp.empty() && a[temp.back()] >= a[i]) temp.pop_back();
-            if(!temp.empty()) preg[i]=temp.back();
+        temp.clear();
+        for(ll i = n;i>=1;i++){
+            while(!temp.empty() && a[temp.back()] <= a[i]) temp.pop_back();
+            if(!temp.empty()) sufg[i]=temp.back();
             temp.push_back(i);
         }
-        vector<ll> l(q);
+        deque<pair<ll,ll>> byl(q),byr(q);
+        fi(0,q){
+            cin>>byl[i].first>>byl[i].second;
+            byr[i].first=byl[i].second;
+            byr[i].second=byr[i].first;
+        }
+        sort(all(byl));
+        sort(all(byr));
+        vector<vector<ll>> b1(n+2),b2(n+2);
+        fi(1,n+1){
+            b1[preg[i]].push_back(i);
+            b2[sufg[i]].push_back(i);
+        }
+        vll ans1(q,0);vll ans2(q,0);
+        vll zeros(n+3,0);
+        segtree seg1 = segtree(zeros);
+        segtree seg2 = segtree(zeros);
+        fi(1,n+1){
+            for(ll num : b1[i]) seg1.update(num,1,0,0,seg1.treesize);
+            while(byl[0].first==)
+        }
     }
     return 0;
 }
