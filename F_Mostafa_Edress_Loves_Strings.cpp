@@ -40,9 +40,7 @@ int main()
             fi(0,2){
                 s += ('a'+i);
                 if(s.size()==n-k){
-                    while(s.size()<n){
-                        
-                    }
+                    break;
                 }
             }
         }
