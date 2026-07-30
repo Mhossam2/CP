@@ -38,7 +38,7 @@ int main()
             ll l=0;
             ll num = a[0];
             ll r = 1;
-            while(r<n && r < i){
+            while(r < n && r < i){
                 num *= a[r];
                 r++;
             }
