@@ -37,10 +37,17 @@ int main()
         ll mn=a[0];
         ll ans=a[0];
         fi(1,n){
-            if(a[i]<0){
-                
+            if(a[i]>0){
+                mx = max(a[i], mx*a[i]);
+                mn = min(a[i], mn*a[i]);
             }
+            else{
+                mx = max(a[i], mn*a[i]);
+                mn = min(a[i], mx*a[i]);
+            }
+            ans = max(ans,mx);
         }
+        cout<<ans;
     }
     return 0;
 }
