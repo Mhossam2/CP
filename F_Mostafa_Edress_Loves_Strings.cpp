@@ -35,15 +35,23 @@ int main()
             cout<<-1<<endl;
             continue;
         }
+        if(k==1 && n==1){
+            cout<<'a';
+            continue;
+        }
         string s="";
-        while(s.size()<(n-k)){
+        while(s.size()<(n-(k-2))){
             fi(0,2){
                 s += ('a'+i);
-                if(s.size()==n-k){
+                if(s.size()==n-(k-2)){
                     break;
                 }
             }
         }
+        fi(0,k-2){
+            s+=('c'+i);
+        }
+        cout<<s;
     }
     return 0;
 }
