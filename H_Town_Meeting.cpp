@@ -46,7 +46,13 @@ int main()
         }
         sort(all(rows));
         sort(all(cols));
-        
+        ll row = rows[rows.size()/2];
+        ll col = cols[cols.size()/2];
+        ll ans=0;
+        fi(0,ones.size()){
+            ans += (abs(ones[i].first-row)+abs(ones[i].second-col));
+        }
+        cout<<ans;
     }
     return 0;
 }
