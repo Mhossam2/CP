@@ -34,24 +34,6 @@ int main()
         vll a(n);
         fi(0,n) cin>>a[i];
         ll ans = -1e18;
-        for(ll i = 1; i < 11 && i <= n; i++){
-            ll l=0;
-            ll num = a[0];
-            ll r = 1;
-            while(r < n && r < i){
-                num *= a[r];
-                r++;
-            }
-            ans=max(num, ans);
-            while(r<n){
-                num *= a[r];
-                num /= a[l];
-                l++;
-                r++;
-                ans=max(num,ans);
-            }
-        }
-        cout << ans;
     }
     return 0;
 }
