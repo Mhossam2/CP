@@ -36,13 +36,16 @@ int main()
             continue;
         }
         string s="";
-        while(s.size()<n){
-            fi(0,k){
+        while(s.size()<(n-k)){
+            fi(0,2){
                 s += ('a'+i);
-                if(s.size()==n) break;
+                if(s.size()==n-k){
+                    while(s.size()<n){
+                        
+                    }
+                }
             }
         }
-        cout<<s;
     }
     return 0;
 }
