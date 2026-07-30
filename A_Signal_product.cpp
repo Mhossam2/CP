@@ -33,7 +33,14 @@ int main()
         ll n;cin>>n;
         vll a(n);
         fi(0,n) cin>>a[i];
-        ll ans = -1e18;
+        ll mx=a[0];
+        ll mn=a[0];
+        ll ans=a[0];
+        fi(1,n){
+            if(a[i]<0){
+                
+            }
+        }
     }
     return 0;
 }
