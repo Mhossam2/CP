@@ -30,25 +30,28 @@ int main()
     //cin >> t;
     while (t--)
     {
-        ll n;
+        ll n;cin>>n;
         vll a(n);
         fi(0,n) cin>>a[i];
-        ll ans=-1e18;
-        for(ll i=1;i<11 && i<n;i++){
-            ll num = 1;
+        ll ans = -1e18;
+        for(ll i = 1; i < 11 && i <= n; i++){
             ll l=0;
-            ll r=0;
-            while(r<n && r<=i){
-                num*=a[r];
+            ll num = a[0];
+            ll r = 1;
+            while(r<n && r < i){
+                num *= a[r];
+                r++;
             }
-            ans=max(num,ans);
+            ans=max(num, ans);
             while(r<n){
-                num*=a[r];
-                num/a[l];
+                num *= a[r];
+                num /= a[l];
+                l++;
+                r++;
                 ans=max(num,ans);
             }
         }
-        cout<<ans;
+        cout << ans;
     }
     return 0;
 }
