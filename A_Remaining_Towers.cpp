@@ -25,39 +25,52 @@ inline bool in(int i, int l, int h)
 }
 struct Node
 {
-    ll sm;
-    Node()
+    ll val;
+    ll type;
+    Node(ll type)
     { // neutral node
-        sm = 0;
+        if (type == 0)
+            val = 1e18;
+        else if (type == 1)
+            val = -1e18;
+        else
+            val = 0;
     }
-    Node(ll x)
+    Node(ll x, ll type)
     {
-        sm = x;
+        val = x;
     }
     void change(ll x)
     {
-        sm += x;
+        val = x;
     }
 };
 struct segtree
 { // 0-indexed [l,r)
     ll treesize;
     vector<Node> segdata;
+    ll type;
     Node merge(Node &ln, Node &rn)
     {
-        Node ans = Node();
-        ans.sm = ln.sm + rn.sm;
+        Node ans = Node(type);
+        if (type == 0)
+            ans.val = min(ln.val, rn.val);
+        else if (type == 1)
+            ans.val = max(ln.val, rn.val);
+        else
+            ans.val = ln.val + rn.val;
+
         return ans;
     }
-    segtree(vector<ll> &arr)
+    segtree(vector<ll> &arr, ll type)
     {
         treesize = 1;
         while (treesize < arr.size())
             treesize *= 2;
-        segdata.assign(2 * treesize, Node());
+        segdata.assign(2 * treesize, Node(type));
         for (ll i = 0; i < arr.size(); i++)
         {
-            segdata[treesize + i - 1] = Node(arr[i]);
+            segdata[treesize + i - 1] = Node(arr[i], type);
         }
         for (ll i = treesize - 2; i >= 0; --i)
         {
@@ -81,7 +94,7 @@ struct segtree
     Node get(ll l, ll r, ll ni, ll lx, ll rx)
     {
         if (rx <= l || lx >= r)
-            return Node();
+            return Node(type);
         if (lx >= l && rx <= r)
             return segdata[ni];
         ll mid = (rx + lx) / 2;
@@ -98,44 +111,11 @@ int main()
     // cin >> t;
     while (t--)
     {
-        ll n,q;cin>>n>>q;
-        vll a(n+1);
-        fi(1,n+1) cin>>a[i];
-        vector<ll> preg(n+1, 0);
-        vector<ll> sufg(n+1, n + 1);
-        vector<ll> temp;
-        for(ll i = 1;i<n+1;i++){
-            while(!temp.empty() && a[temp.back()] <= a[i]) temp.pop_back();
-            if(!temp.empty()) preg[i]=temp.back();
-            temp.push_back(i);
-        }
-        temp.clear();
-        for(ll i = n;i>=1;i++){
-            while(!temp.empty() && a[temp.back()] <= a[i]) temp.pop_back();
-            if(!temp.empty()) sufg[i]=temp.back();
-            temp.push_back(i);
-        }
-        deque<pair<ll,ll>> byl(q),byr(q);
-        fi(0,q){
-            cin>>byl[i].first>>byl[i].second;
-            byr[i].first=byl[i].second;
-            byr[i].second=byr[i].first;
-        }
-        sort(all(byl));
-        sort(all(byr));
-        vector<vector<ll>> b1(n+2),b2(n+2);
-        fi(1,n+1){
-            b1[preg[i]].push_back(i);
-            b2[sufg[i]].push_back(i);
-        }
-        vll ans1(q,0);vll ans2(q,0);
-        vll zeros(n+3,0);
-        segtree seg1 = segtree(zeros);
-        segtree seg2 = segtree(zeros);
-        fi(1,n+1){
-            for(ll num : b1[i]) seg1.update(num,1,0,0,seg1.treesize);
-            while(byl[0].first==)
-        }
+        ll n, q;
+        cin >> n >> q;
+        vll a(n + 1);
+        fi(1, n + 1) cin >> a[i];
+        
     }
     return 0;
 }
