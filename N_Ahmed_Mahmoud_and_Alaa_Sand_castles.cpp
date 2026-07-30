@@ -36,7 +36,15 @@ int main()
         vll b=a;
         sort(all(b));
         mpll mp;
-        
+        ll ans=0;
+        fi(0,n){
+            mp[a[i]]++;
+            mp[b[i]]--;
+            if(!mp[a[i]]) mp.erase(a[i]);
+            if(!mp[b[i]]) mp.erase(b[i]);
+            if(mp.size()==0) ans++;
+        }
+        cout<<ans;
     }
     return 0;
 }
