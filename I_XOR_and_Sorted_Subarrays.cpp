@@ -33,11 +33,6 @@ int main()
         ll n;cin>>n;
         vll a(n);
         fi(0,n) cin>>a[i];
-        vll newarr(n-1);
-        fi(0,n-1){
-            newarr[i] = a[i]^a[i+1];
-        }
-        fi(0,n-1) cout<<newarr[i]<<" ";
         cout<<endl;
         ll ans = 1;
         mpll freq;
