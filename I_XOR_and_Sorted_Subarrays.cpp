@@ -51,6 +51,8 @@ int main()
                 if(freq[b]!=(a[i-1]&(1LL<<b))){
                     ans++;
                     freq.clear();
+                }
+                else{
                     freq[b]=a[i-1]&(1LL<<b);
                 }
             }
