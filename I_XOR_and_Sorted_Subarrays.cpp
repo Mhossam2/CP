@@ -32,11 +32,24 @@ int main()
     {
         ll n;cin>>n;
         vll a(n);
-        ll ans = 0;
+        ll ans = 1;
         mpll freq;
-        fi(0,n){
-            
+        fi(1,n){
+            ll b=0;
+            for(ll j=0;j<=30;j++){
+                if((a[i-1]&(1LL<<j)) != (a[i]&(1LL<<j))) b=j;
+            }
+            if(freq.count(b)){
+                if(freq[b]!=(a[i-1]&(1LL<<b))){
+                    ans++;
+                    freq.clear();
+                }
+            }
+            else{
+                freq[b]=a[i-1]&(1LL<<b);
+            }
         }
+        cout<<ans<<endl;
     }
     return 0;
 }
