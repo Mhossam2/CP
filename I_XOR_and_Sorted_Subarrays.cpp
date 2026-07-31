@@ -32,10 +32,11 @@ int main()
     {
         ll n;cin>>n;
         vll a(n);
+        fi(0,n) cin>>a[i];
         ll ans = 1;
         mpll freq;
         fi(1,n){
-            if(a[i]==a[i-1]) continue;
+            //if(a[i]==a[i-1]) continue;
             ll b=0;
             for(ll j=0;j<=30;j++){
                 if((a[i-1]&(1LL<<j)) != (a[i]&(1LL<<j))) b=j;
