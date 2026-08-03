@@ -45,6 +45,7 @@ int main()
             {
                 if ((a[i - 1] & (1LL << j)) != (a[i] & (1LL << j)))
                     b = j;
+                    
             }
             if (freq.count(b))
             {
