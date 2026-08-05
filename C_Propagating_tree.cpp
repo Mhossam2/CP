@@ -107,7 +107,7 @@ int main()
 {
     HONDA
     int t = 1;
-    cin >> t;
+    //cin >> t;
     while (t--)
     {
         ll n, q;
