@@ -81,11 +81,6 @@ int main()
                     break;
                 }
             }
-            if (nb == -1)
-            {
-                ok = false;
-                break;
-            }
             if (a[nb] > a[node])
             {
                 a[nb] += a[node];
