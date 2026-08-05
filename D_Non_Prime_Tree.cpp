@@ -30,7 +30,7 @@ void dfs(ll node, ll parent, vector<vector<ll>> &adj, vector<ll> &ans, ll lst)
         if (nxt == parent)
             continue;
         ans[nxt] = lst + 1;
-        while (abs(ans[nxt] - ans[node]) != 1 && (abs(ans[nxt] - ans[node]) % 2 != 0 || abs(ans[nxt] - ans[node]) == 2))
+        while ((abs(ans[nxt] - ans[node]) != 1) && ( (abs(ans[nxt] - ans[node]) % 2 != 0) || (abs(ans[nxt] - ans[node]) == 2)))
             ans[nxt]++;
         lst = ans[nxt];
         dfs(nxt, node, adj, ans, lst);
