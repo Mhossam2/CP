@@ -23,17 +23,29 @@ inline bool in(int i, int l, int h)
 {
     return i >= l && i <= h;
 }
-void dfs(ll node, ll parent, vector<vector<ll>> &adj, vector<ll> &ans, ll &lst)
+void dfs(ll node, ll parent, vector<vector<ll>> &adj, vector<pair<ll, ll>> &ans)
 {
+
+    ans[node].first = adj[node].size();
+    ll mx1 = -1;
+    ll mx2 = -1;
     for (ll nxt : adj[node])
     {
         if (nxt == parent)
             continue;
-        ans[nxt] = lst + 1;
-        while ((abs(ans[nxt] - ans[node]) != 1) && ( (abs(ans[nxt] - ans[node]) % 2 != 0) || (abs(ans[nxt] - ans[node]) == 2)))
-            ans[nxt]++;
-        lst = ans[nxt];
-        dfs(nxt, node, adj, ans, lst);
+        dfs(nxt, node, adj, ans);
+        if (ans[node].first < ans[nxt].first + adj[node].size() + 2)
+        {
+            ans[node].first = ans[nxt].first + adj[node].size() + 2;
+        }
+        mx2 = max(mx2, ans[nxt].first);
+        if (mx2 > mx1)
+            swap(mx1, mx2);
+    }
+    ans[node].second = ans[node].first;
+    if (mx2 != -1)
+    {
+        ans[node].second = mx1 + mx2 + adj[node].size() - 4;
     }
 }
 int main()
@@ -55,8 +67,14 @@ int main()
             adj[u].push_back(v);
             adj[v].push_back(u);
         }
-        vector<pair<ll,ll>> ans(n, {0 , 0});
-        
+        vector<pair<ll, ll>> ans(n, {0, 0});
+        dfs(0, 0, adj, ans);
+        ll mx = 0;
+        fi(0, n)
+        {
+            mx = max({mx, ans[i].first, ans[i].second});
+        }
+        cout << mx << endl;
     }
     return 0;
 }
