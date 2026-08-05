@@ -23,30 +23,16 @@ inline bool in(int i, int l, int h)
 {
     return i >= l && i <= h;
 }
-void dfs(ll node, ll parent, vector<vector<ll>> &adj, vector<pair<ll, ll>> &ans)
+void dfs(ll node, ll parent, vector<vector<ll>> &adj, vector<ll> &discover, vector<ll> &begin, vector<ll> &finish, vector<ll> &depth)
 {
-
-    ans[node].first = adj[node].size();
-    ll mx1 = -1;
-    ll mx2 = -1;
-    for (ll nxt : adj[node])
-    {
-        if (nxt == parent)
-            continue;
-        dfs(nxt, node, adj, ans);
-        if (ans[node].first < ans[nxt].first + adj[node].size() - 2)
-        {
-            ans[node].first = ans[nxt].first + adj[node].size() - 2;
-        }
-        mx2 = max(mx2, ans[nxt].first);
-        if (mx2 > mx1)
-            swap(mx1, mx2);
+    discover.push_back(node);
+    begin[node] = discover.size();
+    for(ll nxt : adj[node]){
+        if(nxt == parent) continue;
+        depth[nxt] = depth[node]+1;
+        dfs(nxt,node,adj,discover,begin,finish,depth);
     }
-    ans[node].second = ans[node].first;
-    if (mx2 != -1)
-    {
-        ans[node].second = mx1 + mx2 + adj[node].size() - 4;
-    }
+    finish[node] = discover.size();
 }
 int main()
 {
@@ -67,14 +53,12 @@ int main()
             adj[u].push_back(v);
             adj[v].push_back(u);
         }
-        vector<pair<ll, ll>> ans(n, {0, 0});
-        dfs(0, 0, adj, ans);
-        ll mx = 0;
-        fi(0, n)
-        {
-            mx = max({mx, ans[i].first, ans[i].second});
+        vector<ll> depth(n,0), begin(n), finish(n), discover;
+        dfs(0, 0, adj, discover,begin,finish,depth);
+        vll inc,dec;
+        fi(0,n){
+            
         }
-        cout << mx << endl;
     }
     return 0;
 }
