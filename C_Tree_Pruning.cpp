@@ -28,7 +28,7 @@ ll dfs(ll node,ll parent, vector<vector<ll>> &adj, vector<ll> &depth,vector<ll> 
         if(nxt==parent) continue;
         depth[nxt]=depth[node]+1;
         dfs(nxt,node,adj,depth,hight);
-        hight[node] = max(hight[nxt],hight[node]) + 1;
+        hight[node] = max(hight[nxt]+1,hight[node]);
     }
 }
 int main()
@@ -48,11 +48,11 @@ int main()
         }
         vector<ll> depth(n,0);
         vll hight(n,0);
-        vector<ll> ranges(n,0);
+        vector<ll> ranges(n+1,0);
         dfs(0, -1,adj,depth,hight);
         fi(0,n){
             ranges[depth[i]]++;
-            ranges[depth[i]+hight[i]]--;
+            ranges[depth[i]+hight[i]+1]--;
         }
         fi(1,n){
             ranges[i]= ranges[i]+ranges[i-1];
