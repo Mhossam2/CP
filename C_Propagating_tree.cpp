@@ -142,13 +142,13 @@ int main()
                 {
                     segev.update(begin[node], val, 0, 0, segev.treesize);
                     segev.update(finish[node] + 1, -val, 0, 0, segev.treesize);
-                    segod.update(begin[node], -val, 0, 0, segev.treesize);
-                    segod.update(finish[node] + 1, val, 0, 0, segev.treesize);
+                    segod.update(begin[node], -val, 0, 0, segod.treesize);
+                    segod.update(finish[node] + 1, val, 0, 0, segod.treesize);
                 }
                 else
                 {
-                    segod.update(begin[node], val, 0, 0, segev.treesize);
-                    segod.update(finish[node] + 1, -val, 0, 0, segev.treesize);
+                    segod.update(begin[node], val, 0, 0, segod.treesize);
+                    segod.update(finish[node] + 1, -val, 0, 0, segod.treesize);
                     segev.update(begin[node], -val, 0, 0, segev.treesize);
                     segev.update(finish[node] + 1, val, 0, 0, segev.treesize);
                 }
@@ -158,10 +158,10 @@ int main()
                 ll num;
                 if (depth[node] % 2 == 0)
                 {
-                    num = segev.get(0, begin[node], 0 ,0,segev.treesize).sm;
+                    num = segev.get(0, begin[node]+1, 0 ,0,segev.treesize).sm;
                 }
                 else{
-                    num = segod.get(0, begin[node], 0 ,0,segev.treesize).sm;
+                    num = segod.get(0, begin[node]+1, 0 ,0,segod.treesize).sm;
                 }
                 cout<<a[node]+num<<endl;
             }
