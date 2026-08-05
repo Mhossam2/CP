@@ -34,9 +34,9 @@ void dfs(ll node, ll parent, vector<vector<ll>> &adj, vector<pair<ll, ll>> &ans)
         if (nxt == parent)
             continue;
         dfs(nxt, node, adj, ans);
-        if (ans[node].first < ans[nxt].first + adj[node].size() + 2)
+        if (ans[node].first < ans[nxt].first + adj[node].size() - 2)
         {
-            ans[node].first = ans[nxt].first + adj[node].size() + 2;
+            ans[node].first = ans[nxt].first + adj[node].size() - 2;
         }
         mx2 = max(mx2, ans[nxt].first);
         if (mx2 > mx1)
