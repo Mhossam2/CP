@@ -42,6 +42,9 @@ int main()
         }
         vector<ll> degree(n);
         fi(0,n) degree[i]=adj[i].size();
+        vector<char> removed(n+1,0);
+        priority_queue<pair<ll,ll>, vector<pair<ll,ll>>, greater<pair<ll,ll>>> pq;
+        for(ll i=0;i<n;i++) pq.push({a[i], i});
         
     }
     return 0;
