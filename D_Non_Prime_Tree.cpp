@@ -56,7 +56,7 @@ int main()
             adj[v].push_back(u);
         }
         vector<ll> ans(n, 1);
-        ll lst = 1;
+        ll lst=1;
         dfs(0, -1, adj, ans, lst);
         fi(0, n) cout << ans[i] << " ";
         cout << endl;
