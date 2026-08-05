@@ -45,7 +45,15 @@ int main()
         vector<char> removed(n+1,0);
         priority_queue<pair<ll,ll>, vector<pair<ll,ll>>, greater<pair<ll,ll>>> pq;
         for(ll i=0;i<n;i++) pq.push({a[i], i});
-        
+        ll cnt = n;
+        vector<pair<ll,ll>> res(n-1);
+        bool ok =1;
+        while(cnt>1){
+            ll node = -1;
+            while(!pq.empty()){
+                auto x = pq.top(); pq.pop();
+            }
+        }
     }
     return 0;
 }
