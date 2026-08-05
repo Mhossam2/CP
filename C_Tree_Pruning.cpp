@@ -23,60 +23,45 @@ inline bool in(int i, int l, int h)
 {
     return i >= l && i <= h;
 }
+ll dfs(ll node,ll parent, vector<vector<ll>> &adj, vector<ll> &depth,vector<ll> &hight){
+    for(ll nxt : adj[node]){
+        if(nxt==parent) continue;
+        depth[nxt]=depth[node]+1;
+        dfs(nxt,node,adj,depth,hight);
+        hight[node] = max(hight[nxt],hight[node]) + 1;
+    }
+}
 int main()
 {
     HONDA
     int t = 1;
-    //cin >> t;
+    cin >> t;
     while (t--)
     {
         ll n;cin>>n;
-        vll color(n+1);
-        fi(1,n+1){
-            cin>>color[i];
-        }  
-        vector<vector<ll>> adj(n+1);
+        vector<vector<ll>> adj(n);
         fi(0,n-1){
-            ll x,y;cin>>x>>y;
-            adj[x].push_back(y);
-            adj[y].push_back(x);
+            ll u,v;cin>>u>>v;
+            u--;v--;
+            adj[u].push_back(v);
+            adj[v].push_back(u);
         }
-        vector<ll> p(n+1,0);
-        vector<ll> path;
-        vector<bool> vis(n+1,false);
-        queue<ll> q;
-        q.push(1);
-        vis[1]=1;
-        while(!q.empty()){
-            ll node = q.front(); q.pop();
-            path.push_back(node);
-            for(ll nxt : adj[node]){
-                if(vis[nxt]) continue;
-                vis[nxt] = 1;
-                p[nxt] = node;
-                q.push(nxt);
-            }
+        vector<ll> depth(n,0);
+        vll hight(n,0);
+        vector<ll> ranges(n,0);
+        dfs(0, -1,adj,depth,hight);
+        fi(0,n){
+            ranges[depth[i]]++;
+            ranges[depth[i]+hight[i]]--;
         }
-        vector<vector<ll>> c(n+1);
-        for(ll u: path){
-            if(u!=1) c[p[u]].push_back(u);
+        fi(1,n){
+            ranges[i]= ranges[i]+ranges[i-1];
         }
-        vector<set<ll>> s(n+1);
-        vector<ll> ans(n+1);
-        for(ll i = path.size()-1; i>=0; i--){
-            ll u = path[i];
-            s[u].insert(color[u]);
-            for(ll x: c[u]){
-                if(s[x].size() > s[u].size()){
-                    s[u].swap(s[x]);
-                }
-                for(ll v:s[x]) s[u].insert(v);
-            }
-            ans[u]=s[u].size();
+        ll ans = 0;
+        fi(0,n){
+            ans=max(ans,ranges[i]);
         }
-        fi(1,n+1){
-            cout<<ans[i]<<" ";
-        }
+        cout<<n-ans<<endl;
     }
     return 0;
 }
