@@ -23,7 +23,7 @@ inline bool in(int i, int l, int h)
 {
     return i >= l && i <= h;
 }
-ll dfs(ll node,ll parent, vector<vector<ll>> &adj, vector<ll> &depth,vector<ll> &hight){
+void dfs(ll node,ll parent, vector<vector<ll>> &adj, vector<ll> &depth,vector<ll> &hight){
     for(ll nxt : adj[node]){
         if(nxt==parent) continue;
         depth[nxt]=depth[node]+1;
