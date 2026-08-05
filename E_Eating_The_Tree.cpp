@@ -30,29 +30,86 @@ int main()
     cin >> t;
     while (t--)
     {
-        ll n;cin>>n;
-        vll a(n); 
-        fi(0,n) cin>>a[i];
+        ll n;
+        cin >> n;
+        vll a(n);
+        fi(0, n) cin >> a[i];
         vector<vector<ll>> adj(n);
-        fi(0,n-1){
-            ll u,v;cin>>u>>v;
-            u--;v--;
+        fi(0, n - 1)
+        {
+            ll u, v;
+            cin >> u >> v;
+            u--;
+            v--;
             adj[u].push_back(v);
             adj[v].push_back(u);
         }
-        vector<ll> degree(n);
-        fi(0,n) degree[i]=adj[i].size();
-        vector<char> removed(n+1,0);
-        priority_queue<pair<ll,ll>, vector<pair<ll,ll>>, greater<pair<ll,ll>>> pq;
-        for(ll i=0;i<n;i++) pq.push({a[i], i});
+        vector<ll> deg(n);
+        fi(0, n) deg[i] = adj[i].size();
+        vector<bool> removed(n + 1, 0);
+        priority_queue<pair<ll, ll>, vector<pair<ll, ll>>, greater<pair<ll, ll>>> pq;
+        for (ll i = 0; i < n; i++)
+            pq.push({a[i], i});
         ll cnt = n;
-        vector<pair<ll,ll>> res(n-1);
-        bool ok =1;
-        while(cnt>1){
+        vector<pair<ll, ll>> res;
+        bool ok = 1;
+        while (cnt > 1)
+        {
             ll node = -1;
-            while(!pq.empty()){
-                auto x = pq.top(); pq.pop();
+            while (!pq.empty())
+            {
+                auto x = pq.top();
+                pq.pop();
+                if (removed[x.second])
+                    continue;
+                if (x.first != a[x.second])
+                    continue;
+                node = x.second;
+                break;
             }
+            if (deg[node] > 1)
+            {
+                ok = false;
+                break;
+            }
+            ll nb = -1;
+            for (ll x : adj[node])
+            {
+                if (!removed[x])
+                {
+                    nb = x;
+                    break;
+                }
+            }
+            if (nb == -1)
+            {
+                ok = false;
+                break;
+            }
+            if (a[nb] > a[node])
+            {
+                a[nb] += a[node];
+                res.push_back({nb, node});
+                removed[node] = 1;
+                deg[nb]--;
+                cnt--;
+                pq.push({a[nb], nb});
+            }
+            else
+            {
+                ok = false;
+                break;
+            }
+        }
+        if (ok)
+        {
+            cout << "Yes" << endl;
+            for (auto p : res)
+                cout << p.first + 1 << " " << p.second + 1 << endl;
+        }
+        else
+        {
+            cout << "No" << endl;
         }
     }
     return 0;
