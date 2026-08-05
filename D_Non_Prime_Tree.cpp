@@ -23,7 +23,7 @@ inline bool in(int i, int l, int h)
 {
     return i >= l && i <= h;
 }
-void dfs(ll node, ll parent, vector<vector<ll>> &adj, vector<ll> &ans, ll lst)
+void dfs(ll node, ll parent, vector<vector<ll>> &adj, vector<ll> &ans, ll &lst)
 {
     for (ll nxt : adj[node])
     {
@@ -56,7 +56,8 @@ int main()
             adj[v].push_back(u);
         }
         vector<ll> ans(n, 1);
-        dfs(0, -1, adj, ans, 1);
+        ll lst=1;
+        dfs(0, -1, adj, ans, lst);
         fi(0, n) cout << ans[i] << " ";
         cout << endl;
     }
