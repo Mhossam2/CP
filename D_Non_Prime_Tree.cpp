@@ -23,13 +23,17 @@ inline bool in(int i, int l, int h)
 {
     return i >= l && i <= h;
 }
-void dfs(ll node,ll parent, vector<vector<ll>> &adj, vector<ll> &ans,ll lst){
-    for(ll nxt : adj[node]){
-        if(nxt==parent) continue;
-        ans[nxt]=lst+1;
-        while(abs(ans[nxt]-ans[node])!=1 && (abs(ans[nxt]-ans[node])%2!=0 || abs(ans[nxt]-ans[node])==2)) ans[nxt]++;
+void dfs(ll node, ll parent, vector<vector<ll>> &adj, vector<ll> &ans, ll lst)
+{
+    for (ll nxt : adj[node])
+    {
+        if (nxt == parent)
+            continue;
+        ans[nxt] = lst + 1;
+        while (abs(ans[nxt] - ans[node]) != 1 && (abs(ans[nxt] - ans[node]) % 2 != 0 || abs(ans[nxt] - ans[node]) == 2))
+            ans[nxt]++;
         lst = ans[nxt];
-        dfs(nxt,node,adj,ans,lst);
+        dfs(nxt, node, adj, ans, lst);
     }
 }
 int main()
@@ -39,18 +43,22 @@ int main()
     cin >> t;
     while (t--)
     {
-       ll n;cin>>n;
-       vector<vector<ll>> adj(n);
-       fi(0,n-1){
-        ll u,v;cin>>u>>v;
-        u--;v--;
-        adj[u].push_back(v);
-        adj[v].push_back(u);
-       }
-       vector<ll> ans(n,1);
-       dfs(0,-1,adj,ans,1);
-       fi(0,n) cout<<ans[i]<<" ";
-       cout<<endl;
+        ll n;
+        cin >> n;
+        vector<vector<ll>> adj(n);
+        fi(0, n - 1)
+        {
+            ll u, v;
+            cin >> u >> v;
+            u--;
+            v--;
+            adj[u].push_back(v);
+            adj[v].push_back(u);
+        }
+        vector<ll> ans(n, 1);
+        dfs(0, -1, adj, ans, 1);
+        fi(0, n) cout << ans[i] << " ";
+        cout << endl;
     }
     return 0;
 }
