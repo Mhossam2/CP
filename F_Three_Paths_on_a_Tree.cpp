@@ -74,14 +74,15 @@ int main()
         }
         else{
             queue<ll> q;
-            vector<ll> dist(n, 0);
+            vector<ll> dist(n, 1e18);
             fi(0,x.size()){
                 q.push(x[i]);
+                dist[x[i]]=0;
             }
             ll far = x[1];
             while(!q.empty()){
                 ll node = q.front(); q.pop();
-                for(ll child:adj[node]){
+                for(ll child : adj[node]){
                     if(dist[child] >= dist[node]+1){
                         dist[child] = dist[node]+1;
                         q.push(child);
