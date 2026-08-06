@@ -39,6 +39,7 @@ int main()
             adj[v].push_back(u);
         }
         vector<ll> deg(n);
+        fi(0, n) deg[i] = adj[i].size();
         ll leafs=0;
         fi(0,n) leafs += adj[i].size()==1;
         ll ans = leafs*(n-leafs);
