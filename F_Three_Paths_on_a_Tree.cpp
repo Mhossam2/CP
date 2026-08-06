@@ -70,7 +70,7 @@ int main()
         auto x = finddiameter(adj, n);
         if(x.size() == n){
             cout<<n-1<<endl;
-            cout<<x[0]+1<<" "<<x[1]+1<<x[n-1]+1;
+            cout<<x[0]+1<<" "<<x[1]+1<<" " <<x[n-1]+1;
         }
         else{
             queue<ll> q;
