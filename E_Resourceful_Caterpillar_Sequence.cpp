@@ -54,7 +54,7 @@ int main()
             cnt += adjleaf[i] == 0;
         }
         fi(0,n){
-            if(deg[i] > 1 && adjleaf[i] > 0 && adjleaf[i] < deg[i]){
+            if(deg[i] > 1 && adjleaf[i] > 0){
                 ans += cnt * (deg[i] - adjleaf[i] - 1);
             }
         }
