@@ -43,13 +43,21 @@ int main()
         fi(0,n) leafs += adj[i].size()==1;
         ll ans = leafs*(n-leafs);
         ll cnt = 0;
+        vector<ll> adjleaf(n);
         fi(0,n){
             if(deg[i] > 1){
                 for(ll v:adj[i]){
-                    
+                    adjleaf[i] += adj[v].size()==1;
                 }
             }
+            cnt += adjleaf[i] == 0;
         }
+        fi(0,n){
+            if(deg[i] > 1 && adjleaf[i] > 0 && adjleaf[i] < deg[i]){
+                ans += cnt * (deg[i] - adjleaf[i] - 1);
+            }
+        }
+        cout<<ans<<endl;
     }
     return 0;
 }
