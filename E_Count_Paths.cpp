@@ -34,27 +34,39 @@ void dfs(ll v, ll p){
         if (bst == -1 || cnt[bst].size() < cnt[u].size())
             bst = u;
     }
+    for (ll u : adj[v]) if (u != p && u != bst){
+        for (auto it : cnt[u]){
+            ll x = it.first, y = it.second;
+            if (x != a[v]) ans += cnt[bst][x] * 1ll * y;
+            cnt[bst][x] += y;
+        }
+    }
+    if (bst != -1) swap(cnt[bst], cnt[v]);
+    ans += cnt[v][a[v]];
+    cnt[v][a[v]] = 1;
 }
 int main()
 {
     HONDA
     int t = 1;
-    //cin >> t;
+    cin >> t;
     while (t--)
     {
         ll n;cin>>n;
-        vector<vector<ll>> adj(n);
+        
+        a.resize(n);
+        fi(0, n) cin >> a[i];
+        adj.assign(n, {});
         fi(0,n-1){
             ll u,v;cin>>u>>v;
             u--;v--;
             adj[u].push_back(v);
             adj[v].push_back(u);
         }
-        a.resize(n);
-        fi(0, n) cin >> a[i];
-        adj.assign(n, {});
         ans = 0;
         cnt.assign(n, {});
+        dfs(0,-1);
+        cout<<ans<<endl;
     }
     return 0;
 }
