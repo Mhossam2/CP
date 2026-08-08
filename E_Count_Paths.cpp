@@ -23,34 +23,17 @@ inline bool in(int i, int l, int h)
 {
     return i >= l && i <= h;
 }
-vector<ll> finddiameter(vector<vector<ll>> &adj, ll n){
-    auto bfs = [&](ll start){ //return the farest node from the start node and parent of each node
-        vector<ll> parent(n, -1), dist(n, 0);
-        queue<ll> q;
-        q.push(start);
-        ll far = start;
-        while(!q.empty()){
-            ll node = q.front(); q.pop();
-            far = node;
-            for(ll child : adj[node]){
-                if(child != parent[node]){
-                    parent[child]=node;
-                    dist[child]=dist[node]+1;
-                    q.push(child);
-                }
-            }
-        }
-        return make_pair(far, parent);
-    };
-    auto [start,_] = bfs(0);  //get the farest node from any random node (ans = 1st diameter node)
-    auto [end,par] = bfs(start); //get the 2nd diameter node(farest node from the first diameter node)
-    vector<ll> path;
-    ll i = end;
-    while(i != -1){ //get the whole path
-        path.push_back(i);
-        i = par[i];
-    } 
-    return path;
+vector<ll> a;
+vector<vector<ll>> adj;
+long long ans;
+vector<map<ll, ll>> cnt;
+void dfs(ll v, ll p){
+    ll bst = -1;
+    for (ll u : adj[v]) if (u != p){
+        dfs(u, v);
+        if (bst == -1 || cnt[bst].size() < cnt[u].size())
+            bst = u;
+    }
 }
 int main()
 {
@@ -67,36 +50,11 @@ int main()
             adj[u].push_back(v);
             adj[v].push_back(u);
         }
-        auto x = finddiameter(adj, n);
-        if(x.size() == n){
-            cout<<n-1<<endl;
-            cout<<x[0]+1<<" "<<x[1]+1<<" " <<x[n-1]+1;
-        }
-        else{
-            queue<ll> q;
-            vector<ll> dist(n, 1e18);
-            fi(0,x.size()){
-                q.push(x[i]);
-                dist[x[i]]=0;
-            }
-            ll far = x[1];
-            while(!q.empty()){
-                ll node = q.front(); q.pop();
-                for(ll child : adj[node]){
-                    if(dist[child] >= dist[node]+1){
-                        dist[child] = dist[node]+1;
-                        q.push(child);
-                    }
-                }
-            }
-            fi(0,n){
-                if(dist[i] > dist[far]){
-                    far=i;
-                }   
-            }
-            cout<<x.size() - 1 + dist[far]<<endl;
-            cout<<x[0]+1<<" "<<x[x.size()-1]+1<<" "<<far+1<<endl;
-        }
+        a.resize(n);
+        fi(0, n) cin >> a[i];
+        adj.assign(n, {});
+        ans = 0;
+        cnt.assign(n, {});
     }
     return 0;
 }
