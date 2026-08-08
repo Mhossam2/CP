@@ -27,6 +27,7 @@ vector<ll> a;
 vector<vector<ll>> adj;
 ll ans;
 vector<map<ll, ll>> cnt;  //cnt[v][c] = number of top level vertices that have color c on v's subtree
+// cnt[v][c] = sum of cnt[u][c] for all childs
 void dfs(ll v, ll p)
 {
     for (ll u : adj[v])
