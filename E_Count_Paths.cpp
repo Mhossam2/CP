@@ -27,20 +27,26 @@ vector<ll> a;
 vector<vector<ll>> adj;
 long long ans;
 vector<map<ll, ll>> cnt;
-void dfs(ll v, ll p){
+void dfs(ll v, ll p)
+{
     ll bst = -1;
-    for (ll u : adj[v]) if (u != p){
-        dfs(u, v);
-        if(cnt[v].size()<cnt[u].size()){
-            swap(cnt[v],cnt[u]);
-        }
-        for( auto [x,y]: cnt[u]){
-            if(x!=a[v]){
-                ans += cnt[v][x] * y;
+    for (ll u : adj[v])
+        if (u != p)
+        {
+            dfs(u, v);
+            if (cnt[v].size() < cnt[u].size())
+            {
+                swap(cnt[v], cnt[u]);
             }
-            cnt[v][x]+=y;
+            for (auto [x, y] : cnt[u])
+            {
+                if (x != a[v])
+                {
+                    ans += cnt[v][x] * y;
+                }
+                cnt[v][x] += y;
+            }
         }
-    }
     ans += cnt[v][a[v]];
     cnt[v][a[v]] = 1;
 }
@@ -51,21 +57,25 @@ int main()
     cin >> t;
     while (t--)
     {
-        ll n;cin>>n;
-        
+        ll n;
+        cin >> n;
+
         a.resize(n);
         fi(0, n) cin >> a[i];
         adj.assign(n, {});
-        fi(0,n-1){
-            ll u,v;cin>>u>>v;
-            u--;v--;
+        fi(0, n - 1)
+        {
+            ll u, v;
+            cin >> u >> v;
+            u--;
+            v--;
             adj[u].push_back(v);
             adj[v].push_back(u);
         }
         ans = 0;
         cnt.assign(n, {});
-        dfs(0,-1);
-        cout<<ans<<endl;
+        dfs(0, -1);
+        cout << ans << endl;
     }
     return 0;
 }
