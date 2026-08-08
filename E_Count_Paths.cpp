@@ -25,11 +25,10 @@ inline bool in(int i, int l, int h)
 }
 vector<ll> a;
 vector<vector<ll>> adj;
-long long ans;
-vector<map<ll, ll>> cnt;
+ll ans;
+vector<map<ll, ll>> cnt;  //cnt[v][c] = number of top level vertices that have color c on v's subtree
 void dfs(ll v, ll p)
 {
-    ll bst = -1;
     for (ll u : adj[v])
         if (u != p)
         {
