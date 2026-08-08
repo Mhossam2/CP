@@ -31,17 +31,16 @@ void dfs(ll v, ll p){
     ll bst = -1;
     for (ll u : adj[v]) if (u != p){
         dfs(u, v);
-        if (bst == -1 || cnt[bst].size() < cnt[u].size())
-            bst = u;
-    }
-    for (ll u : adj[v]) if (u != p && u != bst){
-        for (auto it : cnt[u]){
-            ll x = it.first, y = it.second;
-            if (x != a[v]) ans += cnt[bst][x] * y;
-            cnt[bst][x] += y;
+        if(cnt[v].size()<cnt[u].size()){
+            swap(cnt[v],cnt[u]);
+        }
+        for( auto [x,y]: cnt[u]){
+            if(x!=a[v]){
+                ans += cnt[v][x] * y;
+            }
+            cnt[v][x]+=y;
         }
     }
-    if (bst != -1) swap(cnt[bst], cnt[v]);
     ans += cnt[v][a[v]];
     cnt[v][a[v]] = 1;
 }
