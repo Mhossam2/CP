@@ -37,7 +37,7 @@ void dfs(ll v, ll p){
     for (ll u : adj[v]) if (u != p && u != bst){
         for (auto it : cnt[u]){
             ll x = it.first, y = it.second;
-            if (x != a[v]) ans += cnt[bst][x] * 1ll * y;
+            if (x != a[v]) ans += cnt[bst][x] * y;
             cnt[bst][x] += y;
         }
     }
