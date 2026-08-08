@@ -44,7 +44,7 @@ int main()
         fi(0,n) leafs += adj[i].size()==1;
         ll ans = leafs*(n-leafs);
         ll cnt = 0;
-        vector<ll> adjleaf(n, 0);
+        vector<ll> adjleaf(n, 0); //number of nighbor leafs per node
         fi(0,n){
             if(deg[i] > 1){
                 for(ll v:adj[i]){
