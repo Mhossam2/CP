@@ -142,6 +142,7 @@ int main()
                 {
                     segev.update(begin[node], val, 0, 0, segev.treesize);
                     segev.update(finish[node] + 1, -val, 0, 0, segev.treesize);
+
                     segod.update(begin[node], -val, 0, 0, segod.treesize);
                     segod.update(finish[node] + 1, val, 0, 0, segod.treesize);
                 }
@@ -149,6 +150,7 @@ int main()
                 {
                     segod.update(begin[node], val, 0, 0, segod.treesize);
                     segod.update(finish[node] + 1, -val, 0, 0, segod.treesize);
+                    
                     segev.update(begin[node], -val, 0, 0, segev.treesize);
                     segev.update(finish[node] + 1, val, 0, 0, segev.treesize);
                 }
