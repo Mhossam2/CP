@@ -30,7 +30,35 @@ int main()
     cin >> t;
     while (t--)
     {
-        
+        ll n,st,en;cin>>n>>st>>en;
+        st--;
+        en--;
+        vector<vector<ll>> adj(n);
+        fi(0,n-1){
+            ll x,y;cin>>x>>y;
+            x--;y--;
+            adj[x].push_back(y);
+            adj[y].push_back(x);
+        }   
+        queue<ll> q;
+        vector<ll> path;
+        path.push_back(en);
+        q.push(en);
+        vll dist(n,1e18);
+        dist[en]=0;
+        while(!q.empty()){
+            ll node= q.front(); q.pop();
+            for(ll nxt: adj[node]){
+                if(dist[nxt]>dist[node]+1){
+                    q.push(nxt);
+                    path.push_back(nxt);
+                    dist[nxt]=dist[node]+1;
+                }
+            }
+        }
+        reverse(all(path));
+        fi(0,n) cout<<path[i]+1<<" ";
+        cout<<endl;
     }
     return 0;
 }
