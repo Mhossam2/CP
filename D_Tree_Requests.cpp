@@ -78,7 +78,7 @@ int main()
 		    ll r = lower_bound(H[h].begin(), H[h].end(), make_pair(Out[v], -1)) - H[h].begin() - 1;
             bool ok = 1;
             fj(0,26){
-                if((pref[h][r][i]-pref[h][l][i])%2!=0) ok = 0;
+                if((pref[h][r+1][i]-pref[h][l][i])%2!=0) ok = 0;
             }
             if(ok) cout<<"Yes"<<endl;
             else cout<<"No"<<endl;
