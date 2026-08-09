@@ -79,12 +79,12 @@ int main()
             ll v,h;cin>>v>>h;
             v--;h--;
             ll l = lower_bound(H[h].begin(), H[h].end(), make_pair(In[v], (ll)-1)) - H[h].begin();
-            ll r = lower_bound(H[h].begin(), H[h].end(), make_pair(Out[v], (ll)-1)) - H[h].begin();
-            bool ok = 1;
+            ll r = lower_bound(H[h].begin(), H[h].end(), make_pair(Out[v]+1, (ll)-1)) - H[h].begin();
+            ll ok = 0;
             fj(0,26){
-                if((pref[h][r][j]-pref[h][l][j])%2!=0) ok = 0;
+                if((pref[h][r][j]-pref[h][l][j])%2!=0) ok++;
             }
-            if(ok) cout<<"Yes"<<endl;
+            if(ok<2) cout<<"Yes"<<endl;
             else cout<<"No"<<endl;
         }
     }
