@@ -67,7 +67,7 @@ int main()
         depth.assign(n,0);
         H.assign(n+5,{});
         dfs(0,-1);
-        vector<vector<array<ll,26>>> pref(H.size());
+        vector<vector<array<int,26>>> pref(H.size());
         fi(0,pref.size()){
             pref[i].assign(H[i].size()+1,{});
             fj(0,H[i].size()){
