@@ -60,6 +60,7 @@ int main()
             adj[x].push_back(i);
             adj[i].push_back(x);
         }
+        cin>>s;
         In.assign(n, 0);
         Out.assign(n, 0);
         depth.assign(n,0);
