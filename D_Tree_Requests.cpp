@@ -26,7 +26,7 @@ inline bool in(int i, int l, int h)
 ll n,m;
 vector<ll> In;
 vector<ll> Out;
-vector<vector<pair<ll,ll>>> H(1e6+5);
+vector<vector<pair<ll,ll>>> H;
 vector<ll> depth;
 vector<vector<ll>> adj;
 string s;
@@ -65,9 +65,10 @@ int main()
         In.assign(n, 0);
         Out.assign(n, 0);
         depth.assign(n,0);
+        H.assign(n+5,{});
         dfs(0,-1);
-        vector<vector<map<ll,ll>>> pref(1e6+5);
-        fi(0,1e6+5){
+        vector<vector<map<ll,ll>>> pref(H.size());
+        fi(0,pref.size()){
             pref[i].assign(H[i].size()+1,{});
             fj(0,H[i].size()){
                 pref[i][j+1] = pref[i][j];
