@@ -40,7 +40,7 @@ void dfs(ll node, ll parent)
         if (nxt == parent)
             continue;
         depth[nxt] = depth[node]+1;
-        H[depth[node]].push_back(make_pair(ti, s[node]));
+        H[depth[node]].push_back(make_pair(ti, s[node]-'0'));
         dfs(nxt, node);
     }
     ti++;
@@ -64,9 +64,24 @@ int main()
         Out.assign(n, 0);
         depth.assign(n,0);
         dfs(0,-1);
-        vector<vector<vector<ll>>> pref(1e6+5);
+        vector<vector<map<ll,ll>>> pref(1e6+5);
         fi(0,1e6+5){
             pref[i].assign(H[i].size(),{});
+            fj(0,pref[i].size()){
+                pref[i][j][H[i][j].second]++;
+            }
+        }
+        fi(0,m){
+            ll v,h;cin>>v>>h;
+            v--;h--;
+            ll l = lower_bound(H[h].begin(), H[h].end(), make_pair(In[v], -1)) - H[h].begin() - 1;
+		    ll r = lower_bound(H[h].begin(), H[h].end(), make_pair(Out[v], -1)) - H[h].begin() - 1;
+            bool ok = 1;
+            fj(0,26){
+                if((pref[h][r][i]-pref[h][l][i])%2!=0) ok = 0;
+            }
+            if(ok) cout<<"Yes"<<endl;
+            else cout<<"No"<<endl;
         }
     }
     return 0;
