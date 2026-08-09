@@ -35,7 +35,7 @@ void dfs(ll node, ll parent)
 {
     ti++;
     In[node] = ti;
-    H[depth[node]].push_back(make_pair(ti, s[node]-'0'));
+    H[depth[node]].push_back(make_pair(ti, s[node]-'a'));
     for (ll nxt : adj[node])
     {
         if (nxt == parent)
@@ -67,7 +67,7 @@ int main()
         vector<vector<map<ll,ll>>> pref(1e6+5);
         fi(0,1e6+5){
             pref[i].assign(H[i].size()+1,{});
-            fj(0,pref[i].size()){
+            fj(0,H[i].size()){
                 pref[i][j+1] = pref[i][j];
                 pref[i][j+1][H[i][j].second]++;
             }
