@@ -57,8 +57,11 @@ int main()
         adj.assign(n, {});
         fi(0, n){
             ll x;cin>>x;
-            adj[x].push_back(i);
-            adj[i].push_back(x);
+            x--;
+            if(i!=0){
+                adj[x].push_back(i);
+                adj[i].push_back(x);
+            }
         }
         cin>>s;
         In.assign(n, 0);
