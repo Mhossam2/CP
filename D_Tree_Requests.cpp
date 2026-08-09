@@ -66,19 +66,20 @@ int main()
         dfs(0,-1);
         vector<vector<map<ll,ll>>> pref(1e6+5);
         fi(0,1e6+5){
-            pref[i].assign(H[i].size(),{});
+            pref[i].assign(H[i].size()+1,{});
             fj(0,pref[i].size()){
-                pref[i][j][H[i][j].second]++;
+                pref[i][j+1] = pref[i][j];
+                pref[i][j+1][H[i][j].second]++;
             }
         }
         fi(0,m){
             ll v,h;cin>>v>>h;
             v--;h--;
-            ll l = lower_bound(H[h].begin(), H[h].end(), make_pair(In[v], -1)) - H[h].begin() - 1;
-		    ll r = lower_bound(H[h].begin(), H[h].end(), make_pair(Out[v], -1)) - H[h].begin() - 1;
+            ll l = lower_bound(H[h].begin(), H[h].end(), make_pair(In[v], (ll)-1)) - H[h].begin();
+            ll r = lower_bound(H[h].begin(), H[h].end(), make_pair(Out[v]+1, (ll)-1)) - H[h].begin();
             bool ok = 1;
             fj(0,26){
-                if((pref[h][r+1][i]-pref[h][l][i])%2!=0) ok = 0;
+                if((pref[h][r][j]-pref[h][l][j])%2!=0) ok = 0;
             }
             if(ok) cout<<"Yes"<<endl;
             else cout<<"No"<<endl;
