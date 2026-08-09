@@ -35,12 +35,12 @@ void dfs(ll node, ll parent)
 {
     ti++;
     In[node] = ti;
+    H[depth[node]].push_back(make_pair(ti, s[node]-'0'));
     for (ll nxt : adj[node])
     {
         if (nxt == parent)
             continue;
         depth[nxt] = depth[node]+1;
-        H[depth[node]].push_back(make_pair(ti, s[node]-'0'));
         dfs(nxt, node);
     }
     ti++;
