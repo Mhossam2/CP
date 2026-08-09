@@ -23,46 +23,51 @@ inline bool in(int i, int l, int h)
 {
     return i >= l && i <= h;
 }
-ll n,c;
-vector<ll> in;
-vector<ll> out;
-vector<pair<ll,ll>> H;
-
-void dfs(ll node, ll parent, vector<vector<ll>> &adj, vector<vector<ll>> &cnt,vector<ll> &a)
+ll n,m;
+vector<ll> In;
+vector<ll> Out;
+vector<vector<pair<ll,ll>>> H(1e6+5);
+vector<ll> depth;
+vector<vector<ll>> adj;
+string s;
+ll ti=0;
+void dfs(ll node, ll parent)
 {
+    ti++;
+    In[node] = ti;
     for (ll nxt : adj[node])
     {
         if (nxt == parent)
             continue;
-        dfs(nxt, node, adj, cnt, a);
-        cnt[node][0] += max(cnt[nxt][0], cnt[nxt][1]);
-        cnt[node][1] += max(cnt[nxt][0], cnt[nxt][1] - 2 * c);
+        depth[nxt] = depth[node]+1;
+        H[depth[node]].push_back(make_pair(ti, s[node]));
+        dfs(nxt, node);
     }
-    cnt[node][1] += a[node];
+    ti++;
+    Out[node] = ti;
 }
 int main()
 {
     HONDA
     int t = 1;
-    cin >> t;
+    //cin >> t;
     while (t--)
     {
-        cin >> n >> c;
-        vector<ll> a(n);
-        fi(0, n) cin >> a[i];
-        vector<vector<ll>> adj(n);
-        fi(0, n - 1)
-        {
-            ll u, v;
-            cin >> u >> v;
-            u--;
-            v--;
-            adj[u].push_back(v);
-            adj[v].push_back(u);
+        cin >> n >> m;
+        adj.assign(n, {});
+        fi(0, n){
+            ll x;cin>>x;
+            adj[x].push_back(i);
+            adj[i].push_back(x);
         }
-        vector<vector<ll>> cnt(n,vector<ll> (2, 0));
-        dfs(0,-1,adj,cnt,a);
-        cout << max({0LL,cnt[0][0],cnt[0][1]}) <<endl;
+        In.assign(n, 0);
+        Out.assign(n, 0);
+        depth.assign(n,0);
+        dfs(0,-1);
+        vector<vector<vector<ll>>> pref(1e6+5);
+        fi(0,1e6+5){
+            pref[i].assign(H[i].size(),{});
+        }
     }
     return 0;
 }
