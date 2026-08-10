@@ -89,7 +89,7 @@ int main()
             dsu.merge(edges[i].u, edges[i].v);
             ll used = 1;
             fj(0,m){
-                if(edges[j].ind == i) continue;
+                if(j == i) continue;
                 if(dsu.find_root(edges[j].u) != dsu.find_root(edges[j].v)){
                     total += edges[j].w;
                     dsu.merge(edges[j].u, edges[j].v);
