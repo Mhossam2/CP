@@ -77,7 +77,7 @@ void dfs(ll v, ll p, bool keep)
     if (big[v] != 0)
         dfs(big[v], v, true);
     upd(c[v], 1);
-    for (int u : adj[v])
+    for (ll u : adj[v])
         if (u != p && u != big[v])
             collect(u, v, +1); // light/small subtrees
 
