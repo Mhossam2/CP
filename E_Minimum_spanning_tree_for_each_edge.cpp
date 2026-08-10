@@ -126,10 +126,11 @@ struct lca_tree
             {
                 if (k & (1 << i))
                 {
-                    node = up[node][i];
-                    ans = max(ans, mx[node][i]);
-                    if (node == -1)
+                    ll nxt = up[node][i];
+                    if (nxt == -1)
                         break;
+                    ans = max(ans, mx[node][i]);
+                    node = nxt;
                 }
             }
             return ans;
