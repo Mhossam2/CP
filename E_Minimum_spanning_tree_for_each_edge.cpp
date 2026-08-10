@@ -213,7 +213,7 @@ int main()
             if(vis[edges[i].ind]) ans[edges[i].ind]=total;
             else{
                 ll lc = lca.LCA(edges[i].u,edges[i].v);
-                ll mx = max(lca.lift(edges[i].u,lca.depth[lc]-lca.depth[edges[i].u]).first,lca.lift(edges[i].v,lca.depth[lc]-lca.depth[edges[i].v]).first);
+                ll mx = max(lca.lift(edges[i].u,abs(lca.depth[lc]-lca.depth[edges[i].u])).first,lca.lift(edges[i].v,abs(lca.depth[lc]-lca.depth[edges[i].v])).first);
                 ans[edges[i].ind] = total - mx + edges[i].w;
             }
         }
