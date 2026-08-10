@@ -26,7 +26,7 @@ inline bool in(int i, int l, int h)
 ll n,m;
 vector<ll> In;
 vector<ll> Out;
-vector<vector<pair<ll,ll>>> H;
+vector<vector<pair<ll,ll>>> H;  
 vector<ll> depth;
 vector<vector<ll>> adj;
 string s;
