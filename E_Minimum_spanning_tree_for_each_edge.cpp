@@ -143,7 +143,6 @@ struct lca_tree
         {
             if (depth[a] < depth[b])
                 swap(a, b);
-
             a = lift(a, depth[a] - depth[b]);
 
             if (a == b)
@@ -179,6 +178,7 @@ int main()
     {
         ll n,m;cin>>n>>m;
         vector<Edge> edges(m);
+        vector<vector<pair,
         fi(0,m){
             cin>>edges[i].u>>edges[i].v>>edges[i].w;
             edges[i].u--;
@@ -190,24 +190,25 @@ int main()
             return a.w < b.w;
         });
         vector<ll> ans(m);
+        vector<ll> vis(m,0);
+        DSU dsu(n);
+        ll total = 0;
+        ll used = 0;
         fi(0,m){
-            DSU dsu(n);
-            ll total = edges[i].w;
-            dsu.merge(edges[i].u, edges[i].v);
-            ll used = 1;
-            fj(0,m){
-                if(j == i) continue;
-                if(dsu.find_root(edges[j].u) != dsu.find_root(edges[j].v)){
-                    total += edges[j].w;
-                    dsu.merge(edges[j].u, edges[j].v);
-                    used++;
-                    if(used == n-1) break;
-                }
+            if(dsu.find_root(edges[i].u) != dsu.find_root(edges[i].v)){
+                total += edges[i].w;
+                dsu.merge(edges[i].u, edges[i].v);
+                used++;
+                vis[edges[i].ind]=1;
+                if(used == n-1) break;
             }
-            ans[edges[i].ind] = total;
         }
-        fi(0,m) cout<<ans[i]<<endl;
+        fi(0,m){
+            if(vis[edges[i].ind]) ans[edges[i].ind]=total;
+        }
+        fi(0,m){
 
+        }
     }
     return 0;
 }
