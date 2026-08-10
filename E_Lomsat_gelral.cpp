@@ -101,7 +101,7 @@ int main()
             cin >> c[i];
 
         ll a, b;
-        for (int i = 0; i < n - 1; ++i)
+        for (ll i = 0; i < n - 1; ++i)
         {
             cin >> a >> b;
             adj[a].push_back(b);
