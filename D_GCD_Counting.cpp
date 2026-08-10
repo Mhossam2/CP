@@ -46,8 +46,8 @@ struct lca_tree
             {
                 if (up[node][i - 1] != -1){
                     up[node][i] = up[up[node][i - 1]][i - 1];
-                    g[node][i] = gcd(g[up[node][i-1]][i-1],g[node][i - 1]);
-                    if(g[node][i]>1){
+                    g[node][i] = gcd(g[up[node][i-1]][i-1], g[node][i - 1]);
+                    if(g[node][i] > 1){
                         ans = max(ans, (1LL<<i));
                     }
                 }
