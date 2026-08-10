@@ -76,7 +76,7 @@ int main()
             cin>>edges[i].u>>edges[i].v>>edges[i].w;
             edges[i].u--;
             edges[i].v--;
-            edges[i].ind == i;
+            edges[i].ind = i;
 
         }
         sort(edges.begin(), edges.end(), [](const Edge &a, const Edge &b) {
