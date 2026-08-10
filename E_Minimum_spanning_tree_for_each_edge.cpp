@@ -71,7 +71,6 @@ struct lca_tree
         vector<vector<pair<ll,ll>>> adj;
         vector<vector<ll>> up;
         vector<vector<ll>> mx;
-        vector<ll> depth;
 
         // Time Complexity: O(V * LOG) where V is the number of vertices.
         // Returns: void.
@@ -100,8 +99,8 @@ struct lca_tree
                 dfs(to, node, w);
             }
         }
-
     public:
+        vector<ll> depth;
         // Time Complexity: O(V * LOG) for the initial build.
         // Returns: Constructor (No return type).
         // Description: Initializes the tree sizes, arrays, and starts the DFS from the root.
@@ -178,13 +177,12 @@ int main()
     {
         ll n,m;cin>>n>>m;
         vector<Edge> edges(m);
-        vector<vector<pair,
+        vector<vector<pair<ll,ll>>> adj(n);
         fi(0,m){
             cin>>edges[i].u>>edges[i].v>>edges[i].w;
             edges[i].u--;
             edges[i].v--;
             edges[i].ind = i;
-
         }
         sort(edges.begin(), edges.end(), [](const Edge &a, const Edge &b) {
             return a.w < b.w;
@@ -204,11 +202,21 @@ int main()
             }
         }
         fi(0,m){
-            if(vis[edges[i].ind]) ans[edges[i].ind]=total;
+            if(vis[edges[i].ind]){
+                adj[edges[i].u].push_back({edges[i].v,edges[i].w});
+                adj[edges[i].v].push_back({edges[i].u,edges[i].w});
+            }
         }
+        lca_tree lca(n, adj, 0);
         fi(0,m){
-
+            if(vis[edges[i].ind]) ans[edges[i].ind]=total;
+            else{
+                ll lc = lca.LCA(edges[i].u,edges[i].v);
+                ll mx = max(lca.lift(edges[i].u,lca.depth[lc]-lca.depth[edges[i].u]),lca.lift(edges[i].v,lca.depth[lc]-lca.depth[edges[i].v]));
+                ans[edges[i].ind] = total - mx + edges[i].w;
+            }
         }
+        fi(0,m) cout<<ans[i]<<endl;
     }
     return 0;
 }
