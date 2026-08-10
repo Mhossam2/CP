@@ -119,7 +119,7 @@ struct lca_tree
         // Time Complexity: O(LOG).
         // Returns: ll (The k-th ancestor of the given node, or -1 if the ancestor doesn't exist).
         // Description: get kth ancestor using binary lifting.
-        ll lift(ll node, ll k)
+        pair<ll,ll> lift(ll node, ll k)
         {
             ll ans = 0;
             for (ll i = 0; i < LOG; i++)
@@ -133,7 +133,7 @@ struct lca_tree
                     node = nxt;
                 }
             }
-            return ans;
+            return {ans,node};
         }
 
         // Time Complexity: O(LOG).
@@ -143,7 +143,7 @@ struct lca_tree
         {
             if (depth[a] < depth[b])
                 swap(a, b);
-            a = lift(a, depth[a] - depth[b]);
+            a = lift(a, depth[a] - depth[b]).second;
 
             if (a == b)
                 return a;
@@ -213,7 +213,7 @@ int main()
             if(vis[edges[i].ind]) ans[edges[i].ind]=total;
             else{
                 ll lc = lca.LCA(edges[i].u,edges[i].v);
-                ll mx = max(lca.lift(edges[i].u,lca.depth[lc]-lca.depth[edges[i].u]),lca.lift(edges[i].v,lca.depth[lc]-lca.depth[edges[i].v]));
+                ll mx = max(lca.lift(edges[i].u,lca.depth[lc]-lca.depth[edges[i].u]).first,lca.lift(edges[i].v,lca.depth[lc]-lca.depth[edges[i].v]).first);
                 ans[edges[i].ind] = total - mx + edges[i].w;
             }
         }
