@@ -41,7 +41,7 @@ struct lca_tree
         {
             up[node][0] = parent;
             g[node][0] = num;
-            if(parent != -1) g[node][0]=gcd(a[node],a[parent]);
+            if(parent != -1) g[node][0] = gcd(a[node], a[parent]);
             for (ll i = 1; i < LOG; i++)
             {
                 if (up[node][i - 1] != -1){
