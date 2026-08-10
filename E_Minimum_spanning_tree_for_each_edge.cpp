@@ -122,11 +122,13 @@ struct lca_tree
         // Description: get kth ancestor using binary lifting.
         ll lift(ll node, ll k)
         {
+            ll ans = 0;
             for (ll i = 0; i < LOG; i++)
             {
                 if (k & (1 << i))
                 {
                     node = up[node][i];
+                    ans = max(ans, mx[node][i]);
                     if (node == -1)
                         break;
                 }
@@ -151,6 +153,7 @@ struct lca_tree
             {
                 if (up[a][i] != up[b][i])
                 {
+                    
                     a = up[a][i];
                     b = up[b][i];
                 }
