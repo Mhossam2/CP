@@ -83,7 +83,7 @@ struct lca_tree
             {
                 if (up[node][i - 1] != -1){
                     up[node][i] = up[up[node][i - 1]][i - 1];
-                    mx[node][i] = max(mx[up[node][i-1]][i-1],mx[node][i - 1]); //
+                    mx[node][i] = max(mx[up[node][i-1]][i-1], mx[node][i - 1]);
                 }
                 else
                     up[node][i] = -1;
