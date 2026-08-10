@@ -133,7 +133,7 @@ struct lca_tree
                         break;
                 }
             }
-            return node;
+            return ans;
         }
 
         // Time Complexity: O(LOG).
