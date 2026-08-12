@@ -23,6 +23,9 @@ inline bool in(int i, int l, int h)
 {
     return i >= l && i <= h;
 }
+struct Query{
+    ll l,r,x,y;
+};
 const ll MOD = 1e9+7;
 int main()
 {
@@ -58,6 +61,13 @@ int main()
             Out[node]=dis.size();
         };
         dfs(dfs,1,0);
+        vector<Query> queries(q);
+        for(ll i =0;i<q;i++){
+            ll u;cin>>u;
+            queries[i].l=In[u];
+            queries[i].r=Out[u];
+            cin>>queries[i].x>>queries[i].y;
+        }
         
     }
     return 0;
