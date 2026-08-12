@@ -321,3 +321,51 @@ struct DSU
     };
 }
 /////////////////////////////////////////////////////////////////////////////
+{
+    int n; cin >> n;
+    vector<vector<int>> graph(n + 1);
+    for(int i = 0, u, v; i < n - 1; i++){
+        cin >> u >> v;
+        graph[u].push_back(v);
+        graph[v].push_back(u);
+    }
+    vector<int> tin(n + 1), tout(n + 1), vertex(n + 1), sz(n + 1, 1), d(n + 1, 1);
+    int timer = 0;
+    function<int(int, int)> euler =[&](int u, int p){
+        tin[u] = ++timer;
+        vertex[tin[u]] = u;
+        for(auto v : graph[u]) if(v != p){
+            d[v] = d[u] + 1;
+            sz[u] += euler(v, u);
+        }
+        tout[u] = timer;
+        return sz[u];
+    };
+    euler(1, -1);
+
+    auto add =[&](int u){};
+    auto remove =[&](int u){};
+
+    function<void(int, int, bool)> dfs =[&](int u, int p, bool keep){
+        int big = -1;
+        for(auto v : graph[u]){
+            if(v == p) continue;
+            if(big == -1 || sz[v] > sz[big]) big = v;
+        }
+        for(auto v : graph[u]) 
+            if(v != p && v != big) dfs(v, u, 0);
+        if(big != -1) dfs(big, u, 1);
+        for(auto v : graph[u]){
+            if(v == p || v == big) continue;
+            for(int i = tin[v]; i <= tout[v]; i++){
+                // here
+                add(vertex[i]);
+            }
+        }
+        add(u);
+        if(!keep){
+            for(int i = tin[u]; i <= tout[u]; i++) remove(vertex[i]);
+        }
+    };
+    dfs(1, -1, 1);
+}

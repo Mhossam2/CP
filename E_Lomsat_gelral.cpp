@@ -43,7 +43,6 @@ void pre(ll v, ll p) //to calculate the subtree size and the heavy child
                 big[v] = u;
         }
 }
-
 void upd(ll col, ll d) // the function you change the most depending on the question
 {
     if (freq[col] + d > mx)
