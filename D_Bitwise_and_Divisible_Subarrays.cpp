@@ -26,7 +26,8 @@ inline bool in(int i, int l, int h)
 struct Node{
     ll an,g;
     Node(){
-        an=g=0;
+        g=0;
+        an=-1;
     }
     Node(ll x){
         an=g=x;
@@ -82,19 +83,19 @@ int main()
     while (t--)
     {
         ll n,q;cin>>n>>q;
-        vll a(n);
+        vll a(n, 0);
         fi(0,n) cin>>a[i];
         segtree seg = segtree(a);
         while(q--){
             ll l,k; cin >> l >> k;
-            ll lo = 0, hi = a.size() - 1;
+            ll lo = l - 1, hi = a.size() - 1;
             ll ans = 0;
             while (lo <= hi) {
                 ll mid = lo + (hi - lo) / 2;
                 Node num = seg.get(l - 1, mid + 1,0,0,seg.treesize);
                 if ((num.an&k)==k && num.g>=k){
-                    ans=mid;
-                    lo = mid+1;
+                    ans = mid + 1;
+                    lo = mid + 1;
                 }
                 else
                     hi = mid - 1;
