@@ -23,9 +23,103 @@ inline bool in(int i, int l, int h)
 {
     return i >= l && i <= h;
 }
-struct Query{
-    ll l,r,x,y;
+///////////////////////  Segment Tree (Point Update Range Query) //////////////////////
+struct segment_tree
+{
+private:
+    ll sz;
+    vector<ll> seg;
+
+#define L 2 * node + 1
+#define R 2 * node + 2
+#define mid ((l + r) >> 1)
+
+    ll base = 1e18; // the value doesn't effect on the segment tree  __ according to it's type
+
+    ll merge(ll x, ll y)
+    { /////////////  type of seg  depend on (base value and merge )
+        return min(x, y);
+    }
+    void build(ll l, ll r, ll node, vector<ll> &arr)
+    {
+
+        if (l == r)
+        {
+            if (l < arr.size())
+            {
+                seg[node] = arr[l];
+            }
+            return;
+        }
+        build(l, mid, L, arr);     // left
+        build(mid + 1, r, R, arr); // right
+
+        seg[node] = merge(seg[L], seg[R]);
+    }
+
+    void update(ll l, ll r, ll node, ll idx, ll val)
+    {
+        if (l == r)
+        {
+            seg[node] = val;
+            return;
+        }
+
+        if (idx <= mid)
+        {
+            update(l, mid, L, idx, val); // left
+        }
+        else
+        {
+            update(mid + 1, r, R, idx, val); // right
+        }
+        seg[node] = merge(seg[L], seg[R]);
+    }
+
+    ll query(ll l, ll r, ll node, ll lq, ll rq)
+    {
+
+        if (r < lq || l > rq)
+            return base;
+
+        if (lq <= l && rq >= r)
+            return seg[node];
+
+        ll left = query(l, mid, L, lq, rq); // left
+
+        ll right = query(mid + 1, r, R, lq, rq); // right
+
+        return merge(left, right);
+    }
+
+public:
+    segment_tree(vector<ll> &arr)
+    {
+        sz = 1;
+        ll n = arr.size();
+        while (sz < n)
+            sz *= 2;
+
+        seg = vector<ll>(sz * 2, base);
+
+        build(0, sz - 1, 0, arr);
+    }
+
+    void update(ll idx, ll val)
+    {
+        update(0, sz - 1, 0, idx, val);
+    }
+
+    ll query(ll l, ll r)
+    {
+        return query(0, sz - 1, 0, l, r);
+    }
+
+#undef R
+#undef L
+#undef mid
 };
+///////////////////////////////////////////////////////////////////////////////////////
 const ll MOD = 1e9+7;
 int main()
 {
@@ -34,7 +128,9 @@ int main()
     //cin >> t;
     while (t--)
     {
-    ll n; cin >> n;
+    ll n,q; cin >> n>>q;
+    vector<vector<pair<ll,ll>>> asks(n+1);
+    fi(0,)
     vector<vector<ll>> graph(n + 1);
     for(ll i = 0, u, v; i < n - 1; i++){
         cin >> u >> v;
