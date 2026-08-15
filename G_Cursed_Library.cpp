@@ -25,13 +25,6 @@ struct Node
         best = pre = suf = max(0ll, val);
     }
 };
-
-// 2 3 1 5 4
-// - - - - -
-// - - 1 - -
-// 2 - 1 - -
-// 2 3 1 - -
-// - - 1 - -
 struct segtree
 {
     ll treesize;
