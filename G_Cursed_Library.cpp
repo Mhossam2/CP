@@ -11,29 +11,18 @@ struct Node
     ll best, pre, suf, sum;
     Node()
     {
-        best = pre = suf = sum = 0;
+        best = pre = suf = 0;
+        sum = -1e9;
     }
     Node(ll val)
     {
-        if (val)
-        {
-            best = pre = suf = val;
-        }
-        else
-        {
-            best = pre = suf = 0;
-        }
+        sum = val;
+        best = pre = suf = max(0ll, val);
     }
     void change(ll val)
     {
-        if (val)
-        {
-            best = pre = suf = 1;
-        }
-        else
-        {
-            best = pre = suf = 0;
-        }
+        sum = val;
+        best = pre = suf = max(0ll, val);
     }
 };
 struct segtree
@@ -134,7 +123,7 @@ int main()
     {
         freq[a[u]]--;
         if (freq[a[u]] == 0)
-            seg.update(a[u], 0, 0, 0, seg.treesize);
+            seg.update(a[u], -1e9, 0, 0, seg.treesize);
     };
     vector<vector<pair<pair<ll, ll>, ll>>> queries(n + 1);
     for (ll i = 0; i < q; i++)
