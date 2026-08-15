@@ -94,7 +94,7 @@ int main()
                 ll mid = lo + (hi - lo) / 2;
                 Node num = seg.get(l - 1, mid + 1,0,0,seg.treesize);
                 if ((num.an&k)==k && num.g>=k){
-                    ans = mid + 1;
+                    ans = mid - (l-1) +1;
                     lo = mid + 1;
                 }
                 else
