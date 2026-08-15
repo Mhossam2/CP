@@ -23,8 +23,6 @@ inline bool in(int i, int l, int h)
 {
     return i >= l && i <= h;
 }
-ll dp[1048577];
-
 int main()
 {
     HONDA
