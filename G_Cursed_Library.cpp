@@ -13,10 +13,13 @@ struct Node{
         len=1;
     }
     Node(ll val){
-        if(val) best=pre=suf=0;
+        len=1;
+        if(val){ best=pre=suf=1; }
+        else    { best=pre=suf=0; }
     }
     void change(ll val){
-        if(val) best=pre=suf=0;
+        if(val){ best=pre=suf=1; }
+        else    { best=pre=suf=0; }
     }
 };
 struct segtree{
@@ -85,7 +88,8 @@ int main(){
         return sz[u];
     };
     euler(1, -1);
-    vector<ll> freq(n+1, 0);
+    
+    vector<ll> freq(2e5+5, 0);
     segtree seg = segtree(freq);
 
     auto add =[&](ll u){
@@ -120,7 +124,7 @@ int main(){
         }
         add(u);
         for(auto [range,i]:queries[u]){
-            ans[i]=seg.get(range.first,range.second,0,0,seg.treesize).best;
+            ans[i]=seg.get(range.first,range.second+1,0,0,seg.treesize).best;
         }
         if(!keep){
             for(ll i = tin[u]; i <= tout[u]; i++) remove(vertex[i]);
