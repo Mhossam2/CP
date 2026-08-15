@@ -96,7 +96,12 @@ int main(){
         freq[a[u]]--;
         if(freq[a[u]]==0) seg.update(a[u],0,0,0,seg.treesize);
     };
-
+    vector<vector<pair<pair<ll,ll>,ll>>> queries(n+1);
+    for(ll i =0;i<q;i++){
+        ll u,l,r;cin>>u>>l>>r;
+        queries[u].push_back({{l,r},i});
+    }
+    vector<ll> ans(q);
     function<void(ll, ll, bool)> dfs =[&](ll u, ll p, bool keep){
         ll big = -1;
         for(auto v : graph[u]){
@@ -114,9 +119,13 @@ int main(){
             }
         }
         add(u);
+        for(auto [range,i]:queries[u]){
+            ans[i]=seg.get(range.first,range.second,0,0,seg.treesize).best;
+        }
         if(!keep){
             for(ll i = tin[u]; i <= tout[u]; i++) remove(vertex[i]);
         }
     };
     dfs(1, -1, 1);
+    for(ll i:ans) cout<<i<<endl;
 }
