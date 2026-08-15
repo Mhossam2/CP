@@ -75,6 +75,47 @@ struct segtree{
         return merge(ln, rn);
     }
 };
+struct sparse{
+    vector<vector<ll>> t;
+    vector<ll> lg;
+    ll op(ll a,ll b) {return __gcd(a,b);}
+    sparse(const vector<ll> &a){
+        ll n=a.size(), k=1;
+        while((1<<k)<=n) k++;
+        lg.assign(n+1,0);
+        for(ll i=2;i<=n;i++) lg[i] = lg[i/2]+1;
+        t.assign(k,vector<ll>(n));
+        t[0]=a;
+        for(ll j=1;j<k;j++)
+            for(ll i=0;i+(1<<j)<=n;i++)
+                t[j][i] = op(t[j-1][i],t[j-1][i+(1<<(j-1))]);
+    }
+    ll query(ll l, ll r){          
+        ll j = lg[r-l+1];
+        return op(t[j][l], t[j][r-(1<<j)+1]);
+    }
+};
+
+struct sparse2{
+    vector<vector<ll>> t;
+    vector<ll> lg;
+    ll op(ll x,ll y) {return (x&y);}
+    sparse2(const vector<ll> &a){
+        ll n=a.size(), k=1;
+        while((1<<k)<=n) k++;
+        lg.assign(n+1,0);
+        for(ll i=2;i<=n;i++) lg[i] = lg[i/2]+1;
+        t.assign(k,vector<ll>(n));
+        t[0]=a;
+        for(ll j=1;j<k;j++)
+            for(ll i=0;i+(1<<j)<=n;i++)
+                t[j][i] = op(t[j-1][i],t[j-1][i+(1<<(j-1))]);
+    }
+    ll query(ll l, ll r){
+        ll j = lg[r-l+1];
+        return op(t[j][l], t[j][r-(1<<j)+1]);
+    }
+};
 int main()
 {
     HONDA
@@ -86,14 +127,17 @@ int main()
         vll a(n, 0);
         fi(0,n) cin>>a[i];
         segtree seg = segtree(a);
+        sparse s1 = sparse(a);
+        sparse2 s2 = sparse2(a);
         while(q--){
             ll l,k; cin >> l >> k;
             ll lo = l - 1, hi = a.size() - 1;
             ll ans = 0;
             while (lo <= hi) {
                 ll mid = lo + (hi - lo) / 2;
-                Node num = seg.get(l - 1, mid + 1,0,0, seg.treesize);
-                if ((num.an&k)==k && num.g>=k){
+                ll an = s2.query(l-1,mid);
+                ll g = s1.query(l-1,mid);
+                if ((an&k)==k && g>=k){
                     ans = mid - (l-1) +1;
                     lo = mid + 1;
                 }
