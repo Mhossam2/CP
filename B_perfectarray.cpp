@@ -21,7 +21,7 @@ void SOLVE() //                        بِسْمِ اللَّهِ الرَّح�
     ll n, m, k;
     cin >> n >> m >> k;
 
-    vector<pair<ll, ll>> a(n);
+    vector<pair<ll, ll>> a(m);
 
     for (auto &[x, y] : a)
         cin >> x >> y;
@@ -31,16 +31,16 @@ void SOLVE() //                        بِسْمِ اللَّهِ الرَّح�
     vector<ll> patern(k);
 
     ll x = 0 ; 
-    for (ll i = 1; i < k - 1; i++)
+    for (ll i = 1; i < k - 2; i++)
     {
         patern[i] = i;
         x ^= i ; 
     }
-   if(x == 0)
-   {
-      
-   } 
-    patern[k-1] = x ; 
+
+    ll msb = 63 - __builtin_clzll(x);  
+    msb ++ ; 
+   patern[k-2] = (1LL << msb) + x ; 
+    patern[k-1] = (1LL << msb) ; 
     vector<ll> ans(n , -1) ; 
     ll L= -1 , R = -1 ;  
     for(auto &[l,r] : a) 
