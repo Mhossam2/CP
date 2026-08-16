@@ -37,10 +37,12 @@ void SOLVE() //                        بِسْمِ اللَّهِ الرَّح�
         x ^= i ; 
     }
 
-    ll msb = 63 - __builtin_clzll(x);  
+    ll msb = 63 - __builtin_clzll(k-2);  
     msb ++ ; 
    patern[k-2] = (1LL << msb) + x ; 
     patern[k-1] = (1LL << msb) ; 
+
+    
     vector<ll> ans(n , -1) ; 
     ll L= -1 , R = -1 ;  
     for(auto &[l,r] : a) 
