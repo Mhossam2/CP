@@ -28,27 +28,27 @@ void SOLVE() //                        بِسْمِ اللَّهِ الرَّح�
 
     sort(all(a));
 
-    vector<ll> patern;
+    vector<ll> patern(k);
 
     ll x = 0 ; 
-    for (ll i = 0 ; i < k - 2 ; i++)
+    for (ll i = 1 ; i <= k - 1 ; i++)
     {
-        patern.push_back(i+1) ;
+        patern[i-1] = i ;
         x ^= i ; 
     }
-    if((x ^ (k-1)) == 0 || (x ^ (k-1)) < k -1)
+    if((k-1)%4 == 3)
     {
-    ll msb = 63 - __builtin_clzll(x+10);
-    msb +=2 ; 
+        patern[k-1] = k ; 
+    }
+    else if((k-1)%4 == 1)
+    {
+        
+    }
+    else if((k-1)%4 == 0)
+    {
 
-        patern.push_back((1LL << msb)) ;
-        patern.push_back((1LL << msb) + x) ;
     }
-    else
-    {
-         patern.push_back(k-1);
-         patern.push_back(x ^ k-1);
-    }
+
    for(ll i : patern)cout << i << ' ' ; 
    cout << endl ;  
     vector<ll> ans(n , -1) ; 
