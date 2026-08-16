@@ -36,12 +36,19 @@ void SOLVE() //                        بِسْمِ اللَّهِ الرَّح�
         patern.push_back(i+1) ;
         x ^= i ; 
     }
-    ll msb = 63 - __builtin_clzll(k-2);
+    if((x ^ k-1) == 0 || (x ^ k-1) < k -1)
+    {
+    ll msb = 63 - __builtin_clzll(k-1);
     msb +=2 ; 
-        patern.push_back((1LL << msb) + x) ;
+
         patern.push_back((1LL << msb)) ;
-
-
+        patern.push_back((1LL << msb) + x) ;
+    }
+    else
+    {
+         patern.push_back(k-1);
+         patern.push_back(x ^ k-1);
+    }
    for(ll i : patern)cout << i << ' ' ; 
    cout << endl ;  
     vector<ll> ans(n , -1) ; 
