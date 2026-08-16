@@ -41,7 +41,6 @@ void SOLVE() //                        بِسْمِ اللَّهِ الرَّح�
 ll msb = (1LL << 20);
         patern[k - 1] = msb + x;
         
-        // Prevent assigning msb+1 to two different elements when x == 1
         if (x == 1 && k > 2) {
             patern[1] += msb;
         } else {
