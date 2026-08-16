@@ -61,7 +61,6 @@ void SOLVE() //                        بِسْمِ اللَّهِ الرَّح�
 
     sort(all(patern)) ; 
    //for(ll i : patern)cout << i << ' ' ; 
-   cout << endl ;  
     vector<ll> ans(n , -1) ; 
     ll L= -1 , R = -1 ;  
     for(auto &[l,r] : a) 
