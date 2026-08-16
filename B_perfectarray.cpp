@@ -31,7 +31,7 @@ void SOLVE() //                        بِسْمِ اللَّهِ الرَّح�
     vector<ll> patern;
 
     ll x = 0 ; 
-    for (ll i = 0 ; i < k - 2; i++)
+    for (ll i = 0 ; i < k - 2 ; i++)
     {
         patern.push_back(i+1) ;
         x ^= i ; 
