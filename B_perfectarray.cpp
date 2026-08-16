@@ -38,7 +38,6 @@ void SOLVE() //                        بِسْمِ اللَّهِ الرَّح�
     }
     if((k-1)%4 == 3)
     {
-        patern[k-1] = k ; 
     }
     else if((k-1)%4 == 1)
     {
@@ -46,7 +45,11 @@ void SOLVE() //                        بِسْمِ اللَّهِ الرَّح�
     }
     else if((k-1)%4 == 0)
     {
-
+        patern[k-1] = k ; 
+    }
+    else if((k-1)%4 == 1)
+    {
+        
     }
 
    for(ll i : patern)cout << i << ' ' ; 
