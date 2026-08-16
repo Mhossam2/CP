@@ -70,7 +70,7 @@ void SOLVE() //                        بِسْمِ اللَّهِ الرَّح�
         if(L == -1 || (mx-1 < 0 || ans[mx-1] == -1 ))
         {
             ll idx = 0; 
-            for(ll i = l-1 ; i <= r-1 ; i ++ )ans[i] = patern[idx] , idx ++ ;
+            for(ll i = l-1 ; i <= r-1 ; i ++ )ans[i] = patern[idx%k] , idx ++ ;
         }
         else
         {
