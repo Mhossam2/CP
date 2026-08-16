@@ -59,6 +59,7 @@ void SOLVE() //                        بِسْمِ اللَّهِ الرَّح�
         patern[k-1] = k ; 
     }
 
+    sort(all(patern)) ; 
    //for(ll i : patern)cout << i << ' ' ; 
    cout << endl ;  
     vector<ll> ans(n , -1) ; 
