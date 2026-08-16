@@ -38,22 +38,28 @@ void SOLVE() //                        بِسْمِ اللَّهِ الرَّح�
     }
     if((k-1)%4 == 3)
     {
-        
+        ll msb = (1LL<<29) ;
+
+        patern[k-1] = msb ;
+        patern[0] += msb ; 
     }
     else if((k-1)%4 == 1)
     {
-        
+        ll msb = (1LL<<29) ;
+
+        patern[k-1] = msb ;
+        patern[0] += msb ; 
     }
     else if((k-1)%4 == 0)
     {
+        patern[k-1] = k-1 ; 
+    }
+    else if((k-1)%4 == 2)
+    {
         patern[k-1] = k ; 
     }
-    else if((k-1)%4 == 1)
-    {
 
-    }
-
-   for(ll i : patern)cout << i << ' ' ; 
+   //for(ll i : patern)cout << i << ' ' ; 
    cout << endl ;  
     vector<ll> ans(n , -1) ; 
     ll L= -1 , R = -1 ;  
@@ -84,7 +90,7 @@ void SOLVE() //                        بِسْمِ اللَّهِ الرَّح�
     for(ll i : ans)
     {
         if(i == -1)i = 1 ; 
-    //    cout << i << ' ' ;
+        cout << i << ' ' ;
     }
     cout << endl ; 
 }
