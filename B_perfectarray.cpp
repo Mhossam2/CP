@@ -28,21 +28,23 @@ void SOLVE() //                        بِسْمِ اللَّهِ الرَّح�
 
     sort(all(a));
 
-    vector<ll> patern(k);
+    vector<ll> patern;
 
     ll x = 0 ; 
     for (ll i = 1; i < k - 2; i++)
     {
-        patern[i] = i;
+        patern.push_back(i) ;
         x ^= i ; 
     }
 
-    ll msb = 63 - __builtin_clzll(k-2);  
+    ll msb = 63 - __builtin_clzll(k-2);
     msb ++ ; 
-   patern[k-2] = (1LL << msb) + x ; 
-    patern[k-1] = (1LL << msb) ; 
+        patern.push_back((1LL << msb) + x) ;
+        patern.push_back((1LL << msb)) ;
 
-    
+
+   for(ll i : patern)cout << i << ' ' ; 
+   cout << endl ;  
     vector<ll> ans(n , -1) ; 
     ll L= -1 , R = -1 ;  
     for(auto &[l,r] : a) 
