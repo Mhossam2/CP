@@ -31,14 +31,13 @@ void SOLVE() //                        بِسْمِ اللَّهِ الرَّح�
     vector<ll> patern;
 
     ll x = 0 ; 
-    for (ll i = 1; i < k - 2; i++)
+    for (ll i = 0 ; i < k - 2; i++)
     {
-        patern.push_back(i) ;
+        patern.push_back(i+1) ;
         x ^= i ; 
     }
-
     ll msb = 63 - __builtin_clzll(k-2);
-    msb ++ ; 
+    msb +=2 ; 
         patern.push_back((1LL << msb) + x) ;
         patern.push_back((1LL << msb)) ;
 
