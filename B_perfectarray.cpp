@@ -36,6 +36,10 @@ void SOLVE() //                        بِسْمِ اللَّهِ الرَّح�
         patern[i] = i;
         x ^= i ; 
     }
+   if(x == 0)
+   {
+      
+   } 
     patern[k-1] = x ; 
     vector<ll> ans(n , -1) ; 
     ll L= -1 , R = -1 ;  
