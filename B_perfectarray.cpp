@@ -54,38 +54,8 @@ ll msb = (1LL << 20);
 
 
     sort(all(patern)) ; 
-   //for(ll i : patern)cout << i << ' ' ; 
-    vector<ll> ans(n , -1) ; 
-    ll L= -1 , R = -1 ;  
-    for(auto &[l,r] : a) 
-    {
-         ll mx = l-1 ;
-        if(L == -1 || (mx-1 < 0 || ans[mx-1] == -1 ))
-        {
-            ll idx = 0; 
-            for(ll i = l-1 ; i <= r-1 ; i ++ )ans[i] = patern[idx%k] , idx ++ ;
-        }
-        else
-        {
-            auto it = lower_bound(all(patern) , ans[mx-1]) ; 
-
-            ll idx = (it - patern.begin());
-            idx ++ ;
-            for(ll i = l-1 ; i <= r-1 ; i ++ )
-            {
-                ans[i] = patern[idx%(k)];
-                idx ++ ; 
-            }
-        }
-        L = l ;
-        R = r ; 
-    }
-
-    for(ll i : ans)
-    {
-        if(i == -1)i = 1 ; 
-        cout << i << ' ' ;
-    }
+   //for(ll i : patern)cout << i << ' ' ;  
+    for(ll i = 0 ; i < n ; i ++)cout << patern[i%k] << ' ' ; 
     cout << endl ; 
 }
 
