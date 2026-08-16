@@ -40,7 +40,7 @@ void SOLVE() //                        بِسْمِ اللَّهِ الرَّح�
     {
         ll msb = (1LL<<29) ;
 
-        patern[k-1] = msb ;
+        patern[k-1] = msb+x ;
         patern[0] += msb ; 
     }
     else
