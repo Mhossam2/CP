@@ -36,9 +36,9 @@ void SOLVE() //                        بِسْمِ اللَّهِ الرَّح�
         patern.push_back(i+1) ;
         x ^= i ; 
     }
-    if((x ^ k-1) == 0 || (x ^ k-1) < k -1)
+    if((x ^ (k-1)) == 0 || (x ^ (k-1)) < k -1)
     {
-    ll msb = 63 - __builtin_clzll(k-1);
+    ll msb = 63 - __builtin_clzll(x);
     msb +=2 ; 
 
         patern.push_back((1LL << msb)) ;
@@ -80,7 +80,7 @@ void SOLVE() //                        بِسْمِ اللَّهِ الرَّح�
     for(ll i : ans)
     {
         if(i == -1)i = 1 ; 
-        cout << i << ' ' ;
+    //    cout << i << ' ' ;
     }
     cout << endl ; 
 }
