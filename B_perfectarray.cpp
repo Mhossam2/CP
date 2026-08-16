@@ -38,7 +38,7 @@ void SOLVE() //                        بِسْمِ اللَّهِ الرَّح�
     }
     if(x == 0 || x <= (k -1) )
     {
-        ll msb = (1LL<<29) ;
+        ll msb = (1LL<<20) ;
 
         patern[k-1] = msb+x ;
         patern[0] += msb ; 
