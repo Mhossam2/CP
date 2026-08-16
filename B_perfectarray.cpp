@@ -36,28 +36,18 @@ void SOLVE() //                        بِسْمِ اللَّهِ الرَّح�
         patern[i-1] = i ;
         x ^= i ; 
     }
-    if((k-1)%4 == 3)
+    if(x == 0 || x <= (k -1) )
     {
         ll msb = (1LL<<29) ;
 
         patern[k-1] = msb ;
         patern[0] += msb ; 
     }
-    else if((k-1)%4 == 1)
+    else
     {
-        ll msb = (1LL<<29) ;
+        patern[k-1] = x ;
+    }
 
-        patern[k-1] = msb ;
-        patern[0] += msb ; 
-    }
-    else if((k-1)%4 == 0)
-    {
-        patern[k-1] = k-1 ; 
-    }
-    else if((k-1)%4 == 2)
-    {
-        patern[k-1] = k ; 
-    }
 
     sort(all(patern)) ; 
    //for(ll i : patern)cout << i << ' ' ; 
