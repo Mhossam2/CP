@@ -38,7 +38,7 @@ void SOLVE() //                        بِسْمِ اللَّهِ الرَّح�
     }
     if((x ^ (k-1)) == 0 || (x ^ (k-1)) < k -1)
     {
-    ll msb = 63 - __builtin_clzll(x);
+    ll msb = 63 - __builtin_clzll(x+10);
     msb +=2 ; 
 
         patern.push_back((1LL << msb)) ;
