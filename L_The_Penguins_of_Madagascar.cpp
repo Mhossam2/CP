@@ -23,14 +23,6 @@ inline bool in(int i, int l, int h)
 {
     return i >= l && i <= h;
 }
-bool check(ll num, vector<ll> &a){
-    ll g=0;
-    fi(0,a.size()){
-        g = gcd(a[i],g);
-        if(g==num) g = 0;
-    }
-    return (g == 0);
-}
 using namespace std;
 int main()
 {
@@ -42,19 +34,11 @@ int main()
         ll n;cin>>n;
         vll a(n);
         fi(0,n) cin>>a[i];
-        ll l = 0, r = 2e9;
-        ll ans=1;
-        while (l <= r) {
-            ll mid = l + (r - l) / 2;
-
-            if (check(mid,a)){
-                ans=mid;
-                l=mid+1;
-            }
-            else
-                r = mid - 1;
+        ll g=0;
+        fi(0,n){
+            g =gcd(g,a[i]);
         }
-        cout<<ans<<endl;
+        cout<<g<<endl;
     }
     return 0;
 }
