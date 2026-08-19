@@ -87,31 +87,13 @@ int main()
     ll mx = 50000;
     while (t--)
     {
-        ll n;cin>>n;
-        vector<ll> a(2*mx+1, 0);
-        vector<ll> val(n);
-        mpll mp;
-        ll cnt0=0;
+        ll n,k;cin>>n>>k;
+        vector<vector<ll>> poly(n,vector<ll>(k+1,0));
         for(ll i=0;i<n;i++){
             ll x;cin>>x;
-            a[x + mx]++;
-            val[i] = x;
-            mp[x]++;
-            if(x==0) cnt0++;
+            poly[i][0] = 1;
+            poly[i][x] = 1;
         }
-        ll cnt=0;
-        vll ans = multiply(a, a);
-        fi(0,n){
-            ans[2 * val[i] + mx + mx]--;
-        }
-        fi(0,ans.size()){
-            ll target = i - mx - mx;
-            if(ans[i] && mp.count(target)){
-                cnt += ans[i] * mp[target];
-            }
-        }
-        cnt -= 2 * cnt0 * (n - 1); //remove k==i and k==j
-        cout<<cnt;
     }
     return 0;
 }
