@@ -963,3 +963,333 @@ using namespace __gnu_pbds;
 }
 ////////////////////////////////////////////////////////////////////////////////
 
+///////////////////////////FFT///////////////////////////////////////////////////
+{
+    using cd = complex<double>;
+    const double PI = acos(-1);
+
+    void fft(vector<cd> & a, bool invert) {
+        int n = a.size();
+
+        for (int i = 1, j = 0; i < n; i++) {
+            int bit = n >> 1;
+            for (; j & bit; bit >>= 1)
+                j ^= bit;
+            j ^= bit;
+
+            if (i < j)
+                swap(a[i], a[j]);
+        }
+
+        for (int len = 2; len <= n; len <<= 1) {
+            double ang = 2 * PI / len * (invert ? -1 : 1);
+            cd wlen(cos(ang), sin(ang));
+            for (int i = 0; i < n; i += len) {
+                cd w(1);
+                for (int j = 0; j < len / 2; j++) {
+                    cd u = a[i+j], v = a[i+j+len/2] * w;
+                    a[i+j] = u + v;
+                    a[i+j+len/2] = u - v;
+                    w *= wlen;
+                }
+            }
+        }
+
+        if (invert) {
+            for (cd & x : a)
+                x /= n;
+        }
+    }
+
+    vector<int> multiply(vector<int> const& a, vector<int> const& b) {
+        vector<cd> fa(a.begin(), a.end()), fb(b.begin(), b.end());
+        int n = 1;
+        while (n < (ll)a.size() + (ll)b.size())
+            n <<= 1;
+        fa.resize(n);
+        fb.resize(n);
+
+        fft(fa, false);
+        fft(fb, false);
+        for (int i = 0; i < n; i++)
+            fa[i] *= fb[i];
+        fft(fa, true);
+
+        vector<int> result(n);
+        for (int i = 0; i < n; i++)
+            result[i] = round(fa[i].real());
+        return result;
+    }
+}
+///////////////////////////////////////////////////////////////////////////////
+
+////////////////////////FFT (p1*p2, P^k, muliply 2 big int, big int ^ k)///////////////////////////////////////////////
+{
+    void fft(vector<cd> & a, bool invert) {
+        ll n = a.size();
+
+        for (ll i = 1, j = 0; i < n; i++) {
+            ll bit = n >> 1;
+            for (; j & bit; bit >>= 1)
+                j ^= bit;
+            j ^= bit;
+
+            if (i < j)
+                swap(a[i], a[j]);
+        }
+
+        for (ll len = 2; len <= n; len <<= 1) {
+            double ang = 2 * PI / len * (invert ? -1 : 1);
+            cd wlen(cos(ang), sin(ang));
+            for (ll i = 0; i < n; i += len) {
+                cd w(1);
+                for (ll j = 0; j < len / 2; j++) {
+                    cd u = a[i+j], v = a[i+j+len/2] * w;
+                    a[i+j] = u + v;
+                    a[i+j+len/2] = u - v;
+                    w *= wlen;
+                }
+            }
+        }
+
+        if (invert) {
+            for (cd & x : a)
+                x /= n;
+        }
+    }
+
+    vector<ll> multiply(vector<ll> const& a, vector<ll> const& b, ll limit) {
+        vector<cd> fa(a.begin(), a.end()), fb(b.begin(), b.end());
+        ll n = 1;
+        while (n < (ll)a.size() + (ll)b.size())
+            n <<= 1;
+        fa.resize(n);
+        fb.resize(n);
+
+        fft(fa, false);
+        fft(fb, false);
+        for (ll i = 0; i < n; i++)
+            fa[i] *= fb[i];
+        fft(fa, true);
+
+        vector<ll> result(min(n,limit));
+        for (ll i = 0; i < min(n,limit); i++)
+            result[i] = round(fa[i].real());
+        return result;
+    }
+    vector<ll> poly_pow(vector<ll> p, ll k){
+        vector<ll> ans{1};
+        while(k){
+            if(k&1) ans = multiply(ans, p, 1e6);
+            p = multiply(p, p, 1e6);
+            k>>=1;
+        }
+        return ans;
+    }
+    string mul_two_big_int(const string &s1, const string &s2) {
+        ll n = s1.size(), m = s2.size();
+
+        vector<ll> poly1(n), poly2(m);
+        for (ll i = 0; i < n; ++i) {
+            poly1[n-i-1] = s1[i] - '0';
+        }
+
+        for (ll i = 0; i < m; ++i) {
+            poly2[m-i-1] = s2[i] - '0';
+        }
+
+        vector<ll> ans = multiply(poly1, poly2);
+        ll k = ans.size();
+
+        for (ll i = 0; i < k - 1; ++i) {
+            ans[i + 1] += ans[i] / 10;
+            ans[i] = ans[i] % 10;
+        }
+
+        string final = to_string(ans[k - 1]);
+        for (ll i = k - 2; i >= 0; --i) {
+            final += (char)(ans[i] + '0');
+        }
+
+        for (ll i = 0; i < k; ++i) {
+            if(final[i] != '0') return final.substr(i);
+        }
+        return "0";
+    }
+
+    string power_of_big_int(string s, ll p) {
+        string ans = "1";
+        while (p) {
+            if(p&1) ans = mul_two_big_int(ans, s);
+            s = mul_two_big_int(s, s);
+            p >>= 1;
+        }
+        return ans;
+    }
+}
+//////////////////////////////////////////////////////////////////////////////
+
+////////////////////FFT with MOD////////////////////////////////////////////
+{
+    #define rep(aa, bb, cc) for(int aa = bb; aa < cc;aa++)
+    #define sz(a) (int)a.size()
+    typedef complex<double> C;
+    typedef vector<double> vd;
+    void fft(vector<C>& a) {
+        int n = sz(a), L = 31 - __builtin_clz(n);
+        static vector<complex<long double>> R(2, 1);
+        static vector<C> rt(2, 1);  // (^ 10% faster if double)
+        for (static int k = 2; k < n; k *= 2) {
+            R.resize(n); rt.resize(n);
+            auto x = polar(1.0L, acos(-1.0L) / k);
+            rep(i,k,2*k) rt[i] = R[i] = i&1 ? R[i/2] * x : R[i/2];
+        }
+        vi rev(n);
+        rep(i,0,n) rev[i] = (rev[i / 2] | (i & 1) << L) / 2;
+        rep(i,0,n) if (i < rev[i]) swap(a[i], a[rev[i]]);
+        for (int k = 1; k < n; k *= 2)
+            for (int i = 0; i < n; i += 2 * k) rep(j,0,k) {
+                    // C z = rt[j+k] * a[i+j+k]; // (25% faster if hand-rolled)  /// include-line
+                    auto x = (double *)&rt[j+k], y = (double *)&a[i+j+k];        /// exclude-line
+                    C z(x[0]*y[0] - x[1]*y[1], x[0]*y[1] + x[1]*y[0]);           /// exclude-line
+                    a[i + j + k] = a[i + j] - z;
+                    a[i + j] += z;
+                }
+    }
+    
+    template<int M> vi convMod(const vi &a, const vi &b) {
+        if (a.empty() || b.empty()) return {};
+        vi res(sz(a) + sz(b) - 1);
+        int B=32-__builtin_clz(sz(res)), n=1<<B, cut=int(sqrt(M));
+        vector<C> L(n), R(n), outs(n), outl(n);
+        rep(i,0,sz(a)) L[i] = C((int)a[i] / cut, (int)a[i] % cut);
+        rep(i,0,sz(b)) R[i] = C((int)b[i] / cut, (int)b[i] % cut);
+        fft(L), fft(R);
+        rep(i,0,n) {
+            int j = -i & (n - 1);
+            outl[j] = (L[i] + conj(L[j])) * R[i] / (2.0 * n);
+            outs[j] = (L[i] - conj(L[j])) * R[i] / (2.0 * n) / 1i;
+        }
+        fft(outl), fft(outs);
+        rep(i,0,sz(res)) {
+            ll av = ll(real(outl[i])+.5), cv = ll(imag(outs[i])+.5);
+            ll bv = ll(imag(outl[i])+.5) + ll(real(outs[i])+.5);
+            res[i] = ((av % M * cut + bv) % M * cut + cv) % M;
+        }
+        return res;
+    }
+}
+///////////////////////////////////////////////////////////////////////////
+
+///////////////////////////////////NTT/////////////////////////////////////
+{
+    const ll mod = (119 << 23) + 1, root = 62; // = 998244353
+    // For p < 2^30 there is also e.g. 5 << 25, 7 << 26, 479 << 21
+    // and 483 << 21 (same root). The last two are > 10^9.
+
+
+    ll modpow(ll b, ll e) {
+        ll ans = 1;
+        for (; e; b = b * b % mod, e /= 2)
+            if (e & 1) ans = ans * b % mod;
+        return ans;
+    }
+
+    // Primitive Root of the mod of form 2^a * b + 1
+    int generator () {
+        vector<int> fact;
+        int phi = mod-1,  n = phi;
+        for (int i=2; i*i<=n; ++i)
+            if (n % i == 0) {
+                fact.push_back (i);
+                while (n % i == 0)
+                    n /= i;
+            }
+        if (n > 1)
+            fact.push_back (n);
+
+        for (int res=2; res<=mod; ++res) {
+            bool ok = true;
+            for (size_t i=0; i<fact.size() && ok; ++i)
+                ok &= modpow (res, phi / fact[i]) != 1;
+            if (ok)  return res;
+        }
+        return -1;
+    }
+    int modpow(int b, int e, int m) {
+        int ans = 1;
+        for (; e; b = (ll)b * b % m, e /= 2)
+            if (e & 1) ans = (ll)ans * b % m;
+        return ans;
+    }
+
+    void ntt(vector<int> &a) {
+        int n = (int)a.size(), L = 31 - __builtin_clz(n);
+        vector<int> rt(2, 1); // erase the static if you want to use two moduli;
+        for (int k = 2, s = 2; k < n; k *= 2, s++) { // erase the static if you want to use two moduli;
+            rt.resize(n);
+            int z[] = {1, modpow(root, mod >> s, mod)};
+            for (int i = k; i < 2*k; ++i) rt[i] = (ll)rt[i / 2] * z[i & 1] % mod;
+        }
+        vector<int> rev(n);
+        for (int i = 0; i < n; ++i) rev[i] = (rev[i / 2] | (i & 1) << L) / 2;
+        for (int i = 0; i < n; ++i) if (i < rev[i]) swap(a[i], a[rev[i]]);
+        for (int k = 1; k < n; k *= 2) {
+            for (int i = 0; i < n; i += 2 * k) {
+                for (int j = 0; j < k; ++j) {
+                    int z = (ll)rt[j + k] * a[i + j + k] % mod, &ai = a[i + j];
+                    a[i + j + k] = ai - z + (z > ai ? mod : 0);
+                    ai += (ai + z >= mod ? z - mod : z);
+                }
+            }
+        }
+    }
+    vector<int> conv(const vector<int> &a, const vector<int> &b) {
+        if (a.empty() || b.empty()) return {};
+        int s = (int)a.size() + (int)b.size() - 1, B = 32 - __builtin_clz(s), n = 1 << B;
+        int inv = modpow(n, mod - 2, mod);
+        vector<int> L(a), R(b), out(n);
+        L.resize(n), R.resize(n);
+        ntt(L), ntt(R);
+        for (int i = 0; i < n; ++i) out[-i & (n - 1)] = (ll)L[i] * R[i] % mod * inv % mod;
+        ntt(out);
+        return {out.begin(), out.begin() + s};
+    }
+
+    ll CRT(ll a, ll m1, ll b, ll m2) {
+        __int128 m = m1*m2;
+        ll ans = a*m2%m*modpow(m2, m1-2, m1)%m + m1*b%m*modpow(m1, m2-2, m2)%m;
+        return ans % m;
+    }
+
+
+    /*
+
+    int mod, root, desired_mod = 1000000007;
+    const int mod1 = 167772161;
+    const int mod2 = 469762049;
+    const int mod3 = 754974721;
+    const int root1 = 3;
+    const int root2 = 3;
+    const int root3 = 11;
+
+    int CRT(int a, int b, int c, int m1, int m2, int m3) {
+        __int128 M = (__int128)m1*m2*m3;
+        ll M1 = (ll)m2*m3;
+        ll M2 = (ll)m1*m3;
+        ll M3 = (ll)m2*m1;
+
+        int M_1 = modpow(M1%m1, m1 - 2, m1);
+        int M_2 = modpow(M2%m2, m2 - 2, m2);
+        int M_3 = modpow(M3%m3, m3 - 2, m3);
+
+        __int128 ans = (__int128)a*M1*M_1;
+        ans += (__int128)b*M2*M_2;
+        ans += (__int128)c*M3*M_3;
+
+        return (ans % M) % desired_mod;
+    }
+
+    */
+}
+//////////////////////////////////////////////////////////////////////////////
