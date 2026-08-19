@@ -27,7 +27,7 @@ bool check(ll num, vector<ll> &a){
     ll g=0;
     fi(0,a.size()){
         g = gcd(a[i],g);
-        if(g==num) g=0;
+        if(g==num) g = 0;
     }
     return (g == 0);
 }
