@@ -92,7 +92,7 @@ int main()
         for(ll i=0;i<n;i++){
             ll x;cin>>x;
             poly[i][0] = 1;
-            poly[i][x] = 1;
+            poly[i][x] = x;
         }
     }
     return 0;
