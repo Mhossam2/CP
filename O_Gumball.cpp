@@ -63,6 +63,13 @@ int main()
     while (t--)
     {
         ll n,x;cin>>n>>x;
+        vector<ll> cnt(1001, 0);
+        fi(0,n){
+            ll x;cin>>x;
+            cnt[x]++;
+        }
+        ll mx = 1e6/x;
+        vector<
 
     }
     return 0;
