@@ -104,22 +104,19 @@ int main()
     //cin >> t;
     while (t--)
     {
-        ll n,k;cin>>n>>k;
-        ll mx=0;
-        vll a(n);
+        string s;cin>>s;
+        ll n=s.size();
+        vll a(n,0);
+        vll b(n,0);
         fi(0,n){
-            cin>>a[i];
-            mx=max(mx,a[i]);
+            if(s[i]=='A') a[i]=1;
+            else b[i]=1;
         }
-        vll b(mx + 1,0);
-        fi(0,n){
-            b[a[i]] = 1;
+        reverse(all(a));
+        vll conv = multiply(a,b);
+        fi(1,n){
+            cout<<conv[n-1-i]<<endl;
         }
-        vll ans = poly_pow(b,k,  k * mx);
-        fi(0,ans.size()){
-            if(ans[i]) cout<<i<<" ";
-        }
-        cout<<endl;
     }
     return 0;
 }
