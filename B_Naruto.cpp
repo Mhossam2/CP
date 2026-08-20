@@ -1,163 +1,96 @@
+// رَبَّنَا آتِنَا مِن لَّدُنكَ رَحْمَةً وَهَيِّئْ لَنَا مِنْ أَمْرِنَا رَشَدًا
+
 #include <bits/stdc++.h>
 using namespace std;
-#define HONDA                         \
-    ios_base::sync_with_stdio(false); \
-    cin.tie(NULL);                    \
-    cout.tie(NULL);
-typedef long double ld;
-typedef long long ll;
-#define mpll map<ll, ll>
-#define vll vector<ll>
+#define ll long long
+#define ld long double
 #define all(a) a.begin(), a.end()
-#define fi(ii, n) for (ll i = ii; i < n; i++)
-#define fj(jj, n) for (ll j = jj; j < n; j++)
-#define fit(c) for (auto it = c.begin(); it != c.end(); ++it)
 #define endl "\n"
-int dx[] = {1, -1, 0, 0};
-int dy[] = {0, 0, 1, -1};
-inline bool in(int i, int j, int rows, int cols)
+#define AMR                  \
+    ios::sync_with_stdio(0); \
+    cin.tie(0);
+ll lcm(ll a, ll b) { return (a * b) / __gcd(a, b); }
+int dx[4] = {-1, 1, 0, 0};
+int dy[4] = {0, 0, -1, 1};
+typedef unsigned __int128 bll;
+// const ll MOD = 1e9 + 7;
+const ld pi = acos(-1);
+void SOLVE() //                        بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ
 {
-    return i >= 0 && i < rows && j >= 0 && j < cols;
-}
-inline bool in(int i, int l, int h)
-{
-    return i >= l && i <= h;
-}
-//////////////////////////// LCA_tree ////////////////////////////////////////////////
-struct lca_tree
-{
-private:
-    ll n;
-    ll LOG = 20;
-    vector<vector<ll>> adj;
-    vector<vector<ll>> up;
-    // Time Complexity: O(V * LOG) where V is the number of vertices.
-    // Returns: void.
-    // Description: Precomputes the 'up' table for binary lifting and calculates the 'depth' of each node.
-    void dfs(ll node, ll parent)
+    ll n, k;
+    cin >> n >> k;
+
+    vector<ll> ans(k, 1e18);
+    ll mx=0;
+    vector<string> a(n);
+    for (auto &i : a)
+        cin >> i;
+    vector<vector<ll>> remp(n);
+    for (ll i = 0; i < n; i++)
     {
-        up[node][0] = parent;
-        for (ll i = 1; i < LOG; i++)
+        ll num = 0;
+        ll len=a[i].size();
+        mx=max(mx, len);
+        remp[i].push_back((a[i][0] - '0') % k);
+        //cout<<remp[i][0]<<" ";
+        for (ll j = 1; j < a[i].size(); j++)
         {
-            if (up[node][i - 1] != -1)
-                up[node][i] = up[up[node][i - 1]][i - 1];
-            else
-                up[node][i] = -1;
+            ll num = ((remp[i][j - 1] * (10%k)) % k + ((a[i][j] - '0') % k)) % k;
+            remp[i].push_back(num);
+            //cout<<remp[i][j]<<" ";
         }
-        for (ll i = 0; i < adj[node].size(); i++)
+        //cout<<endl;
+    }
+    vector<ll> pow10(mx + 1);
+    pow10[0] = 1 % k;
+    for (ll i = 1; i <= mx; i++)
+        pow10[i] = (pow10[i - 1] * 10) % k;
+
+    vector<ll> dist(k, 1e18);
+    //vector<ll> vis(k,0);
+
+    priority_queue<pair<ll, ll> , vector<pair<ll,ll>> , greater<> > p;
+    dist[0] = 0;
+    p.push({0, 0});
+    while (!p.empty())
+    {
+        auto [len, rem] = p.top();
+
+        p.pop();
+        if(dist[rem] < len)continue;
+        for (ll i = 0; i < n; i++)
         {
-            auto to = adj[node][i];
-            if (to == parent)
+            for (ll j = 0; j < a[i].size(); j++)
             {
-                continue;
-            }
-            depth[to] = depth[node] + 1;
-            dfs(to, node);
-        }
-    }
+                ll r = remp[i][j];
+                ll newrem = (rem * pow10[j + 1] % k + r) % k;
+                if (dist[newrem] > len + j+1)
+                {
+                    dist[newrem] = len + j+1;
+                    p.push({dist[newrem], newrem});
 
-public:
-    vector<ll> depth; 
-    // Time Complexity: O(V * LOG) for the initial build.
-    // Returns: Constructor (No return type).
-    // Description: Initializes the tree sizes, arrays, and starts the DFS from the root.
-    lca_tree(ll nodes, vector<vector<ll>> &tree_adj, ll root = 0)
-    {
-        n = nodes;
-        adj = tree_adj;
-        up = vector<vector<ll>>(n, vector<ll>(LOG, -1));
-        depth = vector<ll>(n, 0);
-
-        // depth of root is 0, parent of root is -1
-        dfs(root, -1);
-    }
-
-    // Time Complexity: O(LOG).
-    // Returns: ll (The k-th ancestor of the given node, or -1 if the ancestor doesn't exist).
-    // Description: get kth ancestor using binary lifting.
-    ll lift(ll node, ll k)
-    {
-        for (ll i = 0; i < LOG; i++)
-        {
-            if (k & (1 << i))
-            {
-                node = up[node][i];
-                if (node == -1)
-                    break;
-            }
-        }
-        return node;
-    }
-
-    // Time Complexity: O(LOG).
-    // Returns: ll (The Lowest Common Ancestor node of a and b).
-    // Description: get LCA in O(log(n)).
-    ll LCA(ll a, ll b)
-    {
-        if (depth[a] < depth[b])
-            swap(a, b);
-
-        a = lift(a, depth[a] - depth[b]);
-
-        if (a == b)
-            return a;
-
-        for (ll i = LOG - 1; i >= 0; i--)
-        {
-            if (up[a][i] != up[b][i])
-            {
-                a = up[a][i];
-                b = up[b][i];
-            }
-        }
-        return up[a][0];
-    }
-
-    // Time Complexity: O(LOG) because it calls the LCA function.
-    // Returns: ll (The number of edges / distance between node x and node y).
-    // Description: Calculates the shortest path distance between two nodes on the tree.
-    ll diff(ll x, ll y)
-    {
-        ll ans = depth[x] + depth[y] - 2 * depth[LCA(x, y)];
-        return ans;
-    }
-};
-/////////////////////////////////////////////////////////////////////////////
-using namespace std;
-int main()
-{
-    HONDA
-    int t = 1;
-    cin >> t;
-    while (t--)
-    {
-        ll n,q;cin>>n>>q;
-        vector<vector<ll>> adj(n);
-        fi(0,n-1){
-            ll u,v;cin>>u>>v;
-            u--;v--;
-            adj[v].push_back(u);
-            adj[u].push_back(v);
-        }
-        lca_tree lc = lca_tree(n, adj, 0);
-        while(q--){
-            ll k;cin>>k;
-            ll node1=0;
-            vector<ll> nodes(k);
-            for(ll i=0;i<k;i++){
-                cin>>nodes[i];
-                nodes[i]--;
-                if(lc.depth[nodes[i]] > lc.depth[node1]){
-                    node1 = nodes[i];
+                   //cout << len << ' ' << rem << ' ' << newrem << ' ' << len + j  <<endl;; 
                 }
             }
-            vector<pair<ll,ll>> path(k);
-            fi(0,k){
-                path[i] = {lc.diff(node1,nodes[i]),nodes[i]};
-            }
-            sort(all(path));
-            cout<<path[k/2].second+1<<endl;
         }
+
     }
-    return 0;
+    for (ll i : dist)
+    if(i>1e9) cout<<-1<<" ";
+    else
+        cout << i << " ";
+
+    cout<<endl;
+}
+
+int main()
+{
+    AMR
+
+        ll tt = 1;
+    cin >> tt;
+    while (tt--)
+    {
+        SOLVE();
+    }
 }

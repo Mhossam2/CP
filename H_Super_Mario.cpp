@@ -111,7 +111,6 @@ int main()
             if(m.mxans[a-'a'][b-'a'] < 0) cout<<-1<<endl;
             else cout<<m.mxans[a-'a'][b-'a']<<endl;
         }
-
     }
     return 0;
 }
